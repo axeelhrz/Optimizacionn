@@ -184,7 +184,7 @@ const translationData = {
         'faq-3-question': '¿Es seguro usar StarFlex? ¿Amazon puede detectarlo?',
         'faq-3-answer': 'StarFlex utiliza <span class="faq__answer-highlight">tecnología avanzada de simulación humana</span> que incluye patrones de comportamiento naturales, tiempos de respuesta variables y gestos táctiles realistas. Nuestro enfoque se centra en ayudar a los conductores a brindar un mejor servicio a Amazon y sus clientes, asegurando entregas eficientes y de alta calidad.',
         'faq-4-question': '¿StarFlex funciona en iPhone y Android?',
-        'faq-4-answer': 'Sí, StarFlex está disponible para <span class="faq__answer-highlight">iOS (iPhone 8+) y Android (8.0+)</span>. Hemos desarrollado aplicaciones nativas optimizadas para cada plataforma, garantizando el mejor rendimiento y una experiencia de usuario superior. Ambas versiones incluyen todas las funcionalidades y reciben actualizaciones automáticas.',
+         'faq-4-answer': 'Sí, StarFlex está disponible para <span class="faq__answer-highlight">iOS (iPhone 8+) y Android (8.0+)</span>. Hemos desarrollado aplicaciones nativas optimizadas para cada plataforma, garantizando el mejor rendimiento y una experiencia de usuario superior. Ambas versiones incluyen todas las funcionalidades y reciben actualizaciones automáticas.',
         'faq-5-question': '¿Qué necesito para empezar a usar StarFlex?',
         'faq-5-answer': 'Solo necesitas una <span class="faq__answer-highlight">cuenta activa de Amazon Flex y un dispositivo compatible</span>. Después de descargar la aplicación, el proceso de configuración toma menos de 5 minutos. Nuestro sistema de configuración guiada te ayudará a optimizar tu experiencia desde el primer día.',
         'faq-no-results': 'No se encontraron preguntas que coincidan con tu búsqueda',
@@ -794,12 +794,6 @@ function initializeLanguageSwitcher() {
         });
     });
     
-    document.addEventListener('click', (e) => {
-        if (isLanguageSwitcherOpen && languageSwitcher && !languageSwitcher.contains(e.target)) {
-            closeLanguageSwitcher();
-        }
-    });
-    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && isLanguageSwitcherOpen) {
             closeLanguageSwitcher();
@@ -999,22 +993,37 @@ function initializeDesktopNavigation() {
     initializeActiveSection();
 }
 
-// ===== NAVEGACIÓN MÓVIL INDEPENDIENTE =====
+// ===== NAVEGACIÓN MÓVIL INDEPENDIENTE - COMPLETAMENTE CORREGIDA =====
 function initializeMobileNavigation() {
+    console.log('🔧 Inicializando navegación móvil...');
+    
     const mobileNavToggle = document.getElementById('mobile-nav-toggle');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
     const mobileNavClose = document.getElementById('mobile-nav-close');
     const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav__link');
     const mobileHeader = document.getElementById('mobile-header');
     
-    if (!mobileNavToggle || !mobileNavMenu) return;
+    // CRÍTICO: Buscar enlaces móviles con el selector correcto
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav__link');
+    
+    console.log(`📱 Enlaces móviles encontrados: ${mobileNavLinks.length}`);
+    
+    if (!mobileNavToggle || !mobileNavMenu) {
+        console.error('❌ Elementos de navegación móvil no encontrados');
+        return;
+    }
+    
+    if (mobileNavLinks.length === 0) {
+        console.error('❌ No se encontraron enlaces de navegación móvil');
+        return;
+    }
     
     // Funcionalidad del logo móvil como enlace
     const mobileNavLogo = document.querySelector('.mobile-nav__logo');
     if (mobileNavLogo) {
         mobileNavLogo.addEventListener('click', (e) => {
             e.preventDefault();
+            console.log('🏠 Click en logo móvil');
             
             if (isMobileMenuOpen) {
                 closeMobileNavMenu();
@@ -1022,12 +1031,13 @@ function initializeMobileNavigation() {
             
             const homeSection = document.querySelector('#home');
             if (homeSection) {
-                smoothScrollToSection(homeSection);
-                
-                const homeLink = document.querySelector('.mobile-nav__link[href="#home"]');
-                if (homeLink) {
-                    updateActiveMobileNavLink(homeLink);
-                }
+                setTimeout(() => {
+                    smoothScrollToSection(homeSection);
+                    const homeLink = document.querySelector('.mobile-nav__link[href="#home"]');
+                    if (homeLink) {
+                        updateActiveMobileNavLink(homeLink);
+                    }
+                }, 300);
             }
         });
         
@@ -1041,6 +1051,7 @@ function initializeMobileNavigation() {
     mobileNavToggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
+        console.log('🍔 Toggle hamburguesa móvil');
         toggleMobileNavMenu();
     });
 
@@ -1056,6 +1067,7 @@ function initializeMobileNavigation() {
         mobileNavClose.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
+            console.log('❌ Botón cerrar móvil');
             closeMobileNavMenu();
         });
 
@@ -1070,50 +1082,96 @@ function initializeMobileNavigation() {
     // Overlay para cerrar
     if (mobileNavOverlay) {
         mobileNavOverlay.addEventListener('click', () => {
+            console.log('🔄 Click en overlay móvil');
             closeMobileNavMenu();
         });
     }
     
-    // Enlaces de navegación móvil
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+    // ===== ENLACES DE NAVEGACIÓN MÓVIL - LÓGICA CORREGIDA =====
+    mobileNavLinks.forEach((link, index) => {
+        console.log(`🔗 Configurando enlace móvil ${index + 1}: ${link.getAttribute('href')}`);
+        
+        // Función principal de navegación
+        const handleNavigation = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const targetId = link.getAttribute('href');
+            console.log(`🎯 Navegando a: ${targetId}`);
+            
+            // Cerrar el menú inmediatamente
             if (isMobileMenuOpen) {
+                console.log('📱 Cerrando menú móvil...');
                 closeMobileNavMenu();
             }
             
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
+            // Buscar la sección objetivo
             const targetSection = document.querySelector(targetId);
-            
             if (targetSection) {
-                smoothScrollToSection(targetSection);
-                updateActiveMobileNavLink(link);
+                console.log(`✅ Sección encontrada: ${targetId}`);
+                
+                // Hacer scroll con un pequeño delay para que se cierre el menú
+                setTimeout(() => {
+                    console.log(`🚀 Haciendo scroll a: ${targetId}`);
+                    smoothScrollToSection(targetSection);
+                    updateActiveMobileNavLink(link);
+                }, 100);
+            } else {
+                console.error(`❌ Sección no encontrada: ${targetId}`);
             }
+        };
+        
+        // Agregar event listeners para máxima compatibilidad
+        link.addEventListener('click', handleNavigation);
+        link.addEventListener('touchend', (e) => {
+            // Prevenir doble activación
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+            handleNavigation(e);
         });
-
-        link.addEventListener('touchstart', () => {
+        
+        // Efectos táctiles mejorados
+        link.addEventListener('touchstart', (e) => {
             link.style.transform = 'scale(0.98)';
+            link.style.transition = 'transform 0.1s ease';
+            console.log(`👆 Touch start en: ${link.getAttribute('href')}`);
         }, { passive: true });
-        link.addEventListener('touchend', () => {
+        
+        link.addEventListener('touchcancel', () => {
             link.style.transform = '';
         }, { passive: true });
+        
+        // Resetear transform después del touch
+        setTimeout(() => {
+            link.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    link.style.transform = '';
+                }, 150);
+            }, { passive: true });
+        }, 100);
     });
     
-    // Cerrar menú tocando fuera
+    // Cerrar menú tocando fuera - mejorado
     document.addEventListener('touchstart', (e) => {
         if (isMobileMenuOpen && mobileNavMenu && !mobileNavMenu.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+            console.log('🔄 Touch fuera del menú móvil');
             closeMobileNavMenu();
         }
     }, { passive: true });
     
     document.addEventListener('click', (e) => {
         if (isMobileMenuOpen && mobileNavMenu && !mobileNavMenu.contains(e.target) && !mobileNavToggle.contains(e.target)) {
+            console.log('🔄 Click fuera del menú móvil');
             closeMobileNavMenu();
         }
     });
+    
+    console.log('✅ Navegación móvil inicializada correctamente');
 }
 
 function toggleMobileNavMenu() {
+    console.log(`🔄 Toggle menú móvil - Estado actual: ${isMobileMenuOpen ? 'abierto' : 'cerrado'}`);
     if (isMobileMenuOpen) {
         closeMobileNavMenu();
     } else {
@@ -1122,14 +1180,15 @@ function toggleMobileNavMenu() {
 }
 
 function openMobileNavMenu() {
+    console.log('📱 Abriendo menú móvil...');
     const mobileNavToggle = document.getElementById('mobile-nav-toggle');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
     const body = document.body;
     
-    if (!mobileNavToggle || !mobileNavMenu) return;
-    
-    // Guardar la posición actual del scroll
-    const scrollPosition = window.scrollY;
+    if (!mobileNavToggle || !mobileNavMenu) {
+        console.error('❌ Elementos del menú móvil no encontrados');
+        return;
+    }
     
     isMobileMenuOpen = true;
     
@@ -1140,17 +1199,19 @@ function openMobileNavMenu() {
     mobileNavToggle.setAttribute('aria-expanded', 'true');
     mobileNavMenu.setAttribute('aria-hidden', 'false');
     
-    // Mantener la posición del scroll actual
-    body.style.top = `-${scrollPosition}px`;
-    body.dataset.scrollY = scrollPosition.toString();
+    console.log('✅ Menú móvil abierto');
 }
 
 function closeMobileNavMenu() {
+    console.log('📱 Cerrando menú móvil...');
     const mobileNavToggle = document.getElementById('mobile-nav-toggle');
     const mobileNavMenu = document.getElementById('mobile-nav-menu');
     const body = document.body;
     
-    if (!mobileNavToggle || !mobileNavMenu) return;
+    if (!mobileNavToggle || !mobileNavMenu) {
+        console.error('❌ Elementos del menú móvil no encontrados');
+        return;
+    }
     
     isMobileMenuOpen = false;
     
@@ -1161,14 +1222,12 @@ function closeMobileNavMenu() {
     mobileNavToggle.setAttribute('aria-expanded', 'false');
     mobileNavMenu.setAttribute('aria-hidden', 'true');
     
-    // Restaurar la posición del scroll
-    const scrollY = parseInt(body.dataset.scrollY || '0', 10);
-    body.style.top = '';
-    body.dataset.scrollY = '';
-    window.scrollTo(0, scrollY);
+    console.log('✅ Menú móvil cerrado');
 }
 
 function updateActiveMobileNavLink(activeLink) {
+    console.log(`🎯 Actualizando enlace activo móvil: ${activeLink ? activeLink.getAttribute('href') : 'ninguno'}`);
+    
     document.querySelectorAll('.mobile-nav__link').forEach(link => {
         link.classList.remove('active');
         link.setAttribute('aria-current', 'false');
@@ -1182,6 +1241,8 @@ function updateActiveMobileNavLink(activeLink) {
 
 // ===== NAVEGACIÓN GENERAL (FUNCIONES COMPARTIDAS) =====
 function initializeNavigation() {
+    console.log(`🚀 Inicializando navegación - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
+    
     // Inicializar navegación según el dispositivo
     if (isMobile) {
         initializeMobileNavigation();
@@ -1193,8 +1254,15 @@ function initializeNavigation() {
 }
 
 function smoothScrollToSection(targetSection) {
+    if (!targetSection) {
+        console.error('❌ Sección objetivo no válida para scroll');
+        return;
+    }
+    
     const headerHeight = isMobile ? 70 : 80;
     const targetPosition = targetSection.offsetTop - headerHeight;
+    
+    console.log(`🚀 Scroll suave a: ${targetSection.id}, posición: ${targetPosition}`);
     
     if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
         window.scrollTo({
@@ -1966,6 +2034,8 @@ function initializeAccessibility() {
 
 // ===== INICIALIZACIÓN PRINCIPAL ULTRA-OPTIMIZADA =====
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Iniciando StarFlex...');
+    
     detectDeviceCapabilities();
     
     imageOptimizer = new UltraOptimizedImageLoader();
@@ -1988,7 +2058,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializePerformanceOptimizations();
     
-    console.log(`StarFlex Ultra-Optimizado - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Navbar independiente: ${isMobile ? 'Móvil' : 'Desktop'}`);
+    console.log(`✅ StarFlex Ultra-Optimizado - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Navbar independiente: ${isMobile ? 'Móvil' : 'Desktop'}`);
 });
 
 // ===== MANEJO DE ERRORES ULTRA-OPTIMIZADO =====
@@ -2030,3 +2100,4 @@ if ('serviceWorker' in navigator && !isMobile && !performanceMode) {
             });
     });
 }
+
