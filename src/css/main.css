@@ -1,7 +1,4 @@
-/* ===== STARFLEX 2.0 - MODULAR CSS OPTIMIZADO PARA LCP ===== */
-
-/* CRITICAL: LCP optimizations must load first */
-@import url('./lcp-optimizations.css');
+/* ===== STARFLEX 2.0 - MODULAR CSS OPTIMIZADO ===== */
 
 /* Critical base styles - load first */
 @import url('./base/variables.css');
@@ -21,7 +18,7 @@
 @import url('./sections/faq.css');
 @import url('./sections/contact.css');
 
-/* Animations - load after critical content */
+/* Animations */
 @import url('./animations/keyframes.css');
 
 /* Mobile optimizations - consolidated and optimized */
