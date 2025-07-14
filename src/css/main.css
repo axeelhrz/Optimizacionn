@@ -12,13 +12,10 @@
 @import url('./components/floating-widget.css');
 
 /* Sections */
-@import url('./sections/hero.css');
-@import url('./sections/features.css');
-@import url('./sections/videos.css');
-@import url('./sections/faq.css');
-@import url('./sections/contact.css');
+
 
 /* Animations */
+@import url('./animations/keyframes.css');
 
 /* Mobile Fixes - IMPORTANTE: debe ir al final para sobrescribir otros estilos */
 @import url('./mobile-fixes.css');
