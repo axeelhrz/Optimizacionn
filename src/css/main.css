@@ -1,7 +1,7 @@
 /* ===== STARFLEX 2.0 - CSS MODULAR COMPLETO ===== */
 
 /* Base */
-@import url('./base/reset.css');
+@import url('./base/variables.css');
 @import url('./base/utilities.css');
 
 /* Components */
