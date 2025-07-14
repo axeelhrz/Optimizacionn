@@ -1,665 +1,297 @@
-/* ===== STARFLEX 2.0 - ULTRA-OPTIMIZED ANIMATIONS ===== */
-/* Performance-first animation system with zero-lag guarantee */
-
-/* ===== CORE ANIMATION PRINCIPLES ===== */
-/* 
-- GPU-accelerated transforms only (translate, scale, rotate, opacity)
-- 60fps target for all animations
-- Reduced motion support
-- Performance mode compatibility
-- Mobile-optimized timing
-*/
+/* ===== STARFLEX 2.0 - ULTRA-FAST ANIMATIONS ===== */
 
 /* ===== ENTRANCE ANIMATIONS ===== */
-
-/* Fade animations - Ultra smooth */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 30px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -30px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(0, -20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translate3d(-30px, 0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(-20px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translate3d(30px, 0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(20px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Scale animations - GPU optimized */
+/* ===== SCALE ANIMATIONS ===== */
 @keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale3d(0.8, 0.8, 1);
-    }
-    to {
-        opacity: 1;
-        transform: scale3d(1, 1, 1);
-    }
+    from { opacity: 0; transform: scale3d(0.9, 0.9, 1); }
+    to { opacity: 1; transform: scale3d(1, 1, 1); }
 }
 
 @keyframes scaleOut {
-    from {
-        opacity: 1;
-        transform: scale3d(1, 1, 1);
-    }
-    to {
-        opacity: 0;
-        transform: scale3d(0.8, 0.8, 1);
-    }
+    from { opacity: 1; transform: scale3d(1, 1, 1); }
+    to { opacity: 0; transform: scale3d(0.9, 0.9, 1); }
 }
 
 @keyframes scaleInUp {
-    from {
-        opacity: 0;
-        transform: scale3d(0.8, 0.8, 1) translate3d(0, 30px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: scale3d(0.9, 0.9, 1) translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: scale3d(1, 1, 1) translate3d(0, 0, 0); }
 }
 
-/* Slide animations - Smooth transitions */
+/* ===== SLIDE ANIMATIONS ===== */
 @keyframes slideInUp {
-    from {
-        transform: translate3d(0, 100%, 0);
-        visibility: visible;
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(0, 100%, 0); visibility: visible; }
+    to { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes slideInDown {
-    from {
-        transform: translate3d(0, -100%, 0);
-        visibility: visible;
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(0, -100%, 0); visibility: visible; }
+    to { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes slideInLeft {
-    from {
-        transform: translate3d(-100%, 0, 0);
-        visibility: visible;
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(-100%, 0, 0); visibility: visible; }
+    to { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes slideInRight {
-    from {
-        transform: translate3d(100%, 0, 0);
-        visibility: visible;
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(100%, 0, 0); visibility: visible; }
+    to { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes slideOutUp {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        visibility: hidden;
-        transform: translate3d(0, -100%, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { visibility: hidden; transform: translate3d(0, -100%, 0); }
 }
 
 @keyframes slideOutDown {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        visibility: hidden;
-        transform: translate3d(0, 100%, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { visibility: hidden; transform: translate3d(0, 100%, 0); }
 }
 
 /* ===== INTERACTIVE ANIMATIONS ===== */
-
-/* Hover effects - Micro-interactions */
 @keyframes hoverLift {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(0, -4px, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -3px, 0); }
 }
 
 @keyframes hoverScale {
-    from {
-        transform: scale3d(1, 1, 1);
-    }
-    to {
-        transform: scale3d(1.05, 1.05, 1);
-    }
+    from { transform: scale3d(1, 1, 1); }
+    to { transform: scale3d(1.03, 1.03, 1); }
 }
 
-@keyframes hoverGlow {
-    from {
-        box-shadow: var(--shadow-md);
-    }
-    to {
-        box-shadow: var(--neon-shadow-hover);
-    }
-}
-
-/* Button press animation */
 @keyframes buttonPress {
-    0% {
-        transform: scale3d(1, 1, 1);
-    }
-    50% {
-        transform: scale3d(0.95, 0.95, 1);
-    }
-    100% {
-        transform: scale3d(1, 1, 1);
-    }
+    0% { transform: scale3d(1, 1, 1); }
+    50% { transform: scale3d(0.97, 0.97, 1); }
+    100% { transform: scale3d(1, 1, 1); }
 }
 
-/* Ripple effect for buttons */
 @keyframes ripple {
-    0% {
-        transform: scale3d(0, 0, 1);
-        opacity: 0.6;
-    }
-    100% {
-        transform: scale3d(2, 2, 1);
-        opacity: 0;
-    }
+    0% { transform: scale3d(0, 0, 1); opacity: 0.6; }
+    100% { transform: scale3d(2, 2, 1); opacity: 0; }
 }
 
 /* ===== LOADING ANIMATIONS ===== */
-
-/* Spinner - Optimized rotation */
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-/* Pulse - Breathing effect */
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-        transform: scale3d(1, 1, 1);
-    }
-    50% {
-        opacity: 0.7;
-        transform: scale3d(1.05, 1.05, 1);
-    }
+    0%, 100% { opacity: 1; transform: scale3d(1, 1, 1); }
+    50% { opacity: 0.8; transform: scale3d(1.02, 1.02, 1); }
 }
 
-/* Bounce - Elastic effect */
 @keyframes bounce {
-    0%, 20%, 53%, 80%, 100% {
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-        transform: translate3d(0, 0, 0);
-    }
-    40%, 43% {
-        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-        transform: translate3d(0, -30px, 0);
-    }
-    70% {
-        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
-        transform: translate3d(0, -15px, 0);
-    }
-    90% {
-        transform: translate3d(0, -4px, 0);
-    }
+    0%, 20%, 53%, 80%, 100% { transform: translate3d(0, 0, 0); }
+    40%, 43% { transform: translate3d(0, -20px, 0); }
+    70% { transform: translate3d(0, -10px, 0); }
+    90% { transform: translate3d(0, -3px, 0); }
 }
 
-/* Ping - Radar effect */
 @keyframes ping {
-    75%, 100% {
-        transform: scale3d(2, 2, 1);
-        opacity: 0;
-    }
+    75%, 100% { transform: scale3d(1.8, 1.8, 1); opacity: 0; }
 }
 
 /* ===== STARFLEX BRAND ANIMATIONS ===== */
-
-/* Neon glow effect */
 @keyframes neonGlow {
-    0%, 100% {
-        box-shadow: var(--neon-glow-soft);
-    }
-    50% {
-        box-shadow: var(--neon-glow-strong);
-    }
+    0%, 100% { box-shadow: var(--neon-glow-soft); }
+    50% { box-shadow: var(--neon-glow-strong); }
 }
 
-/* Neon pulse */
 @keyframes neonPulse {
-    0%, 100% {
-        box-shadow: 
-            var(--neon-glow-soft),
-            0 0 20px var(--starflex-red),
-            0 0 40px var(--starflex-red);
+    0%, 100% { 
+        box-shadow: var(--neon-glow-soft), 0 0 15px var(--starflex-red), 0 0 30px var(--starflex-red);
     }
-    50% {
-        box-shadow: 
-            var(--neon-glow-strong),
-            0 0 30px var(--starflex-red),
-            0 0 60px var(--starflex-red);
+    50% { 
+        box-shadow: var(--neon-glow-strong), 0 0 25px var(--starflex-red), 0 0 50px var(--starflex-red);
     }
 }
 
-/* Gradient shift */
 @keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
-/* Shimmer effect */
 @keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-    100% {
-        transform: translateX(100%);
-    }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
-/* Floating animation */
 @keyframes float {
-    0%, 100% {
-        transform: translate3d(0, 0, 0);
-    }
-    50% {
-        transform: translate3d(0, -10px, 0);
-    }
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
 }
 
 /* ===== BACKGROUND ANIMATIONS ===== */
-
-/* Nebula movement */
 @keyframes nebulaFloat {
-    0%, 100% {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    33% {
-        transform: translate3d(30px, -30px, 0) rotate(120deg);
-    }
-    66% {
-        transform: translate3d(-20px, 20px, 0) rotate(240deg);
-    }
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    33% { transform: translate3d(20px, -20px, 0) rotate(120deg); }
+    66% { transform: translate3d(-15px, 15px, 0) rotate(240deg); }
 }
 
-/* Particle drift */
 @keyframes particleDrift {
-    0% {
-        transform: translate3d(0, 0, 0);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translate3d(100px, -100px, 0);
-        opacity: 0;
-    }
+    0% { transform: translate3d(0, 0, 0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate3d(80px, -80px, 0); opacity: 0; }
 }
 
-/* Light blob movement */
 @keyframes lightBlobMove {
-    0%, 100% {
-        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-    }
-    25% {
-        transform: translate3d(50px, -30px, 0) scale3d(1.1, 0.9, 1);
-    }
-    50% {
-        transform: translate3d(-30px, 40px, 0) scale3d(0.9, 1.1, 1);
-    }
-    75% {
-        transform: translate3d(-40px, -20px, 0) scale3d(1.05, 0.95, 1);
-    }
+    0%, 100% { transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
+    25% { transform: translate3d(30px, -20px, 0) scale3d(1.05, 0.95, 1); }
+    50% { transform: translate3d(-20px, 30px, 0) scale3d(0.95, 1.05, 1); }
+    75% { transform: translate3d(-25px, -15px, 0) scale3d(1.02, 0.98, 1); }
 }
 
 /* ===== NAVIGATION ANIMATIONS ===== */
-
-/* Mobile menu slide */
 @keyframes mobileMenuSlide {
-    from {
-        transform: translate3d(100%, 0, 0);
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(100%, 0, 0); }
+    to { transform: translate3d(0, 0, 0); }
 }
 
-/* Navbar hide/show */
 @keyframes navbarHide {
-    from {
-        transform: translate3d(0, 0, 0);
-    }
-    to {
-        transform: translate3d(0, -100%, 0);
-    }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -100%, 0); }
 }
 
 @keyframes navbarShow {
-    from {
-        transform: translate3d(0, -100%, 0);
-    }
-    to {
-        transform: translate3d(0, 0, 0);
-    }
+    from { transform: translate3d(0, -100%, 0); }
+    to { transform: translate3d(0, 0, 0); }
 }
 
-/* Dropdown animations */
 @keyframes dropdownSlide {
-    from {
-        opacity: 0;
-        transform: translate3d(0, -10px, 0) scale3d(0.95, 0.95, 1);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-    }
+    from { opacity: 0; transform: translate3d(0, -8px, 0) scale3d(0.96, 0.96, 1); }
+    to { opacity: 1; transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
 }
 
 /* ===== MODAL ANIMATIONS ===== */
-
-/* Modal backdrop */
 @keyframes modalBackdropFade {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* Modal content */
 @keyframes modalSlideUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 50px, 0) scale3d(0.95, 0.95, 1);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
-    }
+    from { opacity: 0; transform: translate3d(0, 30px, 0) scale3d(0.96, 0.96, 1); }
+    to { opacity: 1; transform: translate3d(0, 0, 0) scale3d(1, 1, 1); }
 }
 
 /* ===== SCROLL ANIMATIONS ===== */
-
-/* Reveal on scroll */
 @keyframes revealUp {
-    from {
-        opacity: 0;
-        transform: translate3d(0, 40px, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(0, 25px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes revealLeft {
-    from {
-        opacity: 0;
-        transform: translate3d(-40px, 0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(-25px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @keyframes revealRight {
-    from {
-        opacity: 0;
-        transform: translate3d(40px, 0, 0);
-    }
-    to {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    from { opacity: 0; transform: translate3d(25px, 0, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 /* ===== PHONE MOCKUP ANIMATIONS ===== */
-
-/* Phone float */
 @keyframes phoneFloat {
-    0%, 100% {
-        transform: translate3d(0, 0, 0) rotateY(0deg);
-    }
-    50% {
-        transform: translate3d(0, -15px, 0) rotateY(5deg);
-    }
+    0%, 100% { transform: translate3d(0, 0, 0) rotateY(0deg); }
+    50% { transform: translate3d(0, -10px, 0) rotateY(3deg); }
 }
 
-/* Phone tilt */
 @keyframes phoneTilt {
-    0%, 100% {
-        transform: rotateY(0deg) rotateX(0deg);
-    }
-    50% {
-        transform: rotateY(10deg) rotateX(5deg);
-    }
+    0%, 100% { transform: rotateY(0deg) rotateX(0deg); }
+    50% { transform: rotateY(6deg) rotateX(3deg); }
 }
 
-/* Screen glow */
 @keyframes screenGlow {
-    0%, 100% {
-        box-shadow: 
-            0 0 20px rgba(255, 45, 85, 0.3),
-            0 0 40px rgba(255, 45, 85, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 30px rgba(255, 45, 85, 0.5),
-            0 0 60px rgba(255, 45, 85, 0.2);
-    }
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 45, 85, 0.3), 0 0 30px rgba(255, 45, 85, 0.1); }
+    50% { box-shadow: 0 0 25px rgba(255, 45, 85, 0.5), 0 0 50px rgba(255, 45, 85, 0.2); }
 }
 
 /* ===== TEXT ANIMATIONS ===== */
-
-/* Typewriter effect */
 @keyframes typewriter {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
+    from { width: 0; }
+    to { width: 100%; }
 }
 
-/* Text reveal */
 @keyframes textReveal {
-    0% {
-        opacity: 0;
-        transform: translate3d(0, 20px, 0);
-    }
-    100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    }
+    0% { opacity: 0; transform: translate3d(0, 15px, 0); }
+    100% { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Gradient text animation */
 @keyframes gradientText {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
-/* ===== UTILITY ANIMATION CLASSES ===== */
-
-/* Animation utilities with performance optimization */
-.animate-fadeIn {
-    animation: fadeIn var(--duration-300) var(--ease-out) forwards;
-}
-
-.animate-fadeInUp {
-    animation: fadeInUp var(--duration-500) var(--ease-out) forwards;
-}
-
-.animate-scaleIn {
-    animation: scaleIn var(--duration-300) var(--ease-back) forwards;
-}
-
-.animate-slideInUp {
-    animation: slideInUp var(--duration-500) var(--ease-out) forwards;
-}
-
-.animate-pulse {
-    animation: pulse var(--duration-1000) var(--ease-in-out) infinite;
-}
-
-.animate-spin {
-    animation: spin var(--duration-1000) linear infinite;
-}
-
-.animate-bounce {
-    animation: bounce var(--duration-1000) infinite;
-}
-
-.animate-float {
-    animation: float 3s var(--ease-in-out) infinite;
-}
-
-.animate-neonGlow {
-    animation: neonGlow 2s var(--ease-in-out) infinite;
-}
-
-.animate-shimmer {
-    animation: shimmer 2s linear infinite;
-}
+/* ===== UTILITY CLASSES ===== */
+.animate-fadeIn { animation: fadeIn 0.2s ease-out forwards; }
+.animate-fadeInUp { animation: fadeInUp 0.25s ease-out forwards; }
+.animate-scaleIn { animation: scaleIn 0.2s ease-out forwards; }
+.animate-slideInUp { animation: slideInUp 0.3s ease-out forwards; }
+.animate-pulse { animation: pulse 1.5s ease-in-out infinite; }
+.animate-spin { animation: spin 0.8s linear infinite; }
+.animate-bounce { animation: bounce 0.8s infinite; }
+.animate-float { animation: float 2s ease-in-out infinite; }
+.animate-neonGlow { animation: neonGlow 1.5s ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 1.5s linear infinite; }
 
 /* ===== PERFORMANCE OPTIMIZATIONS ===== */
-
-/* GPU acceleration for all animated elements */
-[class*="animate-"],
-[class*="animation-"] {
-    -webkit-transform: translateZ(0);
+[class*="animate-"] {
     transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-perspective: 1000;
-    perspective: 1000;
     will-change: transform, opacity;
 }
 
-/* Remove will-change after animation completes */
 .animation-complete {
     will-change: auto;
 }
 
 /* ===== MOBILE OPTIMIZATIONS ===== */
 @media (max-width: 1023px) {
-    /* Reduce animation complexity on mobile */
     @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translate3d(0, 20px, 0);
-        }
-        to {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
-        }
+        from { opacity: 0; transform: translate3d(0, 15px, 0); }
+        to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
     
     @keyframes scaleIn {
-        from {
-            opacity: 0;
-            transform: scale3d(0.9, 0.9, 1);
-        }
-        to {
-            opacity: 1;
-            transform: scale3d(1, 1, 1);
-        }
+        from { opacity: 0; transform: scale3d(0.95, 0.95, 1); }
+        to { opacity: 1; transform: scale3d(1, 1, 1); }
     }
     
-    /* Faster animations on mobile */
-    .animate-fadeIn {
-        animation-duration: var(--duration-200);
-    }
+    .animate-fadeIn { animation-duration: 0.15s; }
+    .animate-fadeInUp { animation-duration: 0.2s; }
+    .animate-scaleIn { animation-duration: 0.15s; }
     
-    .animate-fadeInUp {
-        animation-duration: var(--duration-300);
-    }
-    
-    .animate-scaleIn {
-        animation-duration: var(--duration-200);
-    }
-    
-    /* Disable complex animations on low-end devices */
     .performance-mode [class*="animate-"] {
         animation: none !important;
         transform: none !important;
@@ -669,7 +301,6 @@
 
 /* ===== REDUCED MOTION SUPPORT ===== */
 @media (prefers-reduced-motion: reduce) {
-    /* Disable all animations for users who prefer reduced motion */
     *,
     *::before,
     *::after {
@@ -678,7 +309,6 @@
         transition-duration: 0.01ms !important;
     }
     
-    /* Keep essential animations but make them instant */
     .animate-fadeIn,
     .animate-fadeInUp,
     .animate-scaleIn,
@@ -688,7 +318,6 @@
         transform: none;
     }
     
-    /* Disable infinite animations */
     .animate-pulse,
     .animate-spin,
     .animate-bounce,
@@ -707,59 +336,27 @@
     will-change: auto !important;
 }
 
-.performance-mode [class*="animate-"] {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-}
-
-/* ===== HIGH REFRESH RATE OPTIMIZATIONS ===== */
-@media (min-resolution: 120dpi) {
-    /* Optimize animations for high refresh rate displays */
-    [class*="animate-"] {
-        animation-timing-function: linear;
-    }
-    
-    .animate-spin {
-        animation-duration: var(--duration-700);
-    }
-    
-    .animate-pulse {
-        animation-duration: var(--duration-700);
-    }
-}
-
-/* ===== ANIMATION DELAYS FOR STAGGERED EFFECTS ===== */
-.animate-delay-75 { animation-delay: var(--duration-75); }
-.animate-delay-100 { animation-delay: var(--duration-100); }
-.animate-delay-150 { animation-delay: var(--duration-150); }
-.animate-delay-200 { animation-delay: var(--duration-200); }
-.animate-delay-300 { animation-delay: var(--duration-300); }
-.animate-delay-500 { animation-delay: var(--duration-500); }
-.animate-delay-700 { animation-delay: var(--duration-700); }
-.animate-delay-1000 { animation-delay: var(--duration-1000); }
+/* ===== ANIMATION DELAYS ===== */
+.animate-delay-75 { animation-delay: 0.075s; }
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-150 { animation-delay: 0.15s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-500 { animation-delay: 0.5s; }
 
 /* ===== ANIMATION DURATIONS ===== */
-.animate-duration-75 { animation-duration: var(--duration-75); }
-.animate-duration-100 { animation-duration: var(--duration-100); }
-.animate-duration-150 { animation-duration: var(--duration-150); }
-.animate-duration-200 { animation-duration: var(--duration-200); }
-.animate-duration-300 { animation-duration: var(--duration-300); }
-.animate-duration-500 { animation-duration: var(--duration-500); }
-.animate-duration-700 { animation-duration: var(--duration-700); }
-.animate-duration-1000 { animation-duration: var(--duration-1000); }
+.animate-duration-75 { animation-duration: 0.075s; }
+.animate-duration-100 { animation-duration: 0.1s; }
+.animate-duration-150 { animation-duration: 0.15s; }
+.animate-duration-200 { animation-duration: 0.2s; }
+.animate-duration-300 { animation-duration: 0.3s; }
+.animate-duration-500 { animation-duration: 0.5s; }
 
-/* ===== ANIMATION ITERATION COUNTS ===== */
+/* ===== ANIMATION CONTROLS ===== */
 .animate-once { animation-iteration-count: 1; }
 .animate-twice { animation-iteration-count: 2; }
 .animate-infinite { animation-iteration-count: infinite; }
-
-/* ===== ANIMATION FILL MODES ===== */
-.animate-fill-none { animation-fill-mode: none; }
 .animate-fill-forwards { animation-fill-mode: forwards; }
-.animate-fill-backwards { animation-fill-mode: backwards; }
 .animate-fill-both { animation-fill-mode: both; }
-
-/* ===== ANIMATION PLAY STATES ===== */
 .animate-paused { animation-play-state: paused; }
 .animate-running { animation-play-state: running; }

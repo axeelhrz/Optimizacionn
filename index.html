@@ -13,6 +13,7 @@
     <meta name="theme-color" content="#FF0000">
     <link rel="canonical" href="https://starflexapp.com">
 
+    
     <!-- Open Graph -->
     <meta property="og:title" data-translate="og-title" content="Starflex - La Revolución de Amazon Flex">
     <meta property="og:description" data-translate="og-description" content="Automatización inteligente que multiplica tus ganancias. La herramienta que todo conductor profesional necesita.">
@@ -25,49 +26,23 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/icon.png">
     
-    <!-- CRITICAL CSS INLINE - Solo estilos críticos para above-the-fold -->
-    <style>
-        /* Critical CSS - Solo estilos esenciales para el primer viewport */
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-        html{width:100%;height:100%;font-size:16px;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;text-rendering:optimizeSpeed;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
-        body{width:100%;min-height:100vh;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.5;color:#ffffff;background:#000000;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-display:swap;will-change:scroll-position;touch-action:manipulation;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;isolation:isolate}
-        .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-        .hero__container{width:100%;max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:60px}
-        .hero__content{flex:1;z-index:2}
-        .hero__title{font-size:clamp(2rem,8vw,4rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
-        .hero__title--highlight{color:#FF2D55}
-        .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 32px;background:#FF2D55;color:#ffffff;text-decoration:none;border-radius:12px;font-weight:600;transition:transform 0.2s ease;will-change:transform}
-        .btn:hover{transform:translateY(-2px)}
-        .loading-placeholder{background:linear-gradient(90deg,#1a1a1a 25%,#2a2a2a 50%,#1a1a1a 75%);background-size:200% 100%;animation:loading 1.5s infinite}
-        @keyframes loading{0%{background-position:200% 0}100%{background-position:-200% 0}}
-        @media (max-width:768px){.hero__container{flex-direction:column;text-align:center;gap:30px}}
-    </style>
-    
-    <!-- Preconnect para recursos externos críticos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Preload de recursos críticos optimizado -->
-    <link rel="preload" href="./assets/phones/Hero.mp4" as="video" type="video/mp4" media="(min-width: 769px)">
+    <!-- Preload de recursos críticos optimizado para móvil -->
+    <link rel="preload" href="./assets/phones/Hero.mp4" as="video" type="video/mp4">
     <link rel="preload" href="./assets/logo.avif" as="image" type="image/avif">
     
-    <!-- CSS NO CRÍTICO - Carga diferida -->
-    <link rel="preload" href="src/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="src/css/main.css"></noscript>
+    <!-- Fuentes Google optimizadas para móvil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Fuentes Google optimizadas - Carga diferida -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700;800&display=swap"></noscript>
+    <!-- CSS UNIFICADO - SOLO STYLE.CSS -->
+    <link rel="stylesheet" href="src/css/main.css">
     
     <!-- Optimización para dispositivos móviles -->
+    <meta name="theme-color" content="#FF2D55">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
-    
-    <!-- Script para cargar CSS de forma asíncrona -->
-    <script>
-        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.href=n;else{if(!t)return;d.href=t}d.rel="stylesheet",d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a,0)};e.loadCSS=t}("undefined"!=typeof global?global:this);
-    </script>
 </head>
 
 <body>
@@ -304,7 +279,7 @@
                             muted 
                             loop 
                             playsinline
-                            preload="metadata"
+                            preload="auto"
                             aria-label="Video demostrativo de StarFlex en dispositivo móvil"
                         >
                             <source src="./assets/phones/Hero.mp4" type="video/mp4">
@@ -327,7 +302,7 @@
                                     muted 
                                     loop 
                                     playsinline
-                                    preload="metadata"
+                                    preload="auto"
                                     aria-label="Video demostrativo de StarFlex"
                                 >
                                     <source src="./assets/phones/Hero.mp4" type="video/mp4">
@@ -914,36 +889,9 @@
         </div>
     </div>
 
-    <!-- JavaScript optimizado - Carga diferida -->
-    <script>
-        // Función para cargar scripts de forma asíncrona
-        function loadScript(src, callback) {
-            const script = document.createElement('script');
-            script.src = src;
-            script.async = true;
-            script.defer = true;
-            if (callback) script.onload = callback;
-            document.head.appendChild(script);
-        }
-
-        // Cargar scripts críticos después del DOM
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cargar script de corrección de visibilidad móvil primero
-            loadScript('src/js/mobile-visibility-fix.js', function() {
-                // Después cargar el script principal
-                loadScript('src/js/app.js');
-            });
-        });
-
-        // Service Worker para cache
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').catch(function() {
-                    // Silenciar errores de SW
-                });
-            });
-        }
-    </script>
+    <!-- JavaScript optimizado -->
+    <!-- IMPORTANTE: Cargar el script de corrección de visibilidad móvil PRIMERO -->
+    <script src="src/js/mobile-visibility-fix.js"></script>
+    <script src="src/js/app.js"></script>
 </body>
 </html>
-
