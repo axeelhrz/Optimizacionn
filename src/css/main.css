@@ -12,7 +12,11 @@
 @import url('./components/floating-widget.css');
 
 /* Sections */
-
+@import url('./sections/hero.css');
+@import url('./sections/features.css');
+@import url('./sections/videos.css');
+@import url('./sections/faq.css');
+@import url('./sections/contact.css');
 
 /* Animations */
 @import url('./animations/keyframes.css');
@@ -21,7 +25,6 @@
 @import url('./mobile-fixes.css');
 
 /* Mobile Scroll Fix - CRÍTICO: debe ir al final para prevenir scroll horizontal */
-@import url('./mobile-scroll-fix.css');
 
 /* ===== SISTEMA CSS MODULAR COMPLETADO ===== */
 /* Todas las secciones han sido modularizadas exitosamente */
