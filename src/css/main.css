@@ -19,7 +19,6 @@
 @import url('./sections/contact.css');
 
 /* Animations */
-@import url('./animations/keyframes.css');
 
 /* Mobile optimizations - consolidated and optimized */
 @import url('./mobile-optimized.css');
