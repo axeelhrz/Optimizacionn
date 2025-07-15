@@ -17,7 +17,22 @@ const state = {
 const CONFIG = {
     ANIMATION_DURATION: state.isMobile ? 100 : 250,
     SCROLL_THRESHOLD: state.isMobile ? 15 : 30,
-
+    IMAGE_PATHS: {
+        hero: { avif: './assets/phones/Hero.avif' },
+        logo: { avif: './assets/logo.avif' },
+        phones: {
+            horario: { avif: './assets/phones/Schedule.avif' },
+            estaciones: { avif: './assets/phones/Stations.avif' },
+            calendario: { avif: './assets/phones/Calendar.avif' },
+            registro: { avif: './assets/phones/Log.avif' },
+            notificaciones: { avif: './assets/phones/Notifications.avif' },
+            referidos: { avif: './assets/phones/Referrals.avif' }
+        },
+        downloads: {
+            apple: { png: './assets/AppleStore.png' },
+            google: { png: './assets/GooglePlay.png' }
+        }
+    }
 };
 
 // ===== TRADUCCIONES COMPACTAS =====

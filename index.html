@@ -25,6 +25,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="./assets/icon.png">
     
     <!-- Preload critical resources -->
+    <link rel="preload" href="./assets/phones/Hero.mp4" as="video" type="video/mp4">
+    <link rel="preload" href="./assets/logo.avif" as="image" type="image/avif">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -257,6 +259,7 @@
                     <!-- Mobile video -->
                     <div class="hero__mobile-video mobile-only">
                         <video class="hero__mobile-video-player" id="hero-mobile-video" autoplay muted loop playsinline preload="auto" aria-label="Video demostrativo de StarFlex en dispositivo móvil">
+                            <source src="./assets/phones/Hero.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
