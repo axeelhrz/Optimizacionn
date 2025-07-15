@@ -1,0 +1,165 @@
+/* ===== MOBILE IMAGES FIX - CORRECCIÓN DE IMÁGENES EN MÓVILES ===== */
+
+@media (max-width: 1023px) {
+    /* Asegurar que las imágenes de las características se muestren correctamente */
+    .phone__app-image {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        background-size: cover !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        border-radius: 23px !important;
+    }
+
+    /* Configurar las imágenes específicas de cada característica */
+    .feature[data-feature="schedule"] .phone__app-image {
+        background-image: url('../../assets/phones/Schedule.avif') !important;
+    }
+
+    .feature[data-feature="stations"] .phone__app-image {
+        background-image: url('../../assets/phones/Stations.avif') !important;
+    }
+
+    .feature[data-feature="calendar"] .phone__app-image {
+        background-image: url('../../assets/phones/Calendar.avif') !important;
+    }
+
+    .feature[data-feature="log"] .phone__app-image {
+        background-image: url('../../assets/phones/Log.avif') !important;
+    }
+
+    .feature[data-feature="notifications"] .phone__app-image {
+        background-image: url('../../assets/phones/Notifications.avif') !important;
+    }
+
+    .feature[data-feature="referrals"] .phone__app-image {
+        background-image: url('../../assets/phones/Referrals.avif') !important;
+    }
+
+    /* Fallback para navegadores que no soportan AVIF */
+    @supports not (background-image: url('test.avif')) {
+        .feature[data-feature="schedule"] .phone__app-image {
+            background-image: url('../../assets/phones/Schedule.jpg') !important;
+        }
+
+        .feature[data-feature="stations"] .phone__app-image {
+            background-image: url('../../assets/phones/Stations.jpg') !important;
+        }
+
+        .feature[data-feature="calendar"] .phone__app-image {
+            background-image: url('../../assets/phones/Calendar.jpg') !important;
+        }
+
+        .feature[data-feature="log"] .phone__app-image {
+            background-image: url('../../assets/phones/Log.jpg') !important;
+        }
+
+        .feature[data-feature="notifications"] .phone__app-image {
+            background-image: url('../../assets/phones/Notifications.jpg') !important;
+        }
+
+        .feature[data-feature="referrals"] .phone__app-image {
+            background-image: url('../../assets/phones/Referrals.jpg') !important;
+        }
+    }
+
+    /* Asegurar que el contenedor del teléfono sea visible */
+    .feature__phone {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        width: clamp(200px, 60vw, 280px) !important;
+        height: clamp(400px, 120vw, 560px) !important;
+        margin: 0 auto clamp(1.5rem, 4vh, 2rem) auto !important;
+    }
+
+    .phone {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 25px !important;
+        overflow: hidden !important;
+        background: #000 !important;
+        border: 2px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .phone__screen {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 23px !important;
+        overflow: hidden !important;
+    }
+
+    .phone__content {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+    }
+
+    /* Optimizaciones para dispositivos de baja resolución */
+    @media (max-resolution: 150dpi) {
+        .phone__app-image {
+            image-rendering: -webkit-optimize-contrast !important;
+            image-rendering: optimize-contrast !important;
+        }
+    }
+
+    /* Optimizaciones para conexiones lentas */
+    @media (prefers-reduced-data: reduce) {
+        .phone__app-image {
+            background-size: contain !important;
+        }
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 480px) {
+    .feature__phone {
+        width: clamp(180px, 70vw, 240px) !important;
+        height: clamp(360px, 140vw, 480px) !important;
+    }
+
+    .phone {
+        border-radius: 20px !important;
+    }
+
+    .phone__screen {
+        border-radius: 18px !important;
+    }
+}
+
+/* Asegurar carga de imágenes en modo performance */
+.performance-mode .phone__app-image {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+/* Modo reducido de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .phone__app-image {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
