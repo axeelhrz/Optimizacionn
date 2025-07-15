@@ -305,12 +305,7 @@
 }
 
 /* Efectos consolidados para todas las características */
-.feature[data-feature="schedule"].in-view .phone::before,
-.feature[data-feature="stations"].in-view .phone::before,
-.feature[data-feature="calendar"].in-view .phone::before,
-.feature[data-feature="log"].in-view .phone::before,
-.feature[data-feature="notifications"].in-view .phone::before,
-.feature[data-feature="referrals"].in-view .phone::before {
+.feature.in-view .phone::before {
     opacity: 0.6;
     animation: phone-ambient-glow 8s ease-in-out infinite;
 }
@@ -343,12 +338,16 @@
 }
 
 /* Sincronización de aparición consolidada */
-.feature[data-feature="schedule"].in-view .phone__screen { opacity: 1; transition-delay: 0.2s; }
-.feature[data-feature="stations"].in-view .phone__screen { opacity: 1; transition-delay: 0.3s; }
-.feature[data-feature="calendar"].in-view .phone__screen { opacity: 1; transition-delay: 0.4s; }
-.feature[data-feature="log"].in-view .phone__screen { opacity: 1; transition-delay: 0.5s; }
-.feature[data-feature="notifications"].in-view .phone__screen { opacity: 1; transition-delay: 0.6s; }
-.feature[data-feature="referrals"].in-view .phone__screen { opacity: 1; transition-delay: 0.7s; }
+.feature.in-view .phone__screen {
+    opacity: 1;
+}
+
+.feature[data-feature="schedule"].in-view .phone__screen { transition-delay: 0.2s; }
+.feature[data-feature="stations"].in-view .phone__screen { transition-delay: 0.3s; }
+.feature[data-feature="calendar"].in-view .phone__screen { transition-delay: 0.4s; }
+.feature[data-feature="log"].in-view .phone__screen { transition-delay: 0.5s; }
+.feature[data-feature="notifications"].in-view .phone__screen { transition-delay: 0.6s; }
+.feature[data-feature="referrals"].in-view .phone__screen { transition-delay: 0.7s; }
 
 /* IMÁGENES OPTIMIZADAS */
 .phone__app-image {
@@ -406,7 +405,7 @@
 }
 
 /* RESPONSIVE OPTIMIZADO */
-@media (width <= 1023px) {
+@media (max-width: 1023px) {
     .features {
         padding: clamp(2rem, 6vh, 4rem) var(--section-padding-x) clamp(1.5rem, 4vh, 3rem);
     }
@@ -446,23 +445,23 @@
     }
 
     .feature__list-item {
-        display: flex !important;
-        align-items: center !important;
-        gap: 12px !important;
-        padding: 6px 0 !important;
-        margin-bottom: 8px !important;
-        text-align: left !important;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 6px 0;
+        margin-bottom: 8px;
+        text-align: left;
     }
 
     .feature__bullet {
-        width: 8px !important;
-        height: 8px !important;
-        flex-shrink: 0 !important;
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
     }
 
     .feature__text {
-        flex: 1 !important;
-        text-align: left !important;
+        flex: 1;
+        text-align: left;
     }
 
     .feature__phone {
@@ -491,7 +490,7 @@
     }
 
     .feature__list-item {
-        font-size: 0.95rem !important;
+        font-size: 0.95rem;
     }
 
     .feature__list-item:hover {
@@ -510,7 +509,7 @@
     }
 }
 
-@media (width <= 480px) {
+@media (max-width: 480px) {
     .features {
         padding: clamp(1.5rem, 4vh, 2.5rem) var(--section-padding-x);
     }
@@ -530,15 +529,15 @@
     }
 
     .feature__list-item {
-        gap: 10px !important;
-        padding: 4px 0 !important;
-        margin-bottom: 6px !important;
-        font-size: 0.9rem !important;
+        gap: 10px;
+        padding: 4px 0;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
     }
 
     .feature__bullet {
-        width: 6px !important;
-        height: 6px !important;
+        width: 6px;
+        height: 6px;
     }
 }
 
@@ -546,7 +545,7 @@
 @media (prefers-reduced-motion: reduce) {
     .features::before,
     .phone::before {
-        animation: none !important;
+        animation: none;
     }
 
     .feature,
@@ -554,8 +553,8 @@
     .phone__app-image,
     .phone__screen,
     .feature__list-item {
-        transition: opacity 0.3s ease !important;
-        transform: none !important;
+        transition: opacity 0.3s ease;
+        transform: none;
     }
 
     .feature.in-view,
@@ -564,8 +563,8 @@
     .feature.in-view .phone__screen,
     .feature.in-view .phone::before,
     .feature.in-view .feature__list-item {
-        opacity: 1 !important;
-        transform: none !important;
+        opacity: 1;
+        transform: none;
     }
 }
 
@@ -600,6 +599,6 @@
     }
 
     .feature__bullet {
-        background: var(--starflex-red) !important;
+        background: var(--starflex-red);
     }
 }

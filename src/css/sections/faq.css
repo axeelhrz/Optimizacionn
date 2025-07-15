@@ -314,7 +314,7 @@
 }
 
 /* RESPONSIVE */
-@media (width <= 1023px) {
+@media (max-width: 1023px) {
     .faq {
         padding: clamp(2rem, 6vh, 4rem) var(--section-padding-x) clamp(1.5rem, 4vh, 3rem);
     }
@@ -368,7 +368,7 @@
     }
 }
 
-@media (width <= 480px) {
+@media (max-width: 480px) {
     .faq__title {
         font-size: clamp(2.2rem, 8vw, 3.5rem);
         line-height: 1.2;
