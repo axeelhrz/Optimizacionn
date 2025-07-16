@@ -57,6 +57,23 @@
         
         const gridElements = ['.contact__grid', '.features__grid', '.faq__list'];
         
+        // Asegurar que el video móvil sea visible
+const mobileVideo = document.getElementById('hero-mobile-video');
+const mobileVideoContainer = document.querySelector('.hero__mobile-video');
+if (mobileVideo && mobileVideoContainer && isMobileDevice()) {
+    mobileVideoContainer.style.display = 'block';
+    mobileVideoContainer.style.visibility = 'visible';
+    mobileVideoContainer.style.opacity = '1';
+    
+    // Intentar reproducir el video
+    mobileVideo.muted = true;
+    mobileVideo.autoplay = true;
+    mobileVideo.loop = true;
+    mobileVideo.playsInline = true;
+    mobileVideo.play().catch(() => {});
+}
+
+
         elements.forEach(element => {
             // Aplicar estilos base
             Object.assign(element.style, visibilityStyles);
