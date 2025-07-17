@@ -63,13 +63,7 @@
 }
 
 .hero__badge::before {
-    width: 8px;
-    height: 8px;
-    content: '';
-    background: var(--starflex-crimson-bright);
-    border-radius: 50%;
-    box-shadow: var(--glow-subtle);
-    animation: pulse-gentle 4s infinite;
+    display: none; /* Ocultar el punto rojo que aparece arriba */
 }
 
 /* TÍTULO HERO */
