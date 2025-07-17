@@ -29,38 +29,37 @@ const CONFIG = {
     
     // Configuración de imágenes optimizadas
     IMAGE_FORMATS: {
-        AVIF: 'image/avif',
         WEBP: 'image/webp',
-        JPEG: 'image/jpeg',
-        PNG: 'image/png'
+        PNG: 'image/png',
+        JPEG: 'image/jpeg'
     },
     
-    // Rutas de imágenes optimizadas
+    // Rutas de imágenes optimizadas - ACTUALIZADO PARA USAR SOLO WEBP Y PNG
     IMAGE_PATHS: {
         hero: {
-            avif: './assets/phones/Hero.avif'
+            webp: './assets/phones/Hero.webp'
         },
         logo: {
-            avif: './assets/logo.avif'
+            webp: './assets/logo.webp'
         },
         phones: {
             horario: {
-                avif: './assets/phones/Schedule.avif'
+                webp: './assets/phones/Schedule.webp'
             },
             estaciones: {
-                avif: './assets/phones/Stations.avif'
+                webp: './assets/phones/Stations.webp'
             },
             calendario: {
-                avif: './assets/phones/Calendar.avif'
+                webp: './assets/phones/Calendar.webp'
             },
             registro: {
-                avif: './assets/phones/Log.avif'
+                webp: './assets/phones/Log.webp'
             },
             notificaciones: {
-                avif: './assets/phones/Notifications.avif'
+                webp: './assets/phones/Notifications.webp'
             },
             referidos: {
-                avif: './assets/phones/Referrals.avif'
+                webp: './assets/phones/Referrals.webp'
             }
         },
         downloads: {
@@ -70,6 +69,9 @@ const CONFIG = {
             google: {
                 png: './assets/GooglePlay.png'
             }
+        },
+        videoPoster: {
+            webp: './assets/video-poster.webp'
         }
     }
 };
@@ -403,39 +405,17 @@ function detectDeviceCapabilities() {
 function detectImageFormats() {
     return new Promise((resolve) => {
         const formats = {
-            avif: false,
             webp: false
         };
-        
-        let testsCompleted = 0;
-        const totalTests = 2;
-        
-        function checkComplete() {
-            testsCompleted++;
-            if (testsCompleted === totalTests) {
-                if (formats.avif) {
-                    document.documentElement.classList.add('avif');
-                }
-                if (formats.webp) {
-                    document.documentElement.classList.add('webp');
-                }
-                resolve(formats);
-            }
-        }
-        
-        // Test AVIF
-        const avifImg = new Image();
-        avifImg.onload = avifImg.onerror = function() {
-            formats.avif = avifImg.height === 2;
-            checkComplete();
-        };
-        avifImg.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAAB0AAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAACAAIAAYAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEAwgMg8f8D///8WfhwB8+ErK42A=';
         
         // Test WebP
         const webpImg = new Image();
         webpImg.onload = webpImg.onerror = function() {
             formats.webp = webpImg.height === 2;
-            checkComplete();
+            if (formats.webp) {
+                document.documentElement.classList.add('webp');
+            }
+            resolve(formats);
         };
         webpImg.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
     });
@@ -447,7 +427,7 @@ class UltraOptimizedImageLoader {
         this.imageCache = new Map();
         this.lazyImages = new Set();
         this.intersectionObserver = null;
-        this.supportedFormats = { avif: false, webp: false };
+        this.supportedFormats = { webp: false };
         this.init();
     }
     
@@ -479,15 +459,13 @@ class UltraOptimizedImageLoader {
     getBestImageUrl(imageConfig) {
         if (!imageConfig) return null;
         
-        if (this.supportedFormats.avif && imageConfig.avif) {
-            return imageConfig.avif;
-        }
-        
+        // Priorizar WebP si está soportado
         if (this.supportedFormats.webp && imageConfig.webp) {
             return imageConfig.webp;
         }
         
-        return imageConfig.jpg || imageConfig.png || imageConfig.avif;
+        // Fallback a PNG o JPG
+        return imageConfig.png || imageConfig.jpg || imageConfig.jpeg || imageConfig.webp;
     }
     
     async loadImage(element) {
@@ -560,7 +538,6 @@ class UltraOptimizedImageLoader {
         if (performanceMode) return;
         
         const criticalImages = [
-            'hero',
             'logo'
         ];
         
@@ -1777,10 +1754,11 @@ function setupImageLazyLoading() {
             imageOptimizer.loadImageImmediately(mobileNavLogoMenu, 'logo');
         }
         
-        // Imagen del hero (crítica)
+        // Imagen del hero (crítica) - Nota: Hero usa video, no imagen estática
         const heroImage = document.querySelector('.hero__phone-app-image');
         if (heroImage) {
-            imageOptimizer.loadImageImmediately(heroImage, 'hero');
+            // Usar video-poster como fallback para hero
+            imageOptimizer.loadImageImmediately(heroImage, 'videoPoster');
         }
         
         // Imágenes de características
@@ -1952,8 +1930,8 @@ function initializePerformanceOptimizations() {
 
 function preloadCriticalResources() {
     const criticalResources = [
-        './assets/phones/Hero.avif',
-        './assets/logo.avif'
+        './assets/logo.webp',
+        './assets/video-poster.webp'
     ];
     
     criticalResources.forEach(src => {
@@ -2100,4 +2078,3 @@ if ('serviceWorker' in navigator && !isMobile && !performanceMode) {
             });
     });
 }
-
