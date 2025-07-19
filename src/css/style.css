@@ -825,3 +825,7 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
 
 /* ÚLTIMO OVERRIDE PARA GARANTIZAR FUNCIONAMIENTO */
 .features *,.faq *,.contact *,.hero *{visibility:visible!important;opacity:1!important}
+::selection {
+  color: var(--text-primary);
+  background: var(--starflex-crimson);
+}
