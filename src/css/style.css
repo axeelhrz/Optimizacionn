@@ -842,7 +842,7 @@ html,body{overflow-x:hidden}
 .phone__screen{opacity:1!important}
 .feature__phone{opacity:1!important;transform:translateY(0) scale(1)!important}
 }
-/* MOBILE DRAWER SIN X - VERSIÓN COMPACTA */
+/* MOBILE DRAWER SIN X - VERSIÓN SIEMPRE VISIBLE COMPLETA */
 .nav__drawer {
     position: fixed;
     top: 0;
@@ -868,22 +868,22 @@ html,body{overflow-x:hidden}
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-md) var(--space-lg); /* Reducido de var(--space-lg) var(--space-xl) */
+    padding: var(--space-sm) var(--space-lg);
     border-bottom: 1px solid var(--border-subtle);
-    min-height: 50px; /* Reducido de 70px */
+    min-height: 45px;
     flex-shrink: 0;
 }
 
 .nav__drawer-brand {
     display: flex;
     align-items: center;
-    gap: var(--space-sm); /* Reducido de var(--space-md) */
+    gap: var(--space-sm);
     justify-content: center;
 }
 
 .nav__drawer-logo {
-    width: 28px; /* Reducido de 36px */
-    height: 28px; /* Reducido de 36px */
+    width: 26px;
+    height: 26px;
     background-image: url('../../assets/logo.webp');
     background-size: contain;
     background-repeat: no-repeat;
@@ -894,7 +894,7 @@ html,body{overflow-x:hidden}
 
 .nav__drawer-title {
     font-family: var(--font-primary);
-    font-size: 1.1rem; /* Reducido de 1.3rem */
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text-primary);
     white-space: nowrap;
@@ -903,20 +903,21 @@ html,body{overflow-x:hidden}
 }
 
 .nav__drawer-content {
-    padding: var(--space-sm) 0; /* Reducido de var(--space-md) 0 */
+    padding: var(--space-sm) 0;
     display: flex;
     flex-direction: column;
     flex: 1;
     overflow: hidden;
-    justify-content: space-between; /* Distribuir espacio entre navegación y idioma */
+    min-height: 0; /* Importante para flex shrinking */
 }
 
 .nav__drawer-navigation {
     flex: 1;
-    padding: 0 var(--space-lg); /* Reducido de var(--space-xl) */
+    padding: 0 var(--space-lg);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 0; /* Importante para flex shrinking */
 }
 
 .nav__drawer-list {
@@ -925,26 +926,26 @@ html,body{overflow-x:hidden}
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm); /* Reducido de var(--space-md) */
+    gap: var(--space-xs); /* Reducido aún más para ahorrar espacio */
 }
 
 .nav__drawer-link {
     display: flex;
     align-items: center;
-    gap: var(--space-sm); /* Reducido de var(--space-md) */
-    padding: var(--space-sm) var(--space-md); /* Reducido de var(--space-md) var(--space-lg) */
+    gap: var(--space-sm);
+    padding: var(--space-xs) var(--space-md);
     font-family: var(--font-primary);
-    font-size: 0.9rem; /* Reducido de 1rem */
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.3px; /* Reducido de 0.5px */
+    letter-spacing: 0.3px;
     background: var(--glass-bg);
     border: 1px solid var(--border-subtle);
-    border-radius: 10px; /* Reducido de 12px */
+    border-radius: 8px;
     position: relative;
-    min-height: 38px; /* Reducido de 44px */
+    min-height: 34px; /* Más compacto */
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -958,32 +959,36 @@ html,body{overflow-x:hidden}
 }
 
 .nav__drawer-link-icon {
-    width: 16px; /* Reducido de 18px */
-    height: 16px; /* Reducido de 18px */
+    width: 14px;
+    height: 14px;
     opacity: 0.7;
     flex-shrink: 0;
 }
 
+/* SELECTOR DE IDIOMA MOVIDO HACIA ARRIBA */
 .nav__drawer-language {
-    padding: var(--space-sm) var(--space-lg); /* Reducido de var(--space-md) var(--space-xl) */
+    padding: var(--space-sm) var(--space-lg);
     border-top: 1px solid var(--border-subtle);
     flex-shrink: 0;
+    margin-top: var(--space-md); /* Separación de la navegación */
+    margin-bottom: var(--space-lg); /* Espacio desde el fondo para que no se corte */
 }
 
 .nav__drawer-language-title {
     font-family: var(--font-primary);
-    font-size: 0.75rem; /* Reducido de 0.85rem */
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: var(--space-xs); /* Reducido de var(--space-sm) */
+    margin-bottom: var(--space-xs);
     opacity: 0.8;
+    text-align: center;
 }
 
 .nav__drawer-language-options {
     display: flex;
-    gap: var(--space-xs); /* Reducido de var(--space-sm) */
+    gap: var(--space-xs);
 }
 
 .nav__drawer-language-option {
@@ -991,16 +996,16 @@ html,body{overflow-x:hidden}
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-xs); /* Reducido de var(--space-sm) */
-    padding: var(--space-xs) var(--space-sm); /* Reducido de var(--space-sm) var(--space-md) */
-    font-size: 0.8rem; /* Reducido de 0.85rem */
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
     background: var(--glass-bg);
     border: 1px solid var(--border-subtle);
-    border-radius: 10px; /* Reducido de 12px */
+    border-radius: 8px;
     cursor: pointer;
-    min-height: 32px; /* Reducido de 36px */
+    min-height: 28px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1014,76 +1019,165 @@ html,body{overflow-x:hidden}
 }
 
 .nav__drawer-language-flag {
-    font-size: 0.9rem; /* Reducido de 1rem */
+    font-size: 0.8rem;
     line-height: 1;
     flex-shrink: 0;
 }
 
-/* Ajustes adicionales para pantallas muy pequeñas */
+/* Ajustes para pantallas pequeñas */
 @media (max-width: 480px) {
     .nav__drawer {
-        width: min(95%, 320px); /* Más ancho en pantallas pequeñas */
+        width: min(95%, 320px);
     }
     
     .nav__drawer-header {
-        padding: var(--space-sm) var(--space-md);
-        min-height: 45px;
+        padding: 6px var(--space-md);
+        min-height: 40px;
     }
     
     .nav__drawer-logo {
-        width: 24px;
-        height: 24px;
+        width: 22px;
+        height: 22px;
     }
     
     .nav__drawer-title {
-        font-size: 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav__drawer-content {
+        padding: 4px 0;
+    }
+    
+    .nav__drawer-list {
+        gap: 4px; /* Mínimo espacio entre elementos */
     }
     
     .nav__drawer-link {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.85rem;
-        min-height: 36px;
-        gap: var(--space-xs);
+        padding: 6px var(--space-sm);
+        font-size: 0.8rem;
+        min-height: 30px;
+        gap: 6px;
     }
     
     .nav__drawer-link-icon {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
     }
     
     .nav__drawer-language {
-        padding: var(--space-xs) var(--space-md);
+        padding: 6px var(--space-md);
+        margin-top: 8px;
+        margin-bottom: var(--space-md);
     }
     
     .nav__drawer-language-title {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         margin-bottom: 4px;
     }
     
     .nav__drawer-language-option {
-        padding: 6px var(--space-xs);
+        padding: 4px 6px;
+        font-size: 0.7rem;
+        min-height: 24px;
+    }
+    
+    .nav__drawer-language-flag {
+        font-size: 0.75rem;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas en altura */
+@media (max-height: 600px) {
+    .nav__drawer-header {
+        min-height: 35px;
+        padding: 4px var(--space-md);
+    }
+    
+    .nav__drawer-logo {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .nav__drawer-title {
+        font-size: 0.85rem;
+    }
+    
+    .nav__drawer-content {
+        padding: 2px 0;
+    }
+    
+    .nav__drawer-list {
+        gap: 2px;
+    }
+    
+    .nav__drawer-link {
+        padding: 4px var(--space-sm);
         font-size: 0.75rem;
         min-height: 28px;
     }
     
-    .nav__drawer-language-flag {
-        font-size: 0.8rem;
+    .nav__drawer-link-icon {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .nav__drawer-language {
+        padding: 4px var(--space-md);
+        margin-top: 6px;
+        margin-bottom: var(--space-sm);
+    }
+    
+    .nav__drawer-language-title {
+        font-size: 0.6rem;
+        margin-bottom: 2px;
+    }
+    
+    .nav__drawer-language-option {
+        padding: 3px 4px;
+        font-size: 0.65rem;
+        min-height: 22px;
     }
 }
 
-/* Ajustes para pantallas muy altas */
+/* Ajustes para pantallas altas */
 @media (min-height: 800px) {
     .nav__drawer-navigation {
         justify-content: flex-start;
-        padding-top: var(--space-xl);
+        padding-top: var(--space-lg);
     }
     
     .nav__drawer-list {
-        gap: var(--space-md);
+        gap: var(--space-sm);
     }
     
     .nav__drawer-link {
-        padding: var(--space-md) var(--space-lg);
-        min-height: 42px;
+        padding: var(--space-sm) var(--space-md);
+        min-height: 38px;
+        font-size: 0.9rem;
     }
+    
+    .nav__drawer-link-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .nav__drawer-language {
+        margin-bottom: var(--space-2xl);
+    }
+}
+
+/* Asegurar que el drawer nunca se corte */
+.nav__drawer-content {
+    max-height: calc(100vh - var(--navbar-height-mobile) - 45px); /* Altura disponible menos header */
+    overflow-y: auto; /* Solo si es absolutamente necesario */
+}
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.nav__drawer-content::-webkit-scrollbar {
+    display: none;
+}
+
+.nav__drawer-content {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
