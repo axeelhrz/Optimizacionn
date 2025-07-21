@@ -291,7 +291,9 @@ p,span,h1,h2,h3,h4,h5,h6,li,td,th,input,textarea{-webkit-user-select:text;user-s
 .nav__right-section{flex-shrink:0;z-index:1001;position:relative}
 .nav__list{display:flex;gap:clamp(2px, 0.5vw, var(--space-sm));list-style:none;margin:0;padding:0;align-items:center;flex-wrap:nowrap;justify-content:flex-start;white-space:nowrap}
 .nav__link{position:relative;padding:var(--space-xs) clamp(1px, 0.4vw, var(--space-sm));font-family:var(--font-primary);font-size:clamp(0.6rem, 0.7vw, 0.75rem);font-weight:500;color:var(--text-secondary);text-decoration:none;text-transform:uppercase;letter-spacing:0.1px;border-radius:8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:clamp(40px, 5vw, 70px);flex-shrink:1;min-width:35px}
-.nav__link.active{color:var(--starflex-crimson);background:rgba(255, 45, 85, 0.1);box-shadow:0 0 20px rgba(255, 69, 105, 0.15)}
+
+/* MEJORA PARA EL ESTADO ACTIVO - MÁS VISIBLE */
+.nav__link.active{color:var(--starflex-crimson);background:rgba(255, 45, 85, 0.15);border-top:2px solid var(--starflex-crimson);box-shadow:0 0 20px rgba(255, 69, 105, 0.2), inset 0 1px 0 rgba(255, 45, 85, 0.3);text-shadow:0 0 8px rgba(255, 45, 85, 0.6)}
 .nav__language-switcher{position:relative;flex-shrink:0;z-index:1002;margin-right: clamp(1rem, 3vw, 2rem) !important}
 .nav__language-btn{display:flex;align-items:center;gap:clamp(4px, 0.5vw, 8px);padding: clamp(6px, 0.8vw, 12px) clamp(8px, 1vw, 16px);font-size: clamp(0.65rem, 0.8vw, 0.85rem)}
 .nav__language-icon{width:clamp(12px, 1vw, 14px);height:clamp(12px, 1vw, 14px);opacity:0.8;flex-shrink:0}
