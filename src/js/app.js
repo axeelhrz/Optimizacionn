@@ -76,7 +76,7 @@ const CONFIG = {
     }
 };
 
-// ===== SISTEMA DE TRADUCCIONES OPTIMIZADO =====
+// ===== SISTEMA DE TRADUCCIÓN OPTIMIZADO =====
 const translationData = {
     es: {
         // Meta tags
@@ -1278,7 +1278,106 @@ function openMobileMenu() {
     navToggle.setAttribute('aria-expanded', 'true');
     navDrawer.setAttribute('aria-hidden', 'false');
     
+    // ===== USAR LA MISMA LÓGICA QUE EL DESKTOP =====
+    setTimeout(() => {
+        console.log('🎯 Actualizando sección activa del drawer usando lógica del desktop...');
+        // Ejecutar la misma función que usa el desktop pero forzando la actualización del drawer
+        updateActiveNavOnScroll();
+    }, 50);
+    
     console.log('✅ Drawer móvil abierto - Scroll de página bloqueado en posición:', scrollPosition);
+}
+
+// ===== NUEVA FUNCIÓN PARA FORZAR ACTUALIZACIÓN DEL DRAWER =====
+function forceUpdateActiveDrawerLink() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollY = parseInt(document.body.dataset.scrollPosition || window.scrollY.toString());
+    const headerHeight = isMobile ? 80 : 100;
+    const windowHeight = window.innerHeight;
+    
+    let activeSection = null;
+    let maxVisibleArea = 0;
+    
+    console.log(`🔍 Detectando sección activa con scroll: ${scrollY}`);
+    
+    // Método mejorado para detectar la sección activa
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+        const sectionId = section.getAttribute('id');
+        
+        const viewportTop = scrollY + headerHeight;
+        const viewportBottom = scrollY + windowHeight;
+        
+        const visibleTop = Math.max(viewportTop, sectionTop);
+        const visibleBottom = Math.min(viewportBottom, sectionBottom);
+        const visibleArea = Math.max(0, visibleBottom - visibleTop);
+        
+        console.log(`📊 Sección ${sectionId}: top=${sectionTop}, height=${sectionHeight}, visibleArea=${visibleArea}`);
+        
+        // Considerar una sección como activa si tiene suficiente área visible
+        if (visibleArea > maxVisibleArea && visibleArea > 50) {
+            maxVisibleArea = visibleArea;
+            activeSection = sectionId;
+        }
+    });
+    
+    // Fallback: si no hay sección con suficiente área visible, usar posición del scroll
+    if (!activeSection) {
+        const scrollPosition = scrollY + headerHeight + 50;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                activeSection = sectionId;
+            }
+        });
+    }
+    
+    // Si aún no hay sección activa, determinar por proximidad
+    if (!activeSection && sections.length > 0) {
+        let closestSection = null;
+        let minDistance = Infinity;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionId = section.getAttribute('id');
+            const distance = Math.abs(scrollY + headerHeight - sectionTop);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestSection = sectionId;
+            }
+        });
+        
+        activeSection = closestSection;
+    }
+    
+    console.log(`✅ Sección activa final detectada: ${activeSection}`);
+    
+    if (activeSection) {
+        // Actualizar enlaces desktop
+        const activeLink = document.querySelector(`.nav__link[href="#${activeSection}"]`);
+        const currentActiveLink = document.querySelector('.nav__link.active');
+        
+        if (activeLink && activeLink !== currentActiveLink) {
+            console.log(`🖥️ Actualizando enlace desktop activo: ${activeSection}`);
+            updateActiveNavLink(activeLink);
+        }
+        
+        // Actualizar enlaces del drawer móvil
+        const activeDrawerLink = document.querySelector(`.nav__drawer-link[href="#${activeSection}"]`);
+        const currentActiveDrawerLink = document.querySelector('.nav__drawer-link.active');
+        
+        if (activeDrawerLink && activeDrawerLink !== currentActiveDrawerLink) {
+            console.log(`📱 Actualizando enlace drawer móvil activo: ${activeSection}`);
+            updateActiveDrawerLink(activeDrawerLink);
+        }
+    }
 }
 
 function closeMobileMenu() {
@@ -1491,13 +1590,17 @@ function handleScrollDirection() {
 
 function updateActiveNavOnScroll() {
     const sections = document.querySelectorAll('section[id]');
-    const scrollY = window.scrollY;
+    // Usar la posición guardada si el drawer está abierto, sino usar la posición actual
+    const scrollY = isMobileMenuOpen && document.body.dataset.scrollPosition ? 
+                   parseInt(document.body.dataset.scrollPosition) : 
+                   window.scrollY;
     const headerHeight = isMobile ? 80 : 100;
     const windowHeight = window.innerHeight;
     
     let activeSection = null;
     let maxVisibleArea = 0;
     
+    // Método mejorado para detectar la sección activa (MISMA LÓGICA QUE DESKTOP)
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
@@ -1511,12 +1614,14 @@ function updateActiveNavOnScroll() {
         const visibleBottom = Math.min(viewportBottom, sectionBottom);
         const visibleArea = Math.max(0, visibleBottom - visibleTop);
         
+        // Considerar una sección como activa si tiene suficiente área visible
         if (visibleArea > maxVisibleArea && visibleArea > 50) {
             maxVisibleArea = visibleArea;
             activeSection = sectionId;
         }
     });
     
+    // Fallback: si no hay sección con suficiente área visible, usar posición del scroll
     if (!activeSection) {
         const scrollPosition = scrollY + headerHeight + 50;
         
@@ -1531,20 +1636,43 @@ function updateActiveNavOnScroll() {
         });
     }
     
+    // Si aún no hay sección activa, determinar por proximidad
+    if (!activeSection && sections.length > 0) {
+        let closestSection = null;
+        let minDistance = Infinity;
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionId = section.getAttribute('id');
+            const distance = Math.abs(scrollY + headerHeight - sectionTop);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestSection = sectionId;
+            }
+        });
+        
+        activeSection = closestSection;
+    }
+    
+    console.log(`🎯 Sección activa detectada: ${activeSection}, Scroll: ${scrollY}`);
+    
     if (activeSection) {
-        // Actualizar enlaces desktop
+        // Actualizar enlaces desktop (LÓGICA ORIGINAL)
         const activeLink = document.querySelector(`.nav__link[href="#${activeSection}"]`);
         const currentActiveLink = document.querySelector('.nav__link.active');
         
         if (activeLink && activeLink !== currentActiveLink) {
+            console.log(`🖥️ Actualizando enlace desktop activo: ${activeSection}`);
             updateActiveNavLink(activeLink);
         }
         
-        // Actualizar enlaces del drawer móvil
+        // Actualizar enlaces del drawer móvil (MISMA LÓGICA QUE DESKTOP)
         const activeDrawerLink = document.querySelector(`.nav__drawer-link[href="#${activeSection}"]`);
         const currentActiveDrawerLink = document.querySelector('.nav__drawer-link.active');
         
         if (activeDrawerLink && activeDrawerLink !== currentActiveDrawerLink) {
+            console.log(`📱 Actualizando enlace drawer móvil activo: ${activeSection}`);
             updateActiveDrawerLink(activeDrawerLink);
         }
     }
