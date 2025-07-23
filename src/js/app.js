@@ -990,6 +990,60 @@ function closeFloatingMenu() {
     });
 }
 
+// ===== FUNCIÓN PARA SCROLL SUAVE AL INICIO =====
+function scrollToTop() {
+    console.log('🔝 Iniciando scroll al inicio de la página');
+    
+    const targetPosition = 0;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = isMobile ? 800 : 1000; // Duración más larga en móvil para mejor UX
+    let start = null;
+    
+    // Función de easing suave
+    function easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+    }
+    
+    function animation(currentTime) {
+        if (start === null) start = currentTime;
+        const timeElapsed = currentTime - start;
+        const progress = Math.min(timeElapsed / duration, 1);
+        
+        const ease = easeInOutCubic(progress);
+        window.scrollTo(0, startPosition + distance * ease);
+        
+        if (timeElapsed < duration) {
+            requestAnimationFrame(animation);
+        } else {
+            // Asegurar que llegamos exactamente al inicio
+            window.scrollTo(0, 0);
+            console.log('✅ Scroll al inicio completado');
+            
+            // Actualizar navegación activa
+            setTimeout(() => {
+                updateActiveNavOnScroll();
+            }, 100);
+        }
+    }
+    
+    // Usar scroll nativo si está disponible y no estamos en modo rendimiento
+    if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Actualizar navegación después del scroll
+        setTimeout(() => {
+            updateActiveNavOnScroll();
+        }, 500);
+    } else {
+        // Usar animación personalizada
+        requestAnimationFrame(animation);
+    }
+}
+
 // ===== NAVEGACIÓN DESKTOP RESPONSIVE ULTRA-OPTIMIZADA =====
 function initializeDesktopNavigation() {
     const navToggle = document.getElementById('nav-toggle');
@@ -997,38 +1051,62 @@ function initializeDesktopNavigation() {
     const navLinks = document.querySelectorAll('.nav__link');
     const header = document.getElementById('header');
     
-    // Funcionalidad del logo como enlace (solo desktop)
+    // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) =====
     const navLogo = document.querySelector('.nav__logo');
-    if (navLogo && !isMobile) {
+    if (navLogo) {
         navLogo.addEventListener('click', (e) => {
             e.preventDefault();
+            console.log('🏠 Click en logo del navbar principal');
             
+            // Cerrar menús si están abiertos
             if (isMenuOpen) {
                 closeMobileMenu();
             }
+            if (isMobileMenuOpen) {
+                closeMobileMenu();
+            }
             
-            const homeSection = document.querySelector('#home');
-            if (homeSection) {
-                smoothScrollToSection(homeSection);
-                
-                const homeLink = document.querySelector('.nav__link[href="#home"]');
-                if (homeLink) {
-                    updateActiveNavLink(homeLink);
-                }
+            // Scroll al inicio
+            scrollToTop();
+            
+            // Actualizar enlace activo
+            const homeLink = document.querySelector('.nav__link[href="#home"]');
+            if (homeLink) {
+                updateActiveNavLink(homeLink);
             }
         });
         
+        // Configurar accesibilidad
         navLogo.style.cursor = 'pointer';
         navLogo.setAttribute('tabindex', '0');
         navLogo.setAttribute('role', 'button');
         navLogo.setAttribute('aria-label', 'Ir al inicio');
         
+        // Soporte para teclado
         navLogo.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 navLogo.click();
             }
         });
+        
+        // Efectos táctiles en móvil
+        if (isMobile) {
+            navLogo.addEventListener('touchstart', () => {
+                navLogo.style.transform = 'scale(0.95)';
+                navLogo.style.transition = 'transform 0.1s ease';
+            }, { passive: true });
+            
+            navLogo.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    navLogo.style.transform = '';
+                }, 150);
+            }, { passive: true });
+            
+            navLogo.addEventListener('touchcancel', () => {
+                navLogo.style.transform = '';
+            }, { passive: true });
+        }
     }
     
     // Enlaces de navegación desktop
@@ -1077,33 +1155,59 @@ function initializeMobileNavigation() {
         return;
     }
     
-    // Funcionalidad del logo del drawer como enlace
-    const drawerLogo = document.querySelector('.nav__drawer-logo');
-    if (drawerLogo) {
-        drawerLogo.addEventListener('click', (e) => {
+    // ===== FUNCIONALIDAD DEL LOGO DEL DRAWER COMO ENLACE (MÓVIL) =====
+    const drawerBrand = document.querySelector('.nav__drawer-brand');
+    if (drawerBrand) {
+        // Hacer el contenedor del logo clickeable
+        drawerBrand.style.cursor = 'pointer';
+        drawerBrand.setAttribute('tabindex', '0');
+        drawerBrand.setAttribute('role', 'button');
+        drawerBrand.setAttribute('aria-label', 'Ir al inicio');
+        
+        drawerBrand.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('🏠 Click en logo del drawer');
+            console.log('🏠 Click en logo del drawer móvil');
             
+            // Cerrar el drawer móvil
             if (isMobileMenuOpen) {
                 closeMobileMenu();
             }
             
-            const homeSection = document.querySelector('#home');
-            if (homeSection) {
-                setTimeout(() => {
-                    smoothScrollToSection(homeSection);
-                    const homeLink = document.querySelector('.nav__drawer-link[href="#home"]');
-                    if (homeLink) {
-                        updateActiveDrawerLink(homeLink);
-                    }
-                }, 300);
+            // Hacer scroll al inicio después de cerrar el drawer
+            setTimeout(() => {
+                scrollToTop();
+                
+                // Actualizar enlace activo del drawer
+                const homeDrawerLink = document.querySelector('.nav__drawer-link[href="#home"]');
+                if (homeDrawerLink) {
+                    updateActiveDrawerLink(homeDrawerLink);
+                }
+            }, 300); // Delay para que se cierre el drawer primero
+        });
+        
+        // Soporte para teclado
+        drawerBrand.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                drawerBrand.click();
             }
         });
         
-        drawerLogo.style.cursor = 'pointer';
-        drawerLogo.setAttribute('tabindex', '0');
-        drawerLogo.setAttribute('role', 'button');
-        drawerLogo.setAttribute('aria-label', 'Ir al inicio');
+        // Efectos táctiles
+        drawerBrand.addEventListener('touchstart', () => {
+            drawerBrand.style.transform = 'scale(0.95)';
+            drawerBrand.style.transition = 'transform 0.1s ease';
+        }, { passive: true });
+        
+        drawerBrand.addEventListener('touchend', () => {
+            setTimeout(() => {
+                drawerBrand.style.transform = '';
+            }, 150);
+        }, { passive: true });
+        
+        drawerBrand.addEventListener('touchcancel', () => {
+            drawerBrand.style.transform = '';
+        }, { passive: true });
     }
     
     // Toggle hamburguesa móvil
@@ -2126,7 +2230,7 @@ function initializePerformanceOptimizations() {
     }
     
     if (isMobile) {
-        const elementsToOptimize = document.querySelectorAll('.hero__phone, .nav__logo, .nav__drawer-logo, .floating-widget__main-btn');
+        const elementsToOptimize = document.querySelectorAll('.hero__phone, .nav__logo, .nav__drawer-brand, .floating-widget__main-btn');
         elementsToOptimize.forEach(element => {
             element.style.willChange = 'transform';
         });
@@ -2349,13 +2453,13 @@ function forceReloadImages() {
         
         // Recargar logos
         const navLogo = document.querySelector('.nav__logo');
-        const drawerLogo = document.querySelector('.nav__drawer-logo');
+        const drawerBrand = document.querySelector('.nav__drawer-brand');
         
         if (navLogo) {
             imageOptimizer.loadImageImmediately(navLogo, 'logo');
         }
-        if (drawerLogo) {
-            imageOptimizer.loadImageImmediately(drawerLogo, 'logo');
+        if (drawerBrand) {
+            imageOptimizer.loadImageImmediately(drawerBrand, 'logo');
         }
         
         console.log('✅ Recarga de imágenes completada');
@@ -2400,193 +2504,3 @@ function monitorPerformance() {
 // Inicializar monitoreo
 monitorPerformance();
 
-// ===== FALLBACK PARA IMÁGENES NO CARGADAS =====
-function setupImageFallbacks() {
-    // Verificar imágenes después de un tiempo
-    setTimeout(() => {
-        const featureImages = document.querySelectorAll('.phone__app-image');
-        
-        featureImages.forEach((img, index) => {
-            const backgroundImage = window.getComputedStyle(img).backgroundImage;
-            const hasBackground = backgroundImage && backgroundImage !== 'none';
-            
-            if (!hasBackground) {
-                const feature = img.closest('.feature');
-                const featureType = feature?.getAttribute('data-feature');
-                
-                console.warn(`⚠️ Imagen no cargada para característica: ${featureType}`);
-                
-                // Intentar cargar manualmente
-                if (imageOptimizer && featureType) {
-                    const imageKeys = {
-                        'schedule': 'phones.schedule',
-                        'stations': 'phones.stations',
-                        'calendar': 'phones.calendar',
-                        'log': 'phones.log',
-                        'notifications': 'phones.notifications',
-                        'referrals': 'phones.referrals'
-                    };
-                    
-                    const imageKey = imageKeys[featureType];
-                    if (imageKey) {
-                        console.log(`🔄 Reintentando carga de imagen: ${imageKey}`);
-                        imageOptimizer.loadImageImmediately(img, imageKey);
-                    }
-                }
-            }
-        });
-    }, 3000);
-}
-
-// Configurar fallbacks
-setupImageFallbacks();
-
-// ===== OPTIMIZACIÓN ADICIONAL PARA MÓVILES =====
-if (isMobile) {
-    // Optimizar scroll en móviles
-    let ticking = false;
-    
-    function optimizeScrollPerformance() {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                // Lógica de scroll optimizada ya implementada
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }
-    
-    // Reducir frecuencia de eventos en móvil
-    window.addEventListener('scroll', optimizeScrollPerformance, { passive: true });
-    
-    // Optimizar touch events
-    document.addEventListener('touchstart', () => {
-        // Preparar para interacción táctil
-    }, { passive: true });
-    
-    // Prevenir zoom accidental en inputs
-    const inputs = document.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            if (window.innerWidth < 768) {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-                }
-            }
-        });
-        
-        input.addEventListener('blur', () => {
-            if (window.innerWidth < 768) {
-                const viewport = document.querySelector('meta[name="viewport"]');
-                if (viewport) {
-                    viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, user-scalable=no');
-                }
-            }
-        });
-    });
-}
-
-// ===== GESTIÓN DE MEMORIA =====
-function cleanupResources() {
-    // Limpiar event listeners innecesarios
-    if (imageOptimizer && imageOptimizer.intersectionObserver) {
-        imageOptimizer.intersectionObserver.disconnect();
-    }
-    
-    // Limpiar timeouts y intervals
-    const highestTimeoutId = setTimeout(() => {}, 0);
-    for (let i = 0; i < highestTimeoutId; i++) {
-        clearTimeout(i);
-    }
-    
-    const highestIntervalId = setInterval(() => {}, 9999);
-    for (let i = 0; i < highestIntervalId; i++) {
-        clearInterval(i);
-    }
-    
-    console.log('🧹 Recursos limpiados');
-}
-
-// Limpiar recursos al salir
-window.addEventListener('beforeunload', cleanupResources);
-
-// ===== DETECCIÓN DE CONEXIÓN LENTA =====
-function handleSlowConnection() {
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    
-    if (connection) {
-        function updateConnectionStatus() {
-            const isSlowConnection = connection.effectiveType === 'slow-2g' || 
-                                   connection.effectiveType === '2g' || 
-                                   connection.effectiveType === '3g';
-            
-            if (isSlowConnection && !performanceMode) {
-                console.log('🐌 Conexión lenta detectada, activando optimizaciones');
-                document.body.classList.add('slow-connection');
-                
-                // Reducir calidad de imágenes o diferir cargas no críticas
-                const nonCriticalImages = document.querySelectorAll('.phone__app-image:not(.loaded)');
-                nonCriticalImages.forEach(img => {
-                    img.style.filter = 'blur(2px)';
-                    img.style.transition = 'filter 0.3s ease';
-                });
-            } else {
-                document.body.classList.remove('slow-connection');
-            }
-        }
-        
-        connection.addEventListener('change', updateConnectionStatus);
-        updateConnectionStatus();
-    }
-}
-
-// Inicializar detección de conexión
-handleSlowConnection();
-
-// ===== LOGGING MEJORADO =====
-const Logger = {
-    info: (message, data = null) => {
-        console.log(`ℹ️ [StarFlex] ${message}`, data || '');
-    },
-    warn: (message, data = null) => {
-        console.warn(`⚠️ [StarFlex] ${message}`, data || '');
-    },
-    error: (message, error = null) => {
-        console.error(`❌ [StarFlex] ${message}`, error || '');
-    },
-    success: (message, data = null) => {
-        console.log(`✅ [StarFlex] ${message}`, data || '');
-    }
-};
-
-// Reemplazar console.log en funciones críticas
-window.StarFlexLogger = Logger;
-
-// ===== INICIALIZACIÓN FINAL =====
-Logger.info('StarFlex inicializado correctamente', {
-    version: '2.0.0',
-    mobile: isMobile,
-    performanceMode: performanceMode,
-    timestamp: new Date().toISOString()
-});
-
-// ===== EXPOSICIÓN DE API PARA DEBUGGING =====
-window.StarFlex = {
-    version: '2.0.0',
-    isMobile,
-    performanceMode,
-    imageOptimizer,
-    debugImageLoading,
-    forceReloadImages,
-    Logger,
-    // Funciones de navegación
-    openMobileMenu,
-    closeMobileMenu,
-    toggleMobileMenu,
-    // Funciones de idioma
-    switchLanguage,
-    currentLanguage,
-    // Utilidades
-    detectDeviceCapabilities
-};
