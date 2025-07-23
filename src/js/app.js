@@ -1000,9 +1000,10 @@ function initializeDesktopNavigation() {
     // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) =====
     const navLogo = document.querySelector('.nav__logo');
     if (navLogo) {
-        // CAMBIO PRINCIPAL: Remover la condición !isMobile para que funcione en ambos dispositivos
+        // CORREGIDO: Funciona en todos los dispositivos sin restricciones
         navLogo.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation(); // Prevenir propagación del evento
             
             console.log(`🏠 Click en logo del header - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
             
@@ -1013,11 +1014,17 @@ function initializeDesktopNavigation() {
             if (isMobileMenuOpen) {
                 closeMobileMenu();
             }
+            if (isFloatingMenuOpen) {
+                closeFloatingMenu();
+            }
+            if (isLanguageSwitcherOpen) {
+                closeLanguageSwitcher();
+            }
             
             const homeSection = document.querySelector('#home');
             if (homeSection) {
                 // En móvil, agregar un pequeño delay para que se cierre el menú si estaba abierto
-                const scrollDelay = isMobile && isMobileMenuOpen ? 300 : 0;
+                const scrollDelay = (isMobile && isMobileMenuOpen) ? 300 : 0;
                 
                 setTimeout(() => {
                     smoothScrollToSection(homeSection);
@@ -1036,8 +1043,37 @@ function initializeDesktopNavigation() {
             }
         });
         
+        // MEJORADO: Soporte táctil específico para móviles
+        navLogo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            navLogo.style.transform = 'scale(0.95)';
+            navLogo.style.transition = 'transform 0.1s ease';
+            console.log('👆 Touch start en logo del header');
+        }, { passive: false });
+        
+        navLogo.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Resetear transform
+            setTimeout(() => {
+                navLogo.style.transform = '';
+            }, 150);
+            
+            // Ejecutar la navegación
+            console.log('👆 Touch end en logo del header - ejecutando navegación');
+            navLogo.click();
+        }, { passive: false });
+        
+        navLogo.addEventListener('touchcancel', () => {
+            navLogo.style.transform = '';
+        }, { passive: true });
+        
         // Configurar estilos y accesibilidad para ambos dispositivos
         navLogo.style.cursor = 'pointer';
+        navLogo.style.userSelect = 'none';
+        navLogo.style.webkitUserSelect = 'none';
+        navLogo.style.webkitTouchCallout = 'none';
         navLogo.setAttribute('tabindex', '0');
         navLogo.setAttribute('role', 'button');
         navLogo.setAttribute('aria-label', 'Ir al inicio');
@@ -1049,24 +1085,6 @@ function initializeDesktopNavigation() {
                 navLogo.click();
             }
         });
-        
-        // Efectos táctiles mejorados para móvil
-        if (isMobile) {
-            navLogo.addEventListener('touchstart', () => {
-                navLogo.style.transform = 'scale(0.95)';
-                navLogo.style.transition = 'transform 0.1s ease';
-            }, { passive: true });
-            
-            navLogo.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    navLogo.style.transform = '';
-                }, 150);
-            }, { passive: true });
-            
-            navLogo.addEventListener('touchcancel', () => {
-                navLogo.style.transform = '';
-            }, { passive: true });
-        }
         
         console.log(`✅ Logo del header configurado para navegación - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
     }
@@ -1382,8 +1400,6 @@ function forceUpdateActiveDrawerLink() {
         const visibleTop = Math.max(viewportTop, sectionTop);
         const visibleBottom = Math.min(viewportBottom, sectionBottom);
         const visibleArea = Math.max(0, visibleBottom - visibleTop);
-        
-        console.log(`📊 Sección ${sectionId}: top=${sectionTop}, height=${sectionHeight}, visibleArea=${visibleArea}`);
         
         // Considerar una sección como activa si tiene suficiente área visible
         if (visibleArea > maxVisibleArea && visibleArea > 50) {
@@ -2506,6 +2522,3 @@ window.StarFlex = {
     // Utilidades
     detectDeviceCapabilities
 };
-
-
-
