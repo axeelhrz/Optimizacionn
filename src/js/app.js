@@ -2453,3 +2453,72 @@ window.StarFlex = {
     detectDeviceCapabilities
 };
 
+// ===== REPRODUCTOR DE YOUTUBE ULTRA-OPTIMIZADO =====
+function initializeYouTubePlayer() {
+    const youtubeContainer = document.getElementById('youtube-video-container');
+    const youtubePlaceholder = document.getElementById('youtube-video-placeholder');
+    
+    if (!youtubeContainer || !youtubePlaceholder) return;
+    
+    // ID del video de YouTube extraído de la URL
+    const videoId = '8NpUvQFdDZE';
+    
+    youtubePlaceholder.addEventListener('click', () => {
+        loadYouTubeVideo(videoId, youtubeContainer);
+    });
+
+    if (isMobile) {
+        youtubePlaceholder.addEventListener('touchstart', () => {
+            youtubePlaceholder.style.transform = 'scale(0.98)';
+        }, { passive: true });
+        youtubePlaceholder.addEventListener('touchend', () => {
+            youtubePlaceholder.style.transform = '';
+        }, { passive: true });
+    }
+}
+
+function loadYouTubeVideo(videoId, container) {
+    const iframe = document.createElement('iframe');
+    iframe.className = 'youtube-video-iframe';
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.title = 'StarFlex Demo Video';
+    
+    // Limpiar el contenedor y agregar el iframe
+    container.innerHTML = '';
+    container.appendChild(iframe);
+    
+    console.log('✅ Video de YouTube cargado:', videoId);
+}
+
+// Actualizar la inicialización principal para incluir el reproductor de YouTube
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🚀 Iniciando StarFlex...');
+    
+    detectDeviceCapabilities();
+    
+    imageOptimizer = new UltraOptimizedImageLoader();
+    
+    initializeLanguageSystem();
+    initializeLanguageSwitcher();
+    initializeNavigation();
+    initializeScrollEffects();
+    initializeVideoPlayer();
+    initializeYouTubePlayer(); // Nueva función
+    initializeFAQ();
+    initializeHeroVideoFallback();
+    initializeAccessibility();
+    initializeFloatingWidget();
+    
+    setupImageLazyLoading();
+    
+    if (!performanceMode) {
+        initializeIntersectionObserver();
+    }
+    
+    initializePerformanceOptimizations();
+    
+    console.log(`✅ StarFlex Ultra-Optimizado - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Drawer móvil: ${isMobile ? 'Activo' : 'Inactivo'}`);
+});
