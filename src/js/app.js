@@ -322,7 +322,7 @@ const translationData = {
         'faq-subtitle': 'Find clear answers to the most common questions about StarFlex and discover how to transform your Amazon Flex experience.',
         'faq-search-placeholder': 'Search question...',
         'faq-1-question': 'What are the main benefits of using StarFlex?',
-        'faq-1-answer': 'StarFlex is designed to <span class="faq__answer-highlight">eliminate distracted driving</span> through intelligent automation. It allows you to focus completely on safe driving while our system works to find the best blocks. With StarFlex, you don\'t need to constantly check your phone, ensuring a safer and more efficient experience that allows you to maximize your earnings.',
+        'faq-1-answer': 'StarFlex is designed to <span class="faq__answer-highlight">eliminate distracted driving</span> through intelligent automation. It allows you to focus completely on safe driving while our system works to find the best blocks. With StarFlex, you don\'t need to constantly check your phone, ensuring a safer and more efficient experience        that allows you to maximize your earnings.',
         'faq-2-question': 'Can StarFlex automatically solve CAPTCHAs?',
         'faq-2-answer': 'Yes, StarFlex includes <span class="faq__answer-highlight">advanced technology to automatically solve CAPTCHAs</span>. Our system uses intelligent algorithms that can interpret and solve different types of verifications, allowing smooth navigation without manual interruptions. This optimizes your time and makes your daily experience more efficient.',
         'faq-3-question': 'Is it safe to use StarFlex? Can Amazon detect it?',
@@ -990,60 +990,6 @@ function closeFloatingMenu() {
     });
 }
 
-// ===== FUNCIÓN PARA SCROLL SUAVE AL INICIO =====
-function scrollToTop() {
-    console.log('🔝 Iniciando scroll al inicio de la página');
-    
-    const targetPosition = 0;
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    const duration = isMobile ? 800 : 1000; // Duración más larga en móvil para mejor UX
-    let start = null;
-    
-    // Función de easing suave
-    function easeInOutCubic(t) {
-        return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-    }
-    
-    function animation(currentTime) {
-        if (start === null) start = currentTime;
-        const timeElapsed = currentTime - start;
-        const progress = Math.min(timeElapsed / duration, 1);
-        
-        const ease = easeInOutCubic(progress);
-        window.scrollTo(0, startPosition + distance * ease);
-        
-        if (timeElapsed < duration) {
-            requestAnimationFrame(animation);
-        } else {
-            // Asegurar que llegamos exactamente al inicio
-            window.scrollTo(0, 0);
-            console.log('✅ Scroll al inicio completado');
-            
-            // Actualizar navegación activa
-            setTimeout(() => {
-                updateActiveNavOnScroll();
-            }, 100);
-        }
-    }
-    
-    // Usar scroll nativo si está disponible y no estamos en modo rendimiento
-    if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-        
-        // Actualizar navegación después del scroll
-        setTimeout(() => {
-            updateActiveNavOnScroll();
-        }, 500);
-    } else {
-        // Usar animación personalizada
-        requestAnimationFrame(animation);
-    }
-}
-
 // ===== NAVEGACIÓN DESKTOP RESPONSIVE ULTRA-OPTIMIZADA =====
 function initializeDesktopNavigation() {
     const navToggle = document.getElementById('nav-toggle');
@@ -1054,11 +1000,13 @@ function initializeDesktopNavigation() {
     // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) =====
     const navLogo = document.querySelector('.nav__logo');
     if (navLogo) {
+        // CAMBIO PRINCIPAL: Remover la condición !isMobile para que funcione en ambos dispositivos
         navLogo.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('🏠 Click en logo del navbar principal');
             
-            // Cerrar menús si están abiertos
+            console.log(`🏠 Click en logo del header - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
+            
+            // Cerrar menús abiertos si están activos
             if (isMenuOpen) {
                 closeMobileMenu();
             }
@@ -1066,23 +1014,35 @@ function initializeDesktopNavigation() {
                 closeMobileMenu();
             }
             
-            // Scroll al inicio
-            scrollToTop();
-            
-            // Actualizar enlace activo
-            const homeLink = document.querySelector('.nav__link[href="#home"]');
-            if (homeLink) {
-                updateActiveNavLink(homeLink);
+            const homeSection = document.querySelector('#home');
+            if (homeSection) {
+                // En móvil, agregar un pequeño delay para que se cierre el menú si estaba abierto
+                const scrollDelay = isMobile && isMobileMenuOpen ? 300 : 0;
+                
+                setTimeout(() => {
+                    smoothScrollToSection(homeSection);
+                    
+                    const homeLink = document.querySelector('.nav__link[href="#home"]');
+                    if (homeLink) {
+                        updateActiveNavLink(homeLink);
+                    }
+                    
+                    // También actualizar el enlace activo del drawer móvil si existe
+                    const homeDrawerLink = document.querySelector('.nav__drawer-link[href="#home"]');
+                    if (homeDrawerLink) {
+                        updateActiveDrawerLink(homeDrawerLink);
+                    }
+                }, scrollDelay);
             }
         });
         
-        // Configurar accesibilidad
+        // Configurar estilos y accesibilidad para ambos dispositivos
         navLogo.style.cursor = 'pointer';
         navLogo.setAttribute('tabindex', '0');
         navLogo.setAttribute('role', 'button');
         navLogo.setAttribute('aria-label', 'Ir al inicio');
         
-        // Soporte para teclado
+        // Soporte para navegación por teclado
         navLogo.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -1090,7 +1050,7 @@ function initializeDesktopNavigation() {
             }
         });
         
-        // Efectos táctiles en móvil
+        // Efectos táctiles mejorados para móvil
         if (isMobile) {
             navLogo.addEventListener('touchstart', () => {
                 navLogo.style.transform = 'scale(0.95)';
@@ -1107,6 +1067,8 @@ function initializeDesktopNavigation() {
                 navLogo.style.transform = '';
             }, { passive: true });
         }
+        
+        console.log(`✅ Logo del header configurado para navegación - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
     }
     
     // Enlaces de navegación desktop
@@ -1156,58 +1118,55 @@ function initializeMobileNavigation() {
     }
     
     // ===== FUNCIONALIDAD DEL LOGO DEL DRAWER COMO ENLACE (MÓVIL) =====
-    const drawerBrand = document.querySelector('.nav__drawer-brand');
-    if (drawerBrand) {
-        // Hacer el contenedor del logo clickeable
-        drawerBrand.style.cursor = 'pointer';
-        drawerBrand.setAttribute('tabindex', '0');
-        drawerBrand.setAttribute('role', 'button');
-        drawerBrand.setAttribute('aria-label', 'Ir al inicio');
-        
-        drawerBrand.addEventListener('click', (e) => {
+    const drawerLogo = document.querySelector('.nav__drawer-logo');
+    if (drawerLogo) {
+        drawerLogo.addEventListener('click', (e) => {
             e.preventDefault();
             console.log('🏠 Click en logo del drawer móvil');
             
-            // Cerrar el drawer móvil
             if (isMobileMenuOpen) {
                 closeMobileMenu();
             }
             
-            // Hacer scroll al inicio después de cerrar el drawer
-            setTimeout(() => {
-                scrollToTop();
-                
-                // Actualizar enlace activo del drawer
-                const homeDrawerLink = document.querySelector('.nav__drawer-link[href="#home"]');
-                if (homeDrawerLink) {
-                    updateActiveDrawerLink(homeDrawerLink);
-                }
-            }, 300); // Delay para que se cierre el drawer primero
-        });
-        
-        // Soporte para teclado
-        drawerBrand.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                drawerBrand.click();
+            const homeSection = document.querySelector('#home');
+            if (homeSection) {
+                setTimeout(() => {
+                    smoothScrollToSection(homeSection);
+                    const homeLink = document.querySelector('.nav__drawer-link[href="#home"]');
+                    if (homeLink) {
+                        updateActiveDrawerLink(homeLink);
+                    }
+                    // También actualizar el enlace desktop
+                    const homeDesktopLink = document.querySelector('.nav__link[href="#home"]');
+                    if (homeDesktopLink) {
+                        updateActiveNavLink(homeDesktopLink);
+                    }
+                }, 300);
             }
         });
         
-        // Efectos táctiles
-        drawerBrand.addEventListener('touchstart', () => {
-            drawerBrand.style.transform = 'scale(0.95)';
-            drawerBrand.style.transition = 'transform 0.1s ease';
+        drawerLogo.style.cursor = 'pointer';
+        drawerLogo.setAttribute('tabindex', '0');
+        drawerLogo.setAttribute('role', 'button');
+        drawerLogo.setAttribute('aria-label', 'Ir al inicio');
+        
+        // Efectos táctiles para el logo del drawer
+        drawerLogo.addEventListener('touchstart', () => {
+            drawerLogo.style.transform = 'scale(0.95)';
+            drawerLogo.style.transition = 'transform 0.1s ease';
         }, { passive: true });
         
-        drawerBrand.addEventListener('touchend', () => {
+        drawerLogo.addEventListener('touchend', () => {
             setTimeout(() => {
-                drawerBrand.style.transform = '';
+                drawerLogo.style.transform = '';
             }, 150);
         }, { passive: true });
         
-        drawerBrand.addEventListener('touchcancel', () => {
-            drawerBrand.style.transform = '';
+        drawerLogo.addEventListener('touchcancel', () => {
+            drawerLogo.style.transform = '';
         }, { passive: true });
+        
+        console.log('✅ Logo del drawer móvil configurado para navegación');
     }
     
     // Toggle hamburguesa móvil
@@ -1278,6 +1237,12 @@ function initializeMobileNavigation() {
                     console.log(`🚀 Haciendo scroll a: ${targetId}`);
                     smoothScrollToSection(targetSection);
                     updateActiveDrawerLink(link);
+                    
+                    // También actualizar el enlace desktop correspondiente
+                    const desktopLink = document.querySelector(`.nav__link[href="${targetId}"]`);
+                    if (desktopLink) {
+                        updateActiveNavLink(desktopLink);
+                    }
                 }, 100);
             } else {
                 console.error(`❌ Sección no encontrada: ${targetId}`);
@@ -2230,7 +2195,7 @@ function initializePerformanceOptimizations() {
     }
     
     if (isMobile) {
-        const elementsToOptimize = document.querySelectorAll('.hero__phone, .nav__logo, .nav__drawer-brand, .floating-widget__main-btn');
+        const elementsToOptimize = document.querySelectorAll('.hero__phone, .nav__logo, .nav__drawer-logo, .floating-widget__main-btn');
         elementsToOptimize.forEach(element => {
             element.style.willChange = 'transform';
         });
@@ -2453,13 +2418,13 @@ function forceReloadImages() {
         
         // Recargar logos
         const navLogo = document.querySelector('.nav__logo');
-        const drawerBrand = document.querySelector('.nav__drawer-brand');
+        const drawerLogo = document.querySelector('.nav__drawer-logo');
         
         if (navLogo) {
             imageOptimizer.loadImageImmediately(navLogo, 'logo');
         }
-        if (drawerBrand) {
-            imageOptimizer.loadImageImmediately(drawerBrand, 'logo');
+        if (drawerLogo) {
+            imageOptimizer.loadImageImmediately(drawerLogo, 'logo');
         }
         
         console.log('✅ Recarga de imágenes completada');
@@ -2469,38 +2434,22 @@ function forceReloadImages() {
 // Exponer función de recarga globalmente
 window.forceReloadImages = forceReloadImages;
 
-// ===== MONITOREO DE RENDIMIENTO =====
-function monitorPerformance() {
-    if ('performance' in window) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = performance.getEntriesByType('navigation')[0];
-                const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
-                const domContentLoaded = perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart;
-                
-                console.log('📊 Métricas de rendimiento:');
-                console.log(`- Tiempo de carga: ${loadTime}ms`);
-                console.log(`- DOM Content Loaded: ${domContentLoaded}ms`);
-                console.log(`- Modo rendimiento: ${performanceMode ? 'Activado' : 'Desactivado'}`);
-                console.log(`- Dispositivo móvil: ${isMobile ? 'Sí' : 'No'}`);
-                
-                // Verificar imágenes cargadas
-                const images = document.querySelectorAll('img, [style*="background-image"]');
-                const loadedImages = Array.from(images).filter(img => {
-                    if (img.tagName === 'IMG') {
-                        return img.complete && img.naturalHeight !== 0;
-                    } else {
-                        const bg = window.getComputedStyle(img).backgroundImage;
-                        return bg && bg !== 'none';
-                    }
-                });
-                
-                console.log(`- Imágenes cargadas: ${loadedImages.length}/${images.length}`);
-            }, 1000);
-        });
-    }
-}
-
-// Inicializar monitoreo
-monitorPerformance();
+// ===== EXPOSICIÓN DE API PARA DEBUGGING =====
+window.StarFlex = {
+    version: '2.0.0',
+    isMobile,
+    performanceMode,
+    imageOptimizer,
+    debugImageLoading,
+    forceReloadImages,
+    // Funciones de navegación
+    openMobileMenu,
+    closeMobileMenu,
+    toggleMobileMenu,
+    // Funciones de idioma
+    switchLanguage,
+    currentLanguage,
+    // Utilidades
+    detectDeviceCapabilities
+};
 
