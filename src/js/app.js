@@ -94,6 +94,8 @@ const translationData = {
         'nav-contact': 'Contact',
         'nav-cta': 'Start your free trial',
         'nav-language-title': 'Language',
+        'nav-drawer-cta-main': 'START NOW',
+        'nav-drawer-cta-trial': '3 days free',
         // Hero Section
         'hero-badge': 'Next-Gen Amazon Flex Revolution',
         'hero_title--main': 'MASTER THE',
@@ -288,7 +290,9 @@ const translationData = {
         'nav-contact': 'Contacto',
         'nav-cta': 'Comienza tu prueba gratuita',
         'nav-language-title': 'Idioma',
-        // Hero Section
+        'nav-drawer-cta-main': 'COMENZAR AHORA',
+        'nav-drawer-cta-trial': '3 días gratis',
+ // Hero Section
         'hero-badge': 'Next-Gen Amazon Flex Revolution',
         'hero_title--main': 'DOMINA LOS',
         'hero_title--highlight': 'BLOQUES DE',
@@ -471,6 +475,24 @@ const translationData = {
     }
 };
 
+// ===== FUNCIÓN PARA SCROLL SUAVE HACIA ARRIBA =====
+function scrollToTop() {
+    console.log(`🔝 Iniciando scroll hacia arriba - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
+    
+    if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
+        // Scroll suave nativo
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    } else {
+        // Fallback para navegadores que no soportan scroll suave o en modo rendimiento
+        window.scrollTo(0, 0);
+    }
+    
+    console.log('✅ Scroll hacia arriba completado');
+}
+
 // ===== SISTEMA DE ROUTING PARA IDIOMAS Y PÁGINAS LEGALES (BASADO EN PATHNAME) =====
 function initializeRouting() {
     console.log('🔗 Inicializando sistema de routing basado en pathname...');
@@ -562,7 +584,7 @@ function showMainContent() {
     if (isMobileMenuOpen) {
         closeMobileMenu();
     }
-    if (isFloatingMenuOpen) {
+    if(isFloatingMenuOpen) {
         closeFloatingMenu();
     }
 }
@@ -928,9 +950,6 @@ function updateLanguageButtons() {
     
     updateLanguageSwitcher();
 }
-
-// ===== RESTO DEL CÓDIGO EXISTENTE (sin cambios) =====
-// ... (todo el código existente permanece igual desde aquí)
 
 // ===== DETECCIÓN DE DISPOSITIVO Y CAPACIDADES ULTRA-OPTIMIZADA =====
 function detectDeviceCapabilities() {
@@ -1384,13 +1403,12 @@ function initializeDesktopNavigation() {
     const navLinks = document.querySelectorAll('.nav__link');
     const header = document.getElementById('header');
     
-    // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) =====
+    // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) - MEJORADA =====
     const navLogo = document.querySelector('.nav__logo');
     if (navLogo) {
-        // CORREGIDO: Funciona en todos los dispositivos sin restricciones
         navLogo.addEventListener('click', (e) => {
             e.preventDefault();
-            e.stopPropagation(); // Prevenir propagación del evento
+            e.stopPropagation();
             
             console.log(`🏠 Click en logo del header - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
             
@@ -1408,8 +1426,23 @@ function initializeDesktopNavigation() {
                 closeLanguageSwitcher();
             }
             
-            // Navegar al inicio manteniendo el idioma actual
-            navigateToLanguageRoute(currentLanguage);
+            // NUEVA LÓGICA: Verificar si estamos en la página principal
+            const hash = window.location.hash;
+            const isOnMainPage = !hash.includes('/'); // No estamos en páginas legales
+            
+            if (isOnMainPage) {
+                // Si ya estamos en la página principal, hacer scroll hacia arriba
+                console.log('🔝 Ya en página principal, haciendo scroll hacia arriba');
+                scrollToTop();
+            } else {
+                // Si estamos en una página legal, navegar al inicio y luego scroll
+                console.log('📄 En página legal, navegando al inicio');
+                navigateToLanguageRoute(currentLanguage);
+                // Pequeño delay para asegurar que la navegación se complete antes del scroll
+                setTimeout(() => {
+                    scrollToTop();
+                }, 100);
+            }
         });
         
         // MEJORADO: Soporte táctil específico para móviles
@@ -1455,7 +1488,7 @@ function initializeDesktopNavigation() {
             }
         });
         
-        console.log(`✅ Logo del header configurado para navegación - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
+        console.log(`✅ Logo del header configurado para navegación y scroll - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
     }
     
     // Enlaces de navegación desktop
@@ -1519,7 +1552,7 @@ function initializeMobileNavigation() {
         return;
     }
     
-    // ===== FUNCIONALIDAD DEL LOGO DEL DRAWER COMO ENLACE (MÓVIL) =====
+    // ===== FUNCIONALIDAD DEL LOGO DEL DRAWER COMO ENLACE (MÓVIL) - MEJORADA =====
     const drawerLogo = document.querySelector('.nav__drawer-logo');
     if (drawerLogo) {
         drawerLogo.addEventListener('click', (e) => {
@@ -1530,8 +1563,22 @@ function initializeMobileNavigation() {
                 closeMobileMenu();
             }
             
-            // Navegar al inicio manteniendo el idioma actual
-            navigateToLanguageRoute(currentLanguage);
+            // NUEVA LÓGICA: Verificar si estamos en la página principal
+            const hash = window.location.hash;
+            const isOnMainPage = !hash.includes('/');
+            
+            if (isOnMainPage) {
+                // Si ya estamos en la página principal, hacer scroll hacia arriba
+                console.log('🔝 Ya en página principal, haciendo scroll hacia arriba desde drawer');
+                scrollToTop();
+            } else {
+                // Si estamos en una página legal, navegar al inicio y luego scroll
+                console.log('📄 En página legal, navegando al inicio desde drawer');
+                navigateToLanguageRoute(currentLanguage);
+                setTimeout(() => {
+                    scrollToTop();
+                }, 100);
+            }
         });
         
         drawerLogo.style.cursor = 'pointer';
@@ -1555,7 +1602,7 @@ function initializeMobileNavigation() {
             drawerLogo.style.transform = '';
         }, { passive: true });
         
-        console.log('✅ Logo del drawer móvil configurado para navegación');
+        console.log('✅ Logo del drawer móvil configurado para navegación y scroll');
     }
     
     // Toggle hamburguesa móvil
@@ -1691,8 +1738,6 @@ function initializeMobileNavigation() {
         }
     }, { passive: true });
     
-// ... continuing from initializeMobileNavigation function
-
     document.addEventListener('click', (e) => {
         if (isMobileMenuOpen && navDrawer && !navDrawer.contains(e.target) && !navToggle.contains(e.target)) {
             console.log('🔄 Click fuera del drawer móvil');
@@ -1750,7 +1795,8 @@ function openMobileMenu() {
     }
     
     navToggle.setAttribute('aria-expanded', 'true');
-    navDrawer.setAttribute('aria-hidden', 'false');
+    navDrawer.setAttribute('aria-hidden', 
+'false');
     
     // ===== USAR LA MISMA LÓGICA QUE EL DESKTOP =====
     setTimeout(() => {
@@ -2826,6 +2872,10 @@ window.StarFlex = {
     showMainContent,
     showPrivacyPolicy,
     showTermsConditions,
+    // Funciones de scroll
+    scrollToTop,
     // Utilidades
     detectDeviceCapabilities
 };
+
+
