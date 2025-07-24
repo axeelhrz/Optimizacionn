@@ -466,13 +466,14 @@ const translationData = {
         'terms-section-7-title': '7. Modificaciones',
         'terms-section-7-content': 'Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en nuestra aplicación.',
         'terms-section-8-title': '8. Contacto',
-        'terms-section-8-content': 'Para preguntas sobre estos Términos y Condiciones, puede contactarnos en support@starflexapp.com.'
+        'terms-section-8-content': 'Para preguntas sobre estos Términos y Condiciones, puede contactarnos en support@starflexapp.com'
+
     }
 };
 
-// ===== SISTEMA DE ROUTING PARA IDIOMAS Y PÁGINAS LEGALES =====
+// ===== SISTEMA DE ROUTING PARA IDIOMAS Y PÁGINAS LEGALES (BASADO EN PATHNAME) =====
 function initializeRouting() {
-    console.log('🔗 Inicializando sistema de routing con soporte para idiomas...');
+    console.log('🔗 Inicializando sistema de routing basado en pathname...');
     
     // Manejar cambios en el pathname y hash de la URL
     window.addEventListener('popstate', handleRouteChange);
@@ -483,7 +484,7 @@ function initializeRouting() {
     // Configurar enlaces de páginas legales
     setupLegalLinks();
     
-    console.log('✅ Sistema de routing con idiomas inicializado');
+    console.log('✅ Sistema de routing basado en pathname inicializado');
 }
 
 function handleRouteChange() {
@@ -492,7 +493,7 @@ function handleRouteChange() {
     
     console.log(`🔗 Cambio de ruta detectado - Pathname: ${pathname}, Hash: ${hash}`);
     
-    // Determinar idioma basado en la ruta
+    // Determinar idioma y página basado en el pathname y hash
     let detectedLanguage = 'en'; // Inglés por defecto para "/"
     let isLegalPage = false;
     let legalPageType = null;
@@ -565,8 +566,6 @@ function showMainContent() {
         closeFloatingMenu();
     }
 }
-
-// ... existing code continues from showPrivacyPolicy function
 
 function showPrivacyPolicy() {
     console.log('📋 Mostrando Política de Privacidad');
@@ -699,7 +698,7 @@ function setupLegalLinks() {
     console.log(`✅ Enlaces legales configurados: ${privacyLinks.length} enlaces de privacidad, ${termsLinks.length} enlaces de términos`);
 }
 
-// ===== FUNCIONES DE NAVEGACIÓN POR IDIOMAS =====
+// ===== FUNCIONES DE NAVEGACIÓN POR IDIOMAS (BASADAS EN PATHNAME) =====
 function navigateToLanguageRoute(language) {
     console.log(`🌐 Navegando a ruta de idioma: ${language}`);
     
@@ -1692,6 +1691,8 @@ function initializeMobileNavigation() {
         }
     }, { passive: true });
     
+// ... continuing from initializeMobileNavigation function
+
     document.addEventListener('click', (e) => {
         if (isMobileMenuOpen && navDrawer && !navDrawer.contains(e.target) && !navToggle.contains(e.target)) {
             console.log('🔄 Click fuera del drawer móvil');
@@ -1760,8 +1761,6 @@ function openMobileMenu() {
     
     console.log('✅ Drawer móvil abierto - Scroll de página bloqueado en posición:', scrollPosition);
 }
-
-// ... continuing from closeMobileMenu function
 
 function closeMobileMenu() {
     console.log('📱 Cerrando drawer móvil...');
@@ -2676,7 +2675,7 @@ function initializeAccessibility() {
 
 // ===== INICIALIZACIÓN PRINCIPAL ULTRA-OPTIMIZADA =====
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Iniciando StarFlex con sistema de rutas por idiomas...');
+    console.log('🚀 Iniciando StarFlex con sistema de rutas basado en pathname...');
     
     detectDeviceCapabilities();
     
@@ -2684,7 +2683,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializeLanguageSystem();
     initializeLanguageSwitcher();
-    initializeRouting(); // Sistema de routing con soporte para idiomas
+    initializeRouting(); // Sistema de routing basado en pathname
     initializeNavigation();
     initializeScrollEffects();
     initializeVideoPlayer();
@@ -2702,7 +2701,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initializePerformanceOptimizations();
     
-    console.log(`✅ StarFlex Ultra-Optimizado con rutas por idiomas - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Idioma actual: ${currentLanguage}, Ruta: ${window.location.pathname}`);
+    console.log(`✅ StarFlex Ultra-Optimizado con rutas basadas en pathname - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Idioma actual: ${currentLanguage}, Pathname: ${window.location.pathname}`);
 });
 
 // ===== MANEJO DE ERRORES ULTRA-OPTIMIZADO =====
