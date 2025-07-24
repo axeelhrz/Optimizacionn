@@ -475,63 +475,22 @@ const translationData = {
     }
 };
 
-// ===== FUNCIÓN MEJORADA PARA SCROLL SUAVE HACIA ARRIBA (OPTIMIZADA PARA MÓVILES) =====
+// ===== FUNCIÓN PARA SCROLL SUAVE HACIA ARRIBA =====
 function scrollToTop() {
     console.log(`🔝 Iniciando scroll hacia arriba - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
     
-    // Para móviles, usar animación personalizada más robusta
-    if (isMobile) {
-        console.log('📱 Usando scroll animado personalizado para móvil');
-        animatedScrollToTop();
+    if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
+        // Scroll suave nativo
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     } else {
-        // Para desktop, usar scroll nativo si está disponible
-        if ('scrollBehavior' in document.documentElement.style && !performanceMode) {
-            console.log('🖥️ Usando scroll suave nativo para desktop');
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        } else {
-            console.log('🖥️ Usando scroll instantáneo para desktop (fallback)');
-            window.scrollTo(0, 0);
-        }
+        // Fallback para navegadores que no soportan scroll suave o en modo rendimiento
+        window.scrollTo(0, 0);
     }
     
     console.log('✅ Scroll hacia arriba completado');
-}
-
-// ===== FUNCIÓN DE SCROLL ANIMADO PERSONALIZADA PARA MÓVILES =====
-function animatedScrollToTop() {
-    const startPosition = window.pageYOffset;
-    const startTime = performance.now();
-    const duration = isMobile ? 800 : 600; // Duración más larga para móviles
-    
-    console.log(`📱 Iniciando scroll animado desde posición: ${startPosition}`);
-    
-    // Función de easing suave
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
-    
-    function animateScroll(currentTime) {
-        const timeElapsed = currentTime - startTime;
-        const progress = Math.min(timeElapsed / duration, 1);
-        const easedProgress = easeOutCubic(progress);
-        
-        const currentPosition = startPosition * (1 - easedProgress);
-        
-        window.scrollTo(0, currentPosition);
-        
-        if (progress < 1) {
-            requestAnimationFrame(animateScroll);
-        } else {
-            console.log('✅ Scroll animado completado');
-            // Asegurar que llegamos exactamente a 0
-            window.scrollTo(0, 0);
-        }
-    }
-    
-    requestAnimationFrame(animateScroll);
 }
 
 // ===== SISTEMA DE ROUTING PARA IDIOMAS Y PÁGINAS LEGALES (BASADO EN PATHNAME) =====
@@ -625,7 +584,7 @@ function showMainContent() {
     if (isMobileMenuOpen) {
         closeMobileMenu();
     }
-    if (isFloatingMenuOpen) {
+    if(isFloatingMenuOpen) {
         closeFloatingMenu();
     }
 }
@@ -1779,7 +1738,7 @@ function initializeMobileNavigation() {
         }
     }, { passive: true });
     
-    document.addEventListener('click', (e)=> {
+    document.addEventListener('click', (e) => {
         if (isMobileMenuOpen && navDrawer && !navDrawer.contains(e.target) && !navToggle.contains(e.target)) {
             console.log('🔄 Click fuera del drawer móvil');
             closeMobileMenu();
@@ -1836,7 +1795,8 @@ function openMobileMenu() {
     }
     
     navToggle.setAttribute('aria-expanded', 'true');
-    navDrawer.setAttribute('aria-hidden', 'false');
+    navDrawer.setAttribute('aria-hidden', 
+'false');
     
     // ===== USAR LA MISMA LÓGICA QUE EL DESKTOP =====
     setTimeout(() => {
@@ -2914,7 +2874,6 @@ window.StarFlex = {
     showTermsConditions,
     // Funciones de scroll
     scrollToTop,
-    animatedScrollToTop,
     // Utilidades
     detectDeviceCapabilities
 };
