@@ -718,6 +718,29 @@ function detectInitialLanguage() {
     return 'en';
 }
 
+// ===== FUNCIONES PARA NAVEGACIÓN A PÁGINAS LEGALES =====
+function goToPrivacyPolicy(event) {
+    event.preventDefault();
+    const currentLang = getCurrentLanguage();
+    const privacyUrl = currentLang === 'es' ? '/es/privacypolicy' : '/privacypolicy';
+    window.location.href = privacyUrl;
+}
+
+function goToTermsPolicy(event) {
+    event.preventDefault();
+    const currentLang = getCurrentLanguage();
+    const termsUrl = currentLang === 'es' ? '/es/terms' : '/terms';
+    window.location.href = termsUrl;
+}
+
+function getCurrentLanguage() {
+    const pathname = window.location.pathname;
+    if (pathname === '/es' || pathname.startsWith('/es/')) {
+        return 'es';
+    }
+    return 'en';
+}
+
 // ===== FUNCIONES DE TRADUCCIÓN ULTRA-OPTIMIZADAS (ACTUALIZADAS) =====
 function initializeLanguageSystem() {
     // Detectar idioma basado en la URL y navegador
@@ -2719,7 +2742,10 @@ window.StarFlex = {
     showTermsConditions,
     // Funciones de scroll
     scrollToTop,
+    // Funciones para páginas legales
+    goToPrivacyPolicy,
+    goToTermsPolicy,
+    getCurrentLanguage,
     // Utilidades
     detectDeviceCapabilities
 };
-
