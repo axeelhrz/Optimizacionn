@@ -2211,6 +2211,220 @@ background: rgba(0, 0, 0, 0.8);
         box-shadow: 0 0 20px var(--neon-red-shadow-bright), 0 0 40px var(--neon-red-glow-bright);
     }
 }
+/* ===== MEJORAS PARA EL LOGO EN MÓVIL - EVENTOS TÁCTILES OPTIMIZADOS ===== */
+
+/* Logo del header principal - Mejoras táctiles */
+.nav__logo {
+    /* Asegurar que sea clickeable */
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    
+    /* Mejorar área táctil */
+    min-width: 44px !important;
+    min-height: 44px !important;
+    
+    /* Transición suave para efectos táctiles */
+    transition: transform 0.1s ease, filter 0.1s ease !important;
+    
+    /* Asegurar que esté por encima de otros elementos */
+    position: relative;
+    z-index: 1003;
+    
+    /* Mejorar la respuesta táctil */
+    touch-action: manipulation !important;
+}
+
+/* Contenedor del logo - Mejoras para móvil */
+.nav__logo-container {
+    /* Asegurar área táctil mínima */
+    min-width: 44px !important;
+    min-height: 44px !important;
+    
+    /* Centrar el logo */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* Mejorar respuesta táctil */
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    
+    /* Prevenir selección de texto */
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Brand container - Mejoras para móvil */
+.nav__brand {
+    /* Asegurar que sea clickeable */
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    
+    /* Prevenir selección */
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    
+    /* Transición suave */
+    transition: all 0.3s ease !important;
+}
+
+/* Estados activos para feedback táctil en móvil */
+@media (max-width: 1023px) {
+    /* Efecto cuando se presiona el logo */
+    .nav__logo.touching {
+        transform: scale(0.95) !important;
+        filter: brightness(1.2) !important;
+        transition: transform 0.1s ease, filter 0.1s ease !important;
+    }
+    
+    /* Efecto cuando se presiona el contenedor del brand */
+    .nav__brand.touching {
+        transform: translateY(-1px) scale(0.98) !important;
+        transition: transform 0.1s ease !important;
+    }
+    
+    /* Asegurar que el logo sea visible y clickeable */
+    .nav__logo {
+        pointer-events: auto !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* Mejorar el área táctil del brand en móvil */
+    .nav__brand {
+        padding: var(--space-md) !important;
+        border-radius: 20px !important;
+        min-width: 60px !important;
+        min-height: 60px !important;
+    }
+    
+    /* Asegurar que el logo tenga el tamaño correcto */
+    .nav__logo {
+        width: 44px !important;
+        height: 44px !important;
+        background-size: contain !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+    }
+}
+
+/* Mejoras específicas para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    .nav__brand {
+        padding: var(--space-sm) !important;
+        min-width: 56px !important;
+        min-height: 56px !important;
+    }
+    
+    .nav__logo {
+        width: 40px !important;
+        height: 40px !important;
+    }
+    
+    .nav__logo-container {
+        min-width: 40px !important;
+        min-height: 40px !important;
+    }
+}
+
+/* Mejoras para el logo del drawer móvil */
+.nav__drawer-logo {
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -webkit-touch-callout: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation !important;
+    
+    /* Transición suave */
+    transition: transform 0.1s ease, filter 0.1s ease !important;
+    
+    /* Asegurar área táctil */
+    min-width: 44px !important;
+    min-height: 44px !important;
+}
+
+/* Efecto táctil para el logo del drawer */
+.nav__drawer-logo.touching {
+    transform: scale(0.95) !important;
+    filter: brightness(1.2) !important;
+}
+
+/* Mejoras para accesibilidad */
+.nav__logo:focus,
+.nav__logo-container:focus,
+.nav__brand:focus,
+.nav__drawer-logo:focus {
+    outline: 2px solid var(--starflex-crimson) !important;
+    outline-offset: 2px !important;
+    border-radius: 4px !important;
+}
+
+/* Asegurar que los elementos sean visibles en todos los estados */
+.nav__logo,
+.nav__logo-container,
+.nav__brand,
+.nav__drawer-logo {
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+}
+
+/* Prevenir interferencias de otros estilos */
+.nav__logo * {
+    pointer-events: none !important;
+}
+
+.nav__logo-container * {
+    pointer-events: none !important;
+}
+
+/* Asegurar que el logo esté por encima de otros elementos */
+.nav__brand {
+    z-index: 1002 !important;
+    position: relative !important;
+}
+
+/* Mejoras para dispositivos con hover limitado */
+@media (hover: none) and (pointer: coarse) {
+    .nav__logo,
+    .nav__logo-container,
+    .nav__brand,
+    .nav__drawer-logo {
+        -webkit-tap-highlight-color: rgba(255, 69, 105, 0.2) !important;
+    }
+}
+
+/* Asegurar compatibilidad con modo rendimiento */
+.performance-mode .nav__logo,
+.performance-mode .nav__logo-container,
+.performance-mode .nav__brand,
+.performance-mode .nav__drawer-logo {
+    transition: transform 0.1s ease !important;
+}
+
+/* Modo reducido de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .nav__logo,
+    .nav__logo-container,
+    .nav__brand,
+    .nav__drawer-logo {
+        transition: none !important;
+    }
+    
+    .nav__logo.touching,
+    .nav__brand.touching,
+    .nav__drawer-logo.touching {
+        transform: scale(0.98) !important;
+    }
+}
 
 
 

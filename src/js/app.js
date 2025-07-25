@@ -274,7 +274,7 @@ const translationData = {
         'terms-section-7-title': '7. Modifications',
         'terms-section-7-content': 'We reserve the right to modify these terms at any time. Changes will take effect immediately after posting in our application.',
         'terms-section-8-title': '8. Contact',
-        'terms-section-8-content': 'For questions about these Terms and Conditions, you can contact us at support@starflexapp.com.'
+        'terms-section-8-content': 'For questions about these Terms and Conditions, you can contact us at support@starflexapp.com'
     },
     es: {
         // Meta tags
@@ -292,7 +292,7 @@ const translationData = {
         'nav-language-title': 'Idioma',
         'nav-drawer-cta-main': 'COMENZAR AHORA',
         'nav-drawer-cta-trial': '3 días gratis',
- // Hero Section
+        // Hero Section
         'hero-badge': 'Next-Gen Amazon Flex Revolution',
         'hero_title--main': 'DOMINA LOS',
         'hero_title--highlight': 'BLOQUES DE',
@@ -386,7 +386,7 @@ const translationData = {
         'faq-3-question': '¿Es seguro usar StarFlex? ¿Amazon puede detectarlo?',
         'faq-3-answer': 'StarFlex utiliza <span class="faq__answer-highlight">tecnología avanzada de simulación humana</span> que incluye patrones de comportamiento naturales, tiempos de respuesta variables y gestos táctiles realistas. Nuestro enfoque se centra en ayudar a los conductores a brindar un mejor servicio a Amazon y sus clientes, asegurando entregas eficientes y de alta calidad.',
         'faq-4-question': '¿StarFlex funciona en iPhone y Android?',
-         'faq-4-answer': 'Sí, StarFlex está disponible para <span class="faq__answer-highlight">iOS (iPhone 8+) y Android (8.0+)</span>. Hemos desarrollado aplicaciones nativas optimizadas para cada plataforma, garantizando el mejor rendimiento y una experiencia de usuario superior. Ambas versiones incluyen todas las funcionalidades y reciben actualizaciones automáticas.',
+        'faq-4-answer': 'Sí, StarFlex está disponible para <span class="faq__answer-highlight">iOS (iPhone 8+) y Android (8.0+)</span>. Hemos desarrollado aplicaciones nativas optimizadas para cada plataforma, garantizando el mejor rendimiento y una experiencia de usuario superior. Ambas versiones incluyen todas las funcionalidades y reciben actualizaciones automáticas.',
         'faq-5-question': '¿Qué necesito para empezar a usar StarFlex?',
         'faq-5-answer': 'Solo necesitas una <span class="faq__answer-highlight">cuenta activa de Amazon Flex y un dispositivo compatible</span>. Después de descargar la aplicación, el proceso de configuración toma menos de 5 minutos. Nuestro sistema de configuración guiada te ayudará a optimizar tu experiencia desde el primer día.',
         'faq-no-results': 'No se encontraron preguntas que coincidan con tu búsqueda',
@@ -434,7 +434,7 @@ const translationData = {
         'privacy-section-2-item-1': 'Ofrecer y mejorar nuestros servicios',
         'privacy-section-2-item-2': 'Personalizar su experiencia en la plataforma',
         'privacy-section-2-item-3': 'Comunicarnos con usted sobre actualizaciones, notificaciones o soporte',
-        'privacy-section-2-item-4': '• Cumplir con los requisitos legales si es aplicable',
+        'privacy-section-2-item-4': 'Cumplir con los requisitos legales si es aplicable',
         'privacy-section-3-title': '3. RETENCIÓN DE DATOS',
         'privacy-section-3-content': 'Conservamos su información solo durante el tiempo necesario para cumplir los propósitos para los que fue recopilada. Posteriormente, será eliminada de forma segura.',
         'privacy-section-4-title': '4. SEGURIDAD DE LA INFORMACIÓN',
@@ -471,7 +471,6 @@ const translationData = {
         'terms-section-7-content': 'Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en nuestra aplicación.',
         'terms-section-8-title': '8. Contacto',
         'terms-section-8-content': 'Para preguntas sobre estos Términos y Condiciones, puede contactarnos en support@starflexapp.com'
-
     }
 };
 
@@ -491,6 +490,199 @@ function scrollToTop() {
     }
     
     console.log('✅ Scroll hacia arriba completado');
+}
+
+// ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) - VERSIÓN CORREGIDA =====
+function initializeLogoNavigation() {
+    console.log('🔧 Inicializando navegación del logo...');
+    
+    // Buscar todos los posibles elementos del logo
+    const navLogo = document.querySelector('.nav__logo');
+    const navBrand = document.querySelector('.nav__brand');
+    const navLogoContainer = document.querySelector('.nav__logo-container');
+    const drawerLogo = document.querySelector('.nav__drawer-logo');
+    
+    // Configurar logo principal (header)
+    if (navLogo || navBrand || navLogoContainer) {
+        const logoElement = navBrand || navLogoContainer || navLogo;
+        setupLogoEvents(logoElement, 'header');
+    }
+    
+    // Configurar logo del drawer
+    if (drawerLogo) {
+        setupLogoEvents(drawerLogo, 'drawer');
+    }
+    
+    console.log('✅ Navegación del logo inicializada');
+}
+
+function setupLogoEvents(logoElement, type) {
+    if (!logoElement) return;
+    
+    console.log(`🔧 Configurando eventos para logo ${type}:`, logoElement.className);
+    
+    // Variables para manejar el estado del touch
+    let touchStartTime = 0;
+    let touchMoved = false;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isProcessing = false;
+    
+    // Función principal de navegación
+    const handleLogoNavigation = () => {
+        if (isProcessing) return;
+        isProcessing = true;
+        
+        console.log(`🏠 Navegación del logo ${type} activada - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
+        
+        // Cerrar menús abiertos si están activos
+        if (isMenuOpen) {
+            closeMobileMenu();
+        }
+        if (isMobileMenuOpen) {
+            closeMobileMenu();
+        }
+        if (isFloatingMenuOpen) {
+            closeFloatingMenu();
+        }
+        if (isLanguageSwitcherOpen) {
+            closeLanguageSwitcher();
+        }
+        
+        // Verificar si estamos en la página principal
+        const hash = window.location.hash;
+        const isOnMainPage = !hash.includes('/');
+        
+        if (isOnMainPage) {
+            console.log('🔝 Ya en página principal, haciendo scroll hacia arriba');
+            scrollToTop();
+        } else {
+            console.log('📄 En página legal, navegando al inicio');
+            navigateToLanguageRoute(currentLanguage);
+            setTimeout(() => {
+                scrollToTop();
+            }, 100);
+        }
+        
+        // Resetear flag después de un delay
+        setTimeout(() => {
+            isProcessing = false;
+        }, 500);
+    };
+    
+    // EVENTO CLICK MEJORADO (para desktop y como fallback)
+    logoElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log(`🖱️ Click en logo ${type}`);
+        
+        // En móvil, solo procesar si no hubo touch events recientes
+        if (isMobile && touchStartTime > 0 && (Date.now() - touchStartTime) < 1000) {
+            console.log('⏭️ Ignorando click, touch event reciente detectado');
+            return;
+        }
+        
+        handleLogoNavigation();
+    });
+    
+    // EVENTOS TÁCTILES MEJORADOS PARA MÓVIL
+    if (isMobile) {
+        logoElement.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            
+            touchStartTime = Date.now();
+            touchMoved = false;
+            
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            
+            // Aplicar efecto visual inmediatamente
+            logoElement.style.transform = 'scale(0.95)';
+            logoElement.style.transition = 'transform 0.1s ease';
+            logoElement.classList.add('touching');
+            
+            console.log(`👆 Touch start en logo ${type}`);
+        }, { passive: false });
+        
+        logoElement.addEventListener('touchmove', (e) => {
+            if (touchStartTime === 0) return;
+            
+            const touch = e.touches[0];
+            const deltaX = Math.abs(touch.clientX - touchStartX);
+            const deltaY = Math.abs(touch.clientY - touchStartY);
+            
+            // Si el usuario se movió más de 15px, considerar como movimiento
+            if (deltaX > 15 || deltaY > 15) {
+                touchMoved = true;
+                // Resetear el efecto visual si se movió
+                logoElement.style.transform = '';
+                logoElement.classList.remove('touching');
+                console.log(`👆 Movimiento detectado en logo ${type}`);
+            }
+        }, { passive: false });
+        
+        logoElement.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            // Resetear transform después de un breve delay
+            setTimeout(() => {
+                logoElement.style.transform = '';
+                logoElement.classList.remove('touching');
+            }, 150);
+            
+            // Solo procesar si:
+            // 1. El touch duró menos de 800ms (no fue un long press)
+            // 2. No hubo movimiento significativo
+            // 3. El touchstart fue registrado correctamente
+            if (touchStartTime > 0 && touchDuration < 800 && !touchMoved) {
+                console.log(`👆 Touch end válido en logo ${type} - ejecutando navegación`);
+                
+                // Pequeño delay para asegurar que la animación se complete
+                setTimeout(() => {
+                    handleLogoNavigation();
+                }, 100);
+            } else {
+                console.log(`👆 Touch end cancelado en logo ${type} - movimiento: ${touchMoved}, duración: ${touchDuration}ms`);
+            }
+            
+            // Resetear variables
+            touchStartTime = 0;
+            touchMoved = false;
+        }, { passive: false });
+        
+        logoElement.addEventListener('touchcancel', () => {
+            console.log(`👆 Touch cancelado en logo ${type}`);
+            logoElement.style.transform = '';
+            logoElement.classList.remove('touching');
+            touchStartTime = 0;
+            touchMoved = false;
+        }, { passive: true });
+    }
+    
+    // Configurar estilos y accesibilidad
+    logoElement.style.cursor = 'pointer';
+    logoElement.style.userSelect = 'none';
+    logoElement.style.webkitUserSelect = 'none';
+    logoElement.style.webkitTouchCallout = 'none';
+    logoElement.setAttribute('tabindex', '0');
+    logoElement.setAttribute('role', 'button');
+    logoElement.setAttribute('aria-label', 'Ir al inicio');
+    
+    // Soporte para navegación por teclado
+    logoElement.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleLogoNavigation();
+        }
+    });
+    
+    console.log(`✅ Logo ${type} configurado para navegación y scroll`);
 }
 
 // ===== SISTEMA DE ROUTING PARA IDIOMAS Y PÁGINAS LEGALES (BASADO EN PATHNAME) =====
@@ -1403,94 +1595,6 @@ function initializeDesktopNavigation() {
     const navLinks = document.querySelectorAll('.nav__link');
     const header = document.getElementById('header');
     
-    // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) - MEJORADA =====
-    const navLogo = document.querySelector('.nav__logo');
-    if (navLogo) {
-        navLogo.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            console.log(`🏠 Click en logo del header - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
-            
-            // Cerrar menús abiertos si están activos
-            if (isMenuOpen) {
-                closeMobileMenu();
-            }
-            if (isMobileMenuOpen) {
-                closeMobileMenu();
-            }
-            if (isFloatingMenuOpen) {
-                closeFloatingMenu();
-            }
-            if (isLanguageSwitcherOpen) {
-                closeLanguageSwitcher();
-            }
-            
-            // NUEVA LÓGICA: Verificar si estamos en la página principal
-            const hash = window.location.hash;
-            const isOnMainPage = !hash.includes('/'); // No estamos en páginas legales
-            
-            if (isOnMainPage) {
-                // Si ya estamos en la página principal, hacer scroll hacia arriba
-                console.log('🔝 Ya en página principal, haciendo scroll hacia arriba');
-                scrollToTop();
-            } else {
-                // Si estamos en una página legal, navegar al inicio y luego scroll
-                console.log('📄 En página legal, navegando al inicio');
-                navigateToLanguageRoute(currentLanguage);
-                // Pequeño delay para asegurar que la navegación se complete antes del scroll
-                setTimeout(() => {
-                    scrollToTop();
-                }, 100);
-            }
-        });
-        
-        // MEJORADO: Soporte táctil específico para móviles
-        navLogo.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            navLogo.style.transform = 'scale(0.95)';
-            navLogo.style.transition = 'transform 0.1s ease';
-            console.log('👆 Touch start en logo del header');
-        }, { passive: false });
-        
-        navLogo.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Resetear transform
-            setTimeout(() => {
-                navLogo.style.transform = '';
-            }, 150);
-            
-            // Ejecutar la navegación
-            console.log('👆 Touch end en logo del header - ejecutando navegación');
-            navLogo.click();
-        }, { passive: false });
-        
-        navLogo.addEventListener('touchcancel', () => {
-            navLogo.style.transform = '';
-        }, { passive: true });
-        
-        // Configurar estilos y accesibilidad para ambos dispositivos
-        navLogo.style.cursor = 'pointer';
-        navLogo.style.userSelect = 'none';
-        navLogo.style.webkitUserSelect = 'none';
-        navLogo.style.webkitTouchCallout = 'none';
-        navLogo.setAttribute('tabindex', '0');
-        navLogo.setAttribute('role', 'button');
-        navLogo.setAttribute('aria-label', 'Ir al inicio');
-        
-        // Soporte para navegación por teclado
-        navLogo.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                navLogo.click();
-            }
-        });
-        
-        console.log(`✅ Logo del header configurado para navegación y scroll - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
-    }
-    
     // Enlaces de navegación desktop
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
@@ -1516,8 +1620,10 @@ function initializeDesktopNavigation() {
                 } else {
                     const targetSection = document.querySelector(targetId);
                     if (targetSection) {
-                        smoothScrollToSection(targetSection);
-                        updateActiveNavLink(link);
+                        setTimeout(() => {
+                            smoothScrollToSection(targetSection);
+                            updateActiveNavLink(link);
+                        }, 100);
                     }
                 }
             }
@@ -1550,59 +1656,6 @@ function initializeMobileNavigation() {
     if (drawerLinks.length === 0) {
         console.error('❌ No se encontraron enlaces del drawer móvil');
         return;
-    }
-    
-    // ===== FUNCIONALIDAD DEL LOGO DEL DRAWER COMO ENLACE (MÓVIL) - MEJORADA =====
-    const drawerLogo = document.querySelector('.nav__drawer-logo');
-    if (drawerLogo) {
-        drawerLogo.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('🏠 Click en logo del drawer móvil');
-            
-            if (isMobileMenuOpen) {
-                closeMobileMenu();
-            }
-            
-            // NUEVA LÓGICA: Verificar si estamos en la página principal
-            const hash = window.location.hash;
-            const isOnMainPage = !hash.includes('/');
-            
-            if (isOnMainPage) {
-                // Si ya estamos en la página principal, hacer scroll hacia arriba
-                console.log('🔝 Ya en página principal, haciendo scroll hacia arriba desde drawer');
-                scrollToTop();
-            } else {
-                // Si estamos en una página legal, navegar al inicio y luego scroll
-                console.log('📄 En página legal, navegando al inicio desde drawer');
-                navigateToLanguageRoute(currentLanguage);
-                setTimeout(() => {
-                    scrollToTop();
-                }, 100);
-            }
-        });
-        
-        drawerLogo.style.cursor = 'pointer';
-        drawerLogo.setAttribute('tabindex', '0');
-        drawerLogo.setAttribute('role', 'button');
-        drawerLogo.setAttribute('aria-label', 'Ir al inicio');
-        
-        // Efectos táctiles para el logo del drawer
-        drawerLogo.addEventListener('touchstart', () => {
-            drawerLogo.style.transform = 'scale(0.95)';
-            drawerLogo.style.transition = 'transform 0.1s ease';
-        }, { passive: true });
-        
-        drawerLogo.addEventListener('touchend', () => {
-            setTimeout(() => {
-                drawerLogo.style.transform = '';
-            }, 150);
-        }, { passive: true });
-        
-        drawerLogo.addEventListener('touchcancel', () => {
-            drawerLogo.style.transform = '';
-        }, { passive: true });
-        
-        console.log('✅ Logo del drawer móvil configurado para navegación y scroll');
     }
     
     // Toggle hamburguesa móvil
@@ -1739,8 +1792,7 @@ function initializeMobileNavigation() {
     }, { passive: true });
     
     document.addEventListener('click', (e) => {
-        if (isMobileMenuOpen && navDrawer && !navDrawer.contains(e.target) && !navToggle.contains(e.target)) {
-            console.log('🔄 Click fuera del drawer móvil');
+        if (isMobileMenuOpen && navDrawer && !navDrawer.contains(e.target) && !navToggle.contains(e.target)) {            console.log('🔄 Click fuera del drawer móvil');
             closeMobileMenu();
         }
     });
@@ -1795,8 +1847,7 @@ function openMobileMenu() {
     }
     
     navToggle.setAttribute('aria-expanded', 'true');
-    navDrawer.setAttribute('aria-hidden', 
-'false');
+    navDrawer.setAttribute('aria-hidden', 'false');
     
     // ===== USAR LA MISMA LÓGICA QUE EL DESKTOP =====
     setTimeout(() => {
@@ -1879,6 +1930,9 @@ function initializeNavigation() {
     } else {
         initializeDesktopNavigation();
     }
+    
+    // Inicializar navegación del logo
+    initializeLogoNavigation();
     
     initializeActiveSection();
 }
@@ -2877,5 +2931,4 @@ window.StarFlex = {
     // Utilidades
     detectDeviceCapabilities
 };
-
 
