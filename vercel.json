@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/es/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/es/privacypolicy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/privacypolicy",
+      "destination": "/privacy.html"
+    },
+    {
       "source": "/es",
       "destination": "/index.html"
     },
@@ -9,53 +25,8 @@
       "destination": "/index.html"
     },
     {
-      "source": "/en",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/en/(.*)",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/((?!api|_next|_static|favicon.ico|assets|src).*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
       "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        }
-      ]
-    },
-    {
-      "source": "/assets/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
-    },
-    {
-      "source": "/src/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=31536000, immutable"
-        }
-      ]
+      "destination": "/index.html"
     }
   ]
 }

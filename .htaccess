@@ -1,12 +1,29 @@
-RewriteEngine On
-RewriteBase /
+# Apache .htaccess for StarFlex
 
-# Manejar rutas de idioma - redirigir todo al index.html
+# Enable rewrite engine
+RewriteEngine On
+
+# Spanish terms page
+RewriteRule ^es/terms$ /terms.html [L]
+
+# Spanish privacy policy page
+RewriteRule ^es/privacypolicy$ /privacy.html [L]
+
+# English terms page
+RewriteRule ^terms$ /terms.html [L]
+
+# English privacy policy page
+RewriteRule ^privacypolicy$ /privacy.html [L]
+
+# Spanish main page
+RewriteRule ^es/?$ /index.html [L]
+
+# Main fallback - redirect everything else to index.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(es|en)?/?.*$ /index.html [L,QSA]
+RewriteRule ^(.*)$ /index.html [L,QSA]
 
-# Configuración de caché para recursos estáticos
+# Cache static assets
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType text/css "access plus 1 year"
@@ -16,7 +33,7 @@ RewriteRule ^(es|en)?/?.*$ /index.html [L,QSA]
     ExpiresByType video/mp4 "access plus 1 year"
 </IfModule>
 
-# Compresión GZIP
+# Gzip compression
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain
     AddOutputFilterByType DEFLATE text/html
@@ -29,9 +46,14 @@ RewriteRule ^(es|en)?/?.*$ /index.html [L,QSA]
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-# Configuración de seguridad
+# Security headers
 <IfModule mod_headers.c>
-    Header always set X-Content-Type-Options nosniff
-    Header always set X-Frame-Options DENY
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
     Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "no-referrer-when-downgrade"
 </IfModule>
+
+# Error pages
+ErrorDocument 404 /index.html
+ErrorDocument 500 /index.html
