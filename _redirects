@@ -1,16 +1,20 @@
 # Netlify redirects file for StarFlex
 
+# Redirect .html files to clean URLs
+/terms.html /terms 301!
+/privacypolicy.html /privacypolicy 301!
+
 # Spanish terms page
 /es/terms /terms.html 200
 
-# Spanish privacy policy page (if you want to create it later)
-/es/privacypolicy /privacy.html 200
+# Spanish privacy policy page
+/es/privacypolicy /privacypolicy.html 200
 
 # English terms page
 /terms /terms.html 200
 
 # English privacy policy page
-/privacypolicy /privacy.html 200
+/privacypolicy /privacypolicy.html 200
 
 # Spanish main page
 /es /index.html 200
