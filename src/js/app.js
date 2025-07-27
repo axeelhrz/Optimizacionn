@@ -719,9 +719,9 @@ function detectInitialLanguage() {
 }
 
 // ===== FUNCIONES PARA NAVEGACIÓN A PÁGINAS LEGALES =====
-// ===== FUNCIONES PARA NAVEGACIÓN A PÁGINAS LEGALES =====
 function goToPrivacyPolicy(event) {
     event.preventDefault();
+    event.stopPropagation();
     const currentLang = getCurrentLanguage();
     const privacyUrl = currentLang === 'es' ? '/es/privacypolicy' : '/privacypolicy';
     console.log(`🔗 Navegando a Política de Privacidad: ${privacyUrl} (idioma: ${currentLang})`);
@@ -730,6 +730,7 @@ function goToPrivacyPolicy(event) {
 
 function goToTermsPolicy(event) {
     event.preventDefault();
+    event.stopPropagation();
     const currentLang = getCurrentLanguage();
     const termsUrl = currentLang === 'es' ? '/es/terms' : '/terms';
     console.log(`🔗 Navegando a Términos y Condiciones: ${termsUrl} (idioma: ${currentLang})`);
@@ -754,7 +755,6 @@ function getCurrentLanguage() {
     console.log('✅ Idioma detectado: INGLÉS (por defecto)');
     return 'en';
 }
-
 
 // ===== FUNCIONES DE TRADUCCIÓN ULTRA-OPTIMIZADAS (ACTUALIZADAS) =====
 function initializeLanguageSystem() {
