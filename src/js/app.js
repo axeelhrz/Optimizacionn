@@ -719,20 +719,19 @@ function detectInitialLanguage() {
 }
 
 // ===== FUNCIONES PARA NAVEGACIÓN A PÁGINAS LEGALES =====
-// ===== FUNCIONES PARA NAVEGACIÓN A PÁGINAS LEGALES =====
 function goToPrivacyPolicy(event) {
     event.preventDefault();
     event.stopPropagation();
     const currentLang = getCurrentLanguage();
     
-    // Navegar directamente al archivo HTML
+    console.log(`🔗 Navegando a Política de Privacidad (idioma: ${currentLang})`);
+    
+    // Navegar manteniendo el idioma en la URL
     if (currentLang === 'es') {
         window.location.href = './privacypolicy.html?lang=es';
     } else {
         window.location.href = './privacypolicy.html';
     }
-    
-    console.log(`🔗 Navegando a Política de Privacidad (idioma: ${currentLang})`);
 }
 
 function goToTermsPolicy(event) {
@@ -740,14 +739,14 @@ function goToTermsPolicy(event) {
     event.stopPropagation();
     const currentLang = getCurrentLanguage();
     
-    // Navegar directamente al archivo HTML
+    console.log(`🔗 Navegando a Términos y Condiciones (idioma: ${currentLang})`);
+    
+    // Navegar manteniendo el idioma en la URL
     if (currentLang === 'es') {
         window.location.href = './terms.html?lang=es';
     } else {
         window.location.href = './terms.html';
     }
-    
-    console.log(`🔗 Navegando a Términos y Condiciones (idioma: ${currentLang})`);
 }
 
 function getCurrentLanguage() {
@@ -768,7 +767,6 @@ function getCurrentLanguage() {
     console.log('✅ Idioma detectado: INGLÉS (por defecto)');
     return 'en';
 }
-
 
 // ===== FUNCIONES DE TRADUCCIÓN ULTRA-OPTIMIZADAS (ACTUALIZADAS) =====
 function initializeLanguageSystem() {
