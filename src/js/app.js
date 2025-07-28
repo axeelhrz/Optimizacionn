@@ -526,8 +526,10 @@ function initializeRouting() {
     // Manejar la ruta inicial
     handleRouteChange();
     
-    // Configurar enlaces de páginas legales
-    setupLegalLinks();
+    // Configurar enlaces de páginas legales - DESPUÉS de que el DOM esté listo
+    setTimeout(() => {
+        setupLegalLinks();
+    }, 100);
     
     console.log('✅ Sistema de routing basado en pathname inicializado');
 }
@@ -630,22 +632,26 @@ function showTermsConditions() {
     }
 }
 
+// ===== CONFIGURACIÓN DE ENLACES LEGALES CORREGIDA =====
 function setupLegalLinks() {
     console.log('🔗 Configurando enlaces legales...');
     
-    // Enlaces del footer - ACTUALIZADOS PARA USAR PATHNAME
-    const privacyLinks = document.querySelectorAll('a[href="/es/privacypolicy"], a[href="/privacypolicy"]');
-    const termsLinks = document.querySelectorAll('a[href="/es/terms"], a[href="/terms"]');
+    // Buscar enlaces por clase específica en lugar de href
+    const privacyLinks = document.querySelectorAll('.footer-privacy-link');
+    const termsLinks = document.querySelectorAll('.footer-terms-link');
+    
+    console.log(`📋 Enlaces de privacidad encontrados: ${privacyLinks.length}`);
+    console.log(`📋 Enlaces de términos encontrados: ${termsLinks.length}`);
     
     // Configurar eventos para enlaces de privacidad
-    privacyLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('🔗 Click en enlace de Política de Privacidad');
-            const targetPath = currentLanguage === 'es' ? '/es/privacypolicy' : '/privacypolicy';
-            window.history.pushState({}, '', targetPath);
-            handleRouteChange();
-        });
+    privacyLinks.forEach((link, index) => {
+        console.log(`🔗 Configurando enlace de privacidad ${index + 1}`);
+        
+        // Remover cualquier event listener previo
+        link.removeEventListener('click', handlePrivacyClick);
+        
+        // Agregar nuevo event listener
+        link.addEventListener('click', handlePrivacyClick);
         
         // Efectos táctiles para móvil
         if (isMobile) {
@@ -659,14 +665,14 @@ function setupLegalLinks() {
     });
     
     // Configurar eventos para enlaces de términos
-    termsLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('🔗 Click en enlace de Términos y Condiciones');
-            const targetPath = currentLanguage === 'es' ? '/es/terms' : '/terms';
-            window.history.pushState({}, '', targetPath);
-            handleRouteChange();
-        });
+    termsLinks.forEach((link, index) => {
+        console.log(`🔗 Configurando enlace de términos ${index + 1}`);
+        
+        // Remover cualquier event listener previo
+        link.removeEventListener('click', handleTermsClick);
+        
+        // Agregar nuevo event listener
+        link.addEventListener('click', handleTermsClick);
         
         // Efectos táctiles para móvil
         if (isMobile) {
@@ -680,6 +686,39 @@ function setupLegalLinks() {
     });
     
     console.log(`✅ Enlaces legales configurados: ${privacyLinks.length} enlaces de privacidad, ${termsLinks.length} enlaces de términos`);
+}
+
+// Funciones separadas para manejar los clicks
+function handlePrivacyClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('🔗 Click en enlace de Política de Privacidad');
+    
+    const currentLang = getCurrentLanguage();
+    console.log(`🌐 Idioma actual detectado: ${currentLang}`);
+    
+    const targetPath = currentLang === 'es' ? '/es/privacypolicy' : '/privacypolicy';
+    console.log(`🎯 Navegando a: ${targetPath}`);
+    
+    window.history.pushState({}, '', targetPath);
+    handleRouteChange();
+}
+
+function handleTermsClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('🔗 Click en enlace de Términos y Condiciones');
+    
+    const currentLang = getCurrentLanguage();
+    console.log(`🌐 Idioma actual detectado: ${currentLang}`);
+    
+    const targetPath = currentLang === 'es' ? '/es/terms' : '/terms';
+    console.log(`🎯 Navegando a: ${targetPath}`);
+    
+    window.history.pushState({}, '', targetPath);
+    handleRouteChange();
 }
 
 // ===== FUNCIONES DE NAVEGACIÓN POR IDIOMAS (BASADAS EN PATHNAME) =====
@@ -932,16 +971,20 @@ function applyTranslations() {
 }
 
 function updateLegalLinks() {
-    const privacyLinks = document.querySelectorAll('.footer-legal-link[data-translate="footer-privacy-link"]');
-    const termsLinks = document.querySelectorAll('.footer-legal-link[data-translate="footer-terms-link"]');
+    const privacyLinks = document.querySelectorAll('.footer-privacy-link');
+    const termsLinks = document.querySelectorAll('.footer-terms-link');
     
     privacyLinks.forEach(link => {
+        // Actualizar href para que no sea #
         link.href = currentLanguage === 'es' ? '/es/privacypolicy' : '/privacypolicy';
     });
     
     termsLinks.forEach(link => {
+        // Actualizar href para que no sea #
         link.href = currentLanguage === 'es' ? '/es/terms' : '/terms';
     });
+    
+    console.log(`🔄 Enlaces legales actualizados para idioma: ${currentLanguage}`);
 }
 
 function updateLanguageButtons() {
@@ -2637,6 +2680,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     initializePerformanceOptimizations();
+    
+    // AGREGAR ESTA LÍNEA PARA ASEGURAR QUE LOS ENLACES SE CONFIGUREN
+    setTimeout(() => {
+        setupLegalLinks();
+        updateLegalLinks();
+    }, 500);
     
     console.log(`✅ StarFlex Ultra-Optimizado con rutas basadas en pathname - Móvil: ${isMobile}, Modo rendimiento: ${performanceMode}, Idioma actual: ${currentLanguage}, Pathname: ${window.location.pathname}`);
     
