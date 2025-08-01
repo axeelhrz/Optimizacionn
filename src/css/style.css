@@ -547,7 +547,7 @@ transition:all 0.2s ease;
 .floating-widget.hidden-by-drawer{opacity:1;visibility:visible;transform:translateY(0) scale(1);pointer-events:auto}
 }
 
-/* ===== HEADER FLOTANTE MÓVIL CON TRANSICIONES - AJUSTADO MÁS ARRIBA ===== */
+/* ===== HEADER FLOTANTE MÓVIL CON TRANSICIONES - LOGO CON CONTENEDOR RESTAURADO ===== */
 .header{position:fixed;top:0;left:0;right:0;z-index:1000;background:transparent;border:none;min-height:auto;max-height:auto;height:auto;padding:0;transition:all var(--transition)}
 
 /* Contenedor flotante para móvil */
@@ -559,18 +559,72 @@ transition:all 0.2s ease;
 
 .nav{position:relative;display:flex;align-items:center;justify-content:space-between;width:100%;max-width:none;margin:0;padding:0;height:auto;min-height:auto;background:transparent}
 
-/* Logo flotante con transición - MÁS ARRIBA */
-.nav__brand{position:fixed;top:var(--space-sm);left:var(--space-lg);z-index:1002;background:rgba(21, 25, 34, 0.95);backdrop-filter:blur(20px);border:1px solid rgba(255, 255, 255, 0.1);border-radius:20px;padding:var(--space-md);box-shadow:0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 69, 105, 0.1);transition:all var(--transition-slow)}
+/* Logo flotante con contenedor - RESTAURADO Y CORREGIDO */
+.nav__brand{
+position:fixed;
+top:var(--space-sm);
+left:var(--space-lg);
+z-index:1002;
+display:flex;
+align-items:center;
+justify-content:center;
+width:60px;
+height:60px;
+background:rgba(21, 25, 34, 0.95);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255, 255, 255, 0.1);
+border-radius:20px;
+padding:var(--space-md);
+box-shadow:0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 69, 105, 0.1);
+cursor:pointer;
+touch-action:manipulation;
+-webkit-tap-highlight-color:transparent;
+user-select:none;
+-webkit-user-select:none;
+transition:all var(--transition-slow);
+}
 
-.nav__brand:active{transform:translateY(-1px) scale(0.98);box-shadow:0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 69, 105, 0.2);border-color:rgba(255, 69, 105, 0.3)}
+.nav__brand:active{
+transform:translateY(-1px) scale(0.98);
+box-shadow:0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 69, 105, 0.2);
+border-color:rgba(255, 69, 105, 0.3);
+}
 
-.nav__logo-container{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+.nav__logo-container{
+display:flex;
+align-items:center;
+justify-content:center;
+width:100%;
+height:100%;
+min-width:44px;
+min-height:44px;
+}
 
-.nav__logo{width:44px;height:44px;background-image:url('../../assets/logo.webp');background-size:contain;background-repeat:no-repeat;background-position:center;filter:brightness(1.2) contrast(1.1);transition:all var(--transition)}
+.nav__logo{
+width:44px;
+height:44px;
+background-image:url('../../assets/logo.webp');
+background-size:contain;
+background-repeat:no-repeat;
+background-position:center;
+filter:brightness(1.2) contrast(1.1);
+cursor:pointer;
+touch-action:manipulation;
+-webkit-tap-highlight-color:transparent;
+user-select:none;
+-webkit-user-select:none;
+transition:all var(--transition);
+display:block;
+visibility:visible;
+opacity:1;
+}
 
-.nav__brand:active .nav__logo{transform:scale(1.05);filter:brightness(1.3) contrast(1.2)}
+.nav__brand:active .nav__logo{
+transform:scale(1.05);
+filter:brightness(1.3) contrast(1.2);
+}
 
-/* Botón hamburguesa flotante con transiciones mejoradas - MÁS ARRIBA */
+/* Botón hamburguesa flotante con transiciones mejoradas */
 .nav__toggle{position:fixed;top:var(--space-sm);right:var(--space-lg);z-index:1002;display:flex;flex-direction:column;justify-content:center;align-items:center;width:56px;height:56px;background:rgba(21, 25, 34, 0.95);backdrop-filter:blur(20px);border:1px solid rgba(255, 255, 255, 0.1);border-radius:20px;cursor:pointer;overflow:hidden;flex-shrink:0;min-width:56px;min-height:56px;touch-action:manipulation;box-shadow:0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 69, 105, 0.1);transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1)}
 .nav__toggle:active{transform:translateY(-1px) scale(0.95);background:rgba(21, 25, 34, 0.98);border-color:rgba(255, 69, 105, 0.3);box-shadow:0 12px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 69, 105, 0.2)}
 
@@ -612,11 +666,11 @@ transition:all 0.2s ease;
 
 .nav{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:var(--max-content-width);margin:0 auto;padding:0 var(--section-padding-x);position:relative;overflow:visible;min-height:var(--navbar-height)}
 
-.nav__brand{position:static;background:transparent;backdrop-filter:none;border:none;border-radius:0;padding:0;box-shadow:none;flex-shrink:0;z-index:1001;min-width:45px;display:flex;align-items:center}
+.nav__brand{position:static;background:transparent;backdrop-filter:none;border:none;border-radius:0;padding:0;box-shadow:none;flex-shrink:0;z-index:1001;min-width:45px;display:flex;align-items:center;width:auto;height:auto}
 
 .nav__logo-container{position:relative;display:flex;align-items:center;cursor:pointer;min-width:45px;min-height:45px}
 
-.nav__logo{width:45px;height:45px;background-image:url('../../assets/logo.webp');background-size:contain;background-repeat:no-repeat;background-position:center;filter:brightness(1.1) contrast(1.05);flex-shrink:0}
+.nav__logo{position:static;width:45px;height:45px;background-image:url('../../assets/logo.webp');background-size:contain;background-repeat:no-repeat;background-position:center;filter:brightness(1.1) contrast(1.05);flex-shrink:0;box-shadow:none;border-radius:0}
 
 .nav__toggle{display:none}
 
@@ -633,7 +687,7 @@ transition:all 0.2s ease;
     background: rgba(255, 45, 85, 0.15);
     border-top: 2px solid var(--starflex-crimson);
     box-shadow: 0 0 20px rgba(255, 69, 105, 0.2), inset 0 1px 0 rgba(255, 45, 85, 0.3);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 107, 157, 0.6);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8),0 0 12px rgba(255, 107, 157, 0.6);
     font-weight: 600 !important;
 }
 
@@ -728,7 +782,7 @@ transition:all 0.2s ease;
 }
 
 @media (max-width: 480px){
-.nav__brand{top:var(--space-xs);left:var(--space-md);padding:var(--space-sm)}
+.nav__brand{top:var(--space-xs);left:var(--space-md);width:56px;height:56px}
 .nav__logo{width:40px;height:40px}
 .nav__toggle{top:var(--space-xs);right:var(--space-md);width:52px;height:52px}
 .nav__toggle-line{width:22px;height:2.5px;margin:2.5px 0}
@@ -742,7 +796,7 @@ transition:all 0.2s ease;
     padding: var(--space-lg) var(--space-xl);
     border-top: 1px solid var(--border-subtle);
     flex-shrink: 0;
-    order: 1; /* Cambiado de -1 a 1 para que aparezca después de las opciones de navegación */
+    order: 1;
 }
 
 .nav__drawer-cta-btn {
@@ -1921,6 +1975,7 @@ animation-delay:1.2s!important;
 }
 
 /* Efectos táctiles sutiles para móvil */
+.nav__brand:active{transform:translateY(-1px) scale(0.98)!important}
 .nav__toggle:active{transform:translateY(-1px) scale(0.95)!important}
 .nav__drawer-link:active{transform:scale(0.98)!important}
 .nav__drawer-language-option:active{transform:scale(0.95)!important}
@@ -2454,217 +2509,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     background: linear-gradient(135deg, #ff3399 0%, #ff6666 100%);
 }
 
-/* ===== MEJORAS PARA EL LOGO EN MÓVIL - EVENTOS TÁCTILES OPTIMIZADOS ===== */
 
-/* Logo del header principal - Mejoras táctiles */
-.nav__logo {
-    /* Asegurar que sea clickeable */
-    cursor: pointer !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-    
-    /* Mejorar área táctil */
-    min-width: 44px !important;
-    min-height: 44px !important;
-    
-    /* Transición suave para efectos táctiles */
-    transition: transform 0.1s ease, filter 0.1s ease !important;
-    
-    /* Asegurar que esté por encima de otros elementos */
-    position: relative;
-    z-index: 1003;
-    
-    /* Mejorar la respuesta táctil */
-    touch-action: manipulation !important;
-}
 
-/* Contenedor del logo - Mejoras para móvil */
-.nav__logo-container {
-    /* Asegurar área táctil mínima */
-    min-width: 44px !important;
-    min-height: 44px !important;
-    
-    /* Centrar el logo */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    
-    /* Mejorar respuesta táctil */
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    
-    /* Prevenir selección de texto */
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-}
 
-/* Brand container - Mejoras para móvil */
-.nav__brand {
-    /* Asegurar que sea clickeable */
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    
-    /* Prevenir selección */
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-    
-    /* Transición suave */
-    transition: all 0.3s ease !important;
-}
-
-/* Estados activos para feedback táctil en móvil */
-@media (max-width: 1023px) {
-    /* Efecto cuando se presiona el logo */
-    .nav__logo.touching {
-        transform: scale(0.95) !important;
-        filter: brightness(1.2) !important;
-        transition: transform 0.1s ease, filter 0.1s ease !important;
-    }
-    
-    /* Efecto cuando se presiona el contenedor del brand */
-    .nav__brand.touching {
-        transform: translateY(-1px) scale(0.98) !important;
-        transition: transform 0.1s ease !important;
-    }
-    
-    /* Asegurar que el logo sea visible y clickeable */
-    .nav__logo {
-        pointer-events: auto !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    /* Mejorar el área táctil del brand en móvil */
-    .nav__brand {
-        padding: var(--space-md) !important;
-        border-radius: 20px !important;
-        min-width: 60px !important;
-        min-height: 60px !important;
-    }
-    
-    /* Asegurar que el logo tenga el tamaño correcto */
-    .nav__logo {
-        width: 44px !important;
-        height: 44px !important;
-        background-size: contain !important;
-        background-repeat: no-repeat !important;
-        background-position: center !important;
-    }
-}
-
-/* Mejoras específicas para pantallas muy pequeñas */
-@media (max-width: 480px) {
-    .nav__brand {
-        padding: var(--space-sm) !important;
-        min-width: 56px !important;
-        min-height: 56px !important;
-    }
-    
-    .nav__logo {
-        width: 40px !important;
-        height: 40px !important;
-    }
-    
-    .nav__logo-container {
-        min-width: 40px !important;
-        min-height: 40px !important;
-    }
-}
-
-/* Mejoras para el logo del drawer móvil */
-.nav__drawer-logo {
-    cursor: pointer !important;
-    user-select: none !important;
-    -webkit-user-select: none !important;
-    -webkit-touch-callout: none !important;
-    -webkit-tap-highlight-color: transparent !important;
-    touch-action: manipulation !important;
-    
-    /* Transición suave */
-    transition: transform 0.1s ease, filter 0.1s ease !important;
-    
-    /* Asegurar área táctil */
-    min-width: 44px !important;
-    min-height: 44px !important;
-}
-
-/* Efecto táctil para el logo del drawer */
-.nav__drawer-logo.touching {
-    transform: scale(0.95) !important;
-    filter: brightness(1.2) !important;
-}
-
-/* Mejoras para accesibilidad */
-.nav__logo:focus,
-.nav__logo-container:focus,
-.nav__brand:focus,
-.nav__drawer-logo:focus {
-    outline: 2px solid var(--starflex-crimson) !important;
-    outline-offset: 2px !important;
-    border-radius: 4px !important;
-}
-
-/* Asegurar que los elementos sean visibles en todos los estados */
-.nav__logo,
-.nav__logo-container,
-.nav__brand,
-.nav__drawer-logo {
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: flex !important;
-}
-
-/* Prevenir interferencias de otros estilos */
-.nav__logo * {
-    pointer-events: none !important;
-}
-
-.nav__logo-container * {
-    pointer-events: none !important;
-}
-
-/* Asegurar que el logo esté por encima de otros elementos */
-.nav__brand {
-    z-index: 1002 !important;
-    position: relative !important;
-}
-
-/* Mejoras para dispositivos con hover limitado */
-@media (hover: none) and (pointer: coarse) {
-    .nav__logo,
-    .nav__logo-container,
-    .nav__brand,
-    .nav__drawer-logo {
-        -webkit-tap-highlight-color: rgba(255, 69, 105, 0.2) !important;
-    }
-}
-
-/* Asegurar compatibilidad con modo rendimiento */
-.performance-mode .nav__logo,
-.performance-mode .nav__logo-container,
-.performance-mode .nav__brand,
-.performance-mode .nav__drawer-logo {
-    transition: transform 0.1s ease !important;
-}
-
-/* Modo reducido de movimiento */
-@media (prefers-reduced-motion: reduce) {
-    .nav__logo,
-    .nav__logo-container,
-    .nav__brand,
-    .nav__drawer-logo {
-        transition: none !important;
-    }
-    
-    .nav__logo.touching,
-    .nav__brand.touching,
-    .nav__drawer-logo.touching {
-        transform: scale(0.98) !important;
-    }
-}
