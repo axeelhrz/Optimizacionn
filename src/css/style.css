@@ -2573,7 +2573,7 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     
     .nav__logo-container {
         min-width: 40px !important;
-        min-height: 40px !important;
+        min-height: px !important;
     }
 }
 
@@ -2667,6 +2667,16 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     .nav__drawer-logo.touching {
         transform: scale(0.98) !important;
     }
+}
+/* Logo flotante con transición - PEGADITO ARRIBA EN MÓVILES */
+.nav__brand{position:fixed;top:0px;left:var(--space-lg);z-index:1002;background:rgba(21, 25, 34, 0.95);backdrop-filter:blur(20px);border:1px solid rgba(255, 255, 255, 0.1);border-radius:20px;padding:var(--space-md);box-shadow:0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 69, 105, 0.1);transition:all var(--transition-slow);display:flex;align-items:center;justify-content:center}
+
+/* Botón hamburguesa flotante con transiciones mejoradas - PEGADITO ARRIBA IGUAL QUE EL LOGO */
+.nav__toggle{position:fixed;top:0px;right:var(--space-lg);z-index:1002;display:flex;flex-direction:column;justify-content:center;align-items:center;width:56px;height:56px;background:rgba(21, 25, 34, 0.95);backdrop-filter:blur(20px);border:1px solid rgba(255, 255, 255, 0.1);border-radius:20px;cursor:pointer;overflow:hidden;flex-shrink:0;min-width:56px;min-height:56px;touch-action:manipulation;box-shadow:0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 69, 105, 0.1);transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1)}
+
+@media (max-width: 480px){
+.nav__brand{top:-2px;left:var(--space-md);padding:var(--space-sm);min-width:52px;min-height:52px}
+.nav__toggle{top:10px;right:var(--space-md);width:52px;height:52px}
 }
 
 
