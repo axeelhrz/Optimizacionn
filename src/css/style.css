@@ -907,15 +907,37 @@ filter:brightness(1.3) contrast(1.2);
 
 .nav__drawer-language-flag{font-size:1rem;line-height:1;flex-shrink:0}
 
+/* ===== AJUSTAR NAVEGACIÓN PARA QUE NO EMPUJE EL CTA HACIA ABAJO ===== */
 .nav__drawer-navigation {
-    flex: 1;
+    flex: none; /* Cambiar de flex: 1 a flex: none para que no ocupe todo el espacio */
     padding: 0 var(--space-xl);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding-top: var(--space-lg);
-    order: 1; /* Asegurar que la navegación vaya primero */
+    order: 1;
 }
+
+/* ===== BOTÓN CTA DEL DRAWER MÓVIL JUSTO DESPUÉS DE CONTACT ===== */
+.nav__drawer-cta {
+    padding: var(--space-md) var(--space-xl); /* Reducir padding vertical */
+    border-top: none; /* Eliminar borde superior */
+    border-bottom: none;
+    flex-shrink: 0;
+    order: 2;
+    margin-bottom: 0;
+    margin-top: var(--space-sm); /* Reducir margen superior para que esté más cerca */
+}
+
+/* ===== AJUSTAR EL CONTENEDOR DEL DRAWER PARA MEJOR DISTRIBUCIÓN ===== */
+.nav__drawer-content {
+    padding: var(--space-md) 0;
+    display: flex;
+    flex-direction: column;
+    flex: none; /* Cambiar de flex: 1 a flex: none */
+    overflow: hidden;
+}
+
 
 .nav__drawer-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-md)}
 
