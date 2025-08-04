@@ -907,7 +907,15 @@ filter:brightness(1.3) contrast(1.2);
 
 .nav__drawer-language-flag{font-size:1rem;line-height:1;flex-shrink:0}
 
-.nav__drawer-navigation{flex:1;padding:0 var(--space-xl);display:flex;flex-direction:column;justify-content:flex-start;padding-top:var(--space-lg)}
+.nav__drawer-navigation {
+    flex: 1;
+    padding: 0 var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: var(--space-lg);
+    order: 1; /* Asegurar que la navegación vaya primero */
+}
 
 .nav__drawer-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-md)}
 
@@ -939,15 +947,17 @@ filter:brightness(1.3) contrast(1.2);
 .nav__drawer-navigation{padding:0 var(--space-lg);padding-top:var(--space-md)}
 }
 
-/* ===== BOTÓN CTA DEL DRAWER MÓVIL CON EFECTO DE ONDA CIRCULAR ===== */
+/* ===== BOTÓN CTA DEL DRAWER MÓVIL REPOSICIONADO DESPUÉS DE CONTACT ===== */
 .nav__drawer-cta {
     padding: var(--space-lg) var(--space-xl);
     border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: none; /* Eliminar borde inferior */
     flex-shrink: 0;
-    order: 1;
-    margin-bottom: var(--space-md);
+    order: 2; /* Cambiar de order: 1 a order: 2 para que vaya después de la navegación */
+    margin-bottom: 0; /* Eliminar margen inferior */
+    margin-top: var(--space-md); /* Agregar margen superior para separación */
 }
+
 
 .nav__drawer-cta-btn {
     display: flex !important;
