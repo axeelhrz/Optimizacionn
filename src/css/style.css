@@ -1945,44 +1945,69 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
 }
 /* ===== DESPRENDIMIENTO SÓLIDO SOLO EN BORDES + NEÓN ROJO SUAVE ===== */
 
-/* Capa interna sólida que se desprende - COMO EN LA IMAGEN */
+/* ===== DESPRENDIMIENTO SÓLIDO RÁPIDO Y SUTIL ===== */
+
+/* Capa interna sólida que se desprende - MÁS SUTIL */
 .btn--cta::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: rgba(255, 23, 68, 0.4);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Capa externa sólida que se desprende - MÁS SUTIL */
+.btn--cta::after {
   content: '';
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: #ff1744;
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-}
-
-/* Capa externa sólida que se desprende - COMO EN LA IMAGEN */
-.btn--cta::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  background: #ff1744;
-  border-radius: calc(14px + 4px);
+  background: rgba(255, 23, 68, 0.3);
+  border-radius: calc(14px + 2px);
   z-index: -2;
   opacity: 0;
 }
 
-/* Animación de desprendimiento sólido - capa interna */
+/* Animación de desprendimiento rápido - capa interna */
 @keyframes solidDetachment1 {
+  0%, 100% {
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    opacity: 0;
+    background: rgba(255, 23, 68, 0.4);
+    border-radius: inherit;
+  }
+  
+  50% {
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    opacity: 0.6;
+    background: rgba(255, 23, 68, 0.5);
+    border-radius: calc(14px + 3px);
+  }
+}
+
+/* Animación de desprendimiento rápido - capa externa */
+@keyframes solidDetachment2 {
   0%, 100% {
     top: -2px;
     left: -2px;
     right: -2px;
     bottom: -2px;
     opacity: 0;
-    background: #ff1744;
-    border-radius: inherit;
+    background: rgba(255, 23, 68, 0.3);
+    border-radius: calc(14px + 2px);
   }
   
   50% {
@@ -1990,32 +2015,9 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     left: -6px;
     right: -6px;
     bottom: -6px;
-    opacity: 0.8;
-    background: #ff1744;
+    opacity: 0.4;
+    background: rgba(255, 23, 68, 0.4);
     border-radius: calc(14px + 6px);
-  }
-}
-
-/* Animación de desprendimiento sólido - capa externa */
-@keyframes solidDetachment2 {
-  0%, 100% {
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    opacity: 0;
-    background:#ff1744;
-    border-radius: calc(14px + 4px);
-  }
-  
-  50% {
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    opacity: 0.6;
-    background:#ff1744;
-    border-radius: calc(14px + 12px);
   }
 }
 
@@ -2075,13 +2077,13 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Desprendimiento sólido constante SOLO EN PSEUDO-ELEMENTOS */
+/* Desprendimiento rápido constante SOLO EN PSEUDO-ELEMENTOS */
 .btn--cta::before {
-  animation: solidDetachment1 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: solidDetachment1 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .btn--cta::after {
-  animation: solidDetachment2 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: solidDetachment2 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Hover - SUAVE Y GRADUAL CON NEÓN MEJORADO */
@@ -2123,11 +2125,11 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   }
   
   .btn--cta::before {
-    animation-duration: 6s;
+    animation-duration: 3s;
   }
   
   .btn--cta::after {
-    animation-duration: 6s;
+    animation-duration: 3s;
   }
   
   .btn--cta:hover {
@@ -2152,41 +2154,41 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   
   @keyframes solidDetachment1 {
     0%, 100% {
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      opacity: 0;
+      background: rgba(255, 23, 68, 0.3);
+    }
+    
+    50% {
       top: -2px;
       left: -2px;
       right: -2px;
       bottom: -2px;
-      opacity: 0;
-      background: #ff1744;
-    }
-    
-    50% {
-      top: -4px;
-      left: -4px;
-      right: -4px;
-      bottom: -4px;
-      opacity: 0.7;
-      background: #ff1744;
+      opacity: 0.5;
+      background: rgba(255, 23, 68, 0.4);
     }
   }
   
   @keyframes solidDetachment2 {
     0%, 100% {
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      opacity: 0;
+      background: rgba(255, 23, 68, 0.2);
+    }
+    
+    50% {
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
-      opacity: 0;
-      background: #ff1744;
-    }
-    
-    50% {
-      top: -8px;
-      left: -8px;
-      right: -8px;
-      bottom: -8px;
-      opacity: 0.5;
-      background: #ff1744;
+      opacity: 0.3;
+      background: rgba(255, 23, 68, 0.3);
     }
   }
 }
@@ -2196,6 +2198,14 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--cta {
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     animation-duration: 4s;
+  }
+  
+  .btn--cta::before {
+    animation-duration: 2s;
+  }
+  
+  .btn--cta::after {
+    animation-duration: 2s;
   }
   
   .btn--cta:hover {
@@ -2219,27 +2229,47 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     transition: all 0.18s ease-out;
   }
   
-
-  
-  @keyframes solidDetachment2 {
+  @keyframes solidDetachment1 {
     0%, 100% {
+      top: -1px;
+      left: -1px;
+      right: -1px;
+      bottom: -1px;
+      opacity: 0;
+      background: rgba(255, 23, 68, 0.4);
+      border-radius: inherit;
+    }
+    
+    50% {
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
-      opacity: 0;
-      background: #ff1744;
+      opacity: 0.7;
+      background: rgba(255, 23, 68, 0.5);
       border-radius: calc(14px + 4px);
+    }
+  }
+  
+  @keyframes solidDetachment2 {
+    0%, 100% {
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      opacity: 0;
+      background: rgba(255, 23, 68, 0.3);
+      border-radius: calc(14px + 2px);
     }
     
     50% {
-      top: -16px;
-      left: -16px;
-      right: -16px;
-      bottom: -16px;
-      opacity: 0.7;
-      background: #ff1744;
-      border-radius: calc(14px + 16px);
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      opacity: 0.5;
+      background: rgba(255, 23, 68, 0.4);
+      border-radius: calc(14px + 8px);
     }
   }
 }
@@ -2270,23 +2300,24 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   }
   
   .btn--cta::before {
-    opacity: 0.3;
+    opacity: 0.2;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: rgba(255, 23, 68, 0.3);
+  }
+  
+  .btn--cta::after {
+    opacity: 0.15;
     top: -3px;
     left: -3px;
     right: -3px;
     bottom: -3px;
-    background: #ff1744;
-  }
-  
-  .btn--cta::after {
-    opacity: 0.2;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: #ff1744;
+    background: rgba(255, 23, 68, 0.2);
   }
 }
+
 
 /* ===== EFECTOS ROJIZOS PARA BOTÓN CTA DEL NAV ===== */
 
