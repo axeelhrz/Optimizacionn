@@ -1943,9 +1943,9 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
         magneticPulse 0.5s ease-in-out,
         borderSpark 0.3s linear;
 }
-/* ===== DESPRENDIMIENTO SIMPLE + HOVER SUAVE + NEÓN ROJO SUAVE ===== */
+/* ===== DESPRENDIMIENTO SÓLIDO SOLO EN BORDES + NEÓN ROJO SUAVE ===== */
 
-/* Borde interno que se desprende - SIMPLE */
+/* Capa interna sólida que se desprende - COMO EN LA IMAGEN */
 .btn--cta::before {
   content: '';
   position: absolute;
@@ -1953,14 +1953,13 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: transparent;
-  border: 2px solid #ff1744;
+  background: #ff1744;
   border-radius: inherit;
   z-index: -1;
   opacity: 0;
 }
 
-/* Borde externo que se desprende - SIMPLE */
+/* Capa externa sólida que se desprende - COMO EN LA IMAGEN */
 .btn--cta::after {
   content: '';
   position: absolute;
@@ -1968,23 +1967,21 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   left: -4px;
   right: -4px;
   bottom: -4px;
-  background: transparent;
-  border: 1px solid #ff4569;
+  background: #ff1744;
   border-radius: calc(14px + 4px);
   z-index: -2;
   opacity: 0;
 }
 
-/* Animación de desprendimiento simple - capa interna */
-@keyframes borderDetachment1 {
+/* Animación de desprendimiento sólido - capa interna */
+@keyframes solidDetachment1 {
   0%, 100% {
     top: -2px;
     left: -2px;
     right: -2px;
     bottom: -2px;
     opacity: 0;
-    border-width: 2px;
-    border-color: #ff1744;
+    background: #ff1744;
     border-radius: inherit;
   }
   
@@ -1994,22 +1991,20 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     right: -6px;
     bottom: -6px;
     opacity: 0.8;
-    border-width: 2px;
-    border-color: #ff4569;
+    background: #ff1744;
     border-radius: calc(14px + 6px);
   }
 }
 
-/* Animación de desprendimiento simple - capa externa */
-@keyframes borderDetachment2 {
+/* Animación de desprendimiento sólido - capa externa */
+@keyframes solidDetachment2 {
   0%, 100% {
     top: -4px;
     left: -4px;
     right: -4px;
     bottom: -4px;
     opacity: 0;
-    border-width: 1px;
-    border-color: #ff4569;
+    background:#ff1744;
     border-radius: calc(14px + 4px);
   }
   
@@ -2019,13 +2014,12 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     right: -12px;
     bottom: -12px;
     opacity: 0.6;
-    border-width: 1px;
-    border-color: #ff6b9d;
+    background:#ff1744;
     border-radius: calc(14px + 12px);
   }
 }
 
-/* Animación de resplandor neón suave */
+/* Animación de resplandor neón suave - SOLO PARA EL BOTÓN PRINCIPAL */
 @keyframes softNeonGlow {
   0%, 100% {
     box-shadow: 
@@ -2074,20 +2068,20 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     0 0 8px rgba(220, 20, 60, 0.3),
     0 1px 2px rgba(0, 0, 0, 0.3);
   
-  /* Animación de resplandor neón suave */
+  /* Animación de resplandor neón suave SOLO EN EL BOTÓN */
   animation: softNeonGlow 4s ease-in-out infinite;
   
   /* Transición MUY SUAVE para hover */
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Desprendimiento simple constante */
+/* Desprendimiento sólido constante SOLO EN PSEUDO-ELEMENTOS */
 .btn--cta::before {
-  animation: borderDetachment1 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: solidDetachment1 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .btn--cta::after {
-  animation: borderDetachment2 5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: solidDetachment2 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Hover - SUAVE Y GRADUAL CON NEÓN MEJORADO */
@@ -2156,15 +2150,14 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     transition: all 0.12s ease-out;
   }
   
-  @keyframes borderDetachment1 {
+  @keyframes solidDetachment1 {
     0%, 100% {
       top: -2px;
       left: -2px;
       right: -2px;
       bottom: -2px;
       opacity: 0;
-      border-width: 2px;
-      border-color: #ff1744;
+      background: #ff1744;
     }
     
     50% {
@@ -2173,20 +2166,18 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
       right: -4px;
       bottom: -4px;
       opacity: 0.7;
-      border-width: 2px;
-      border-color: #ff4569;
+      background: #ff1744;
     }
   }
   
-  @keyframes borderDetachment2 {
+  @keyframes solidDetachment2 {
     0%, 100% {
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
       opacity: 0;
-      border-width: 1px;
-      border-color: #ff4569;
+      background: #ff1744;
     }
     
     50% {
@@ -2195,8 +2186,7 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
       right: -8px;
       bottom: -8px;
       opacity: 0.5;
-      border-width: 1px;
-      border-color: #ff6b9d;
+      background: #ff1744;
     }
   }
 }
@@ -2229,39 +2219,16 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     transition: all 0.18s ease-out;
   }
   
-  @keyframes borderDetachment1 {
-    0%, 100% {
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      opacity: 0;
-      border-width: 2px;
-      border-color: #ff1744;
-      border-radius: inherit;
-    }
-    
-    50% {
-      top: -8px;
-      left: -8px;
-      right: -8px;
-      bottom: -8px;
-      opacity: 0.9;
-      border-width: 2px;
-      border-color: #ff6b9d;
-      border-radius: calc(14px + 8px);
-    }
-  }
+
   
-  @keyframes borderDetachment2 {
+  @keyframes solidDetachment2 {
     0%, 100% {
       top: -4px;
       left: -4px;
       right: -4px;
       bottom: -4px;
       opacity: 0;
-      border-width: 1px;
-      border-color: #ff4569;
+      background: #ff1744;
       border-radius: calc(14px + 4px);
     }
     
@@ -2271,8 +2238,7 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
       right: -16px;
       bottom: -16px;
       opacity: 0.7;
-      border-width: 1px;
-      border-color: #ff8fa3;
+      background: #ff1744;
       border-radius: calc(14px + 16px);
     }
   }
@@ -2309,7 +2275,7 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     left: -3px;
     right: -3px;
     bottom: -3px;
-    border: 2px solid #ff1744;
+    background: #ff1744;
   }
   
   .btn--cta::after {
@@ -2318,9 +2284,10 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     left: -5px;
     right: -5px;
     bottom: -5px;
-    border: 1px solid #ff4569;
+    background: #ff1744;
   }
 }
+
 /* ===== EFECTOS ROJIZOS PARA BOTÓN CTA DEL NAV ===== */
 
 /* Animación de pulso rojizo sutil para el CTA del nav */
