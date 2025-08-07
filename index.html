@@ -32,6 +32,44 @@
     <link rel="shortcut icon" href="./assets/icon.png">
     <meta name="msapplication-TileColor" content="#ff4569">
     <meta name="theme-color" content="#0a0a0a">
+    <!-- Metadatos adicionales para Android y compartir -->
+<meta property="og:title" content="StarFlex - Automate your Amazon Flex Blocks">
+<meta property="og:description" content="StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings.">
+<meta property="og:image" content="">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:alt" content="StarFlex - Amazon Flex Automation App">
+<meta property="og:url" content="">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StarFlex">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:secure_url" content="">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@starflexapp">
+<meta name="twitter:creator" content="@starflexapp">
+<meta name="twitter:title" content="StarFlex - Automate your Amazon Flex Blocks">
+<meta name="twitter:description" content="StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings.">
+<meta name="twitter:image" content="">
+<meta name="twitter:image:alt" content="StarFlex - Amazon Flex Automation App">
+<meta name="twitter:url" content="">
+
+<!-- Android específico -->
+<meta name="application-name" content="StarFlex">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-title" content="StarFlex">
+
+<!-- WhatsApp específico -->
+<meta property="whatsapp:title" content="StarFlex - Automate your Amazon Flex Blocks">
+<meta property="whatsapp:description" content="StarFlex revolutionizes Amazon Flex. Join +15,000 successful drivers.">
+<meta property="whatsapp:image" content="">
+
+<!-- Telegram específico -->
+<meta name="telegram:channel" content="@starflexnews">
+
 
     
     <!-- Structured Data / JSON-LD -->
@@ -63,25 +101,101 @@
         }
     }
     </script>
-    <script>
-// Detectar dominio automáticamente
-const currentDomain = window.location.origin;
-const currentUrl = window.location.href;
-
-// Actualizar meta tags dinámicamente
-document.querySelector('meta[property="og:url"]').setAttribute('content', currentUrl);
-document.querySelector('meta[property="og:image"]').setAttribute('content', currentDomain + '/assets/logo.webp');
-document.querySelector('meta[name="twitter:url"]').setAttribute('content', currentUrl);
-document.querySelector('meta[name="twitter:image"]').setAttribute('content', currentDomain + '/assets/logo.webp');
-document.querySelector('link[rel="canonical"]').setAttribute('href', currentUrl);
-
-// Actualizar JSON-LD
-const jsonLd = document.querySelector('script[type="application/ld+json"]');
-const data = JSON.parse(jsonLd.textContent);
-data.url = currentDomain;
-data.publisher.url = currentDomain;
-data.publisher.logo = currentDomain + '/assets/logo.webp';
-jsonLd.textContent = JSON.stringify(data);
+<script>
+// Sistema de metadatos dinámicos ultra-robusto para Android
+(function() {
+    // Detectar dominio y URL actuales
+    const currentDomain = window.location.origin;
+    const currentUrl = window.location.href;
+    const isSecure = window.location.protocol === 'https:';
+    
+    // Configuración de metadatos robusta
+    const metaConfig = {
+        title: 'StarFlex - Automate your Amazon Flex Blocks | Free Trial',
+        description: 'StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings. Join +15,000 successful drivers.',
+        image: currentDomain + '/assets/logo.webp',
+        imageAlt: 'StarFlex - Amazon Flex Automation App',
+        siteName: 'StarFlex',
+        type: 'website',
+        locale: 'en_US'
+    };
+    
+    // Función para actualizar o crear meta tags
+    function updateOrCreateMeta(property, content, isProperty = true) {
+        const attribute = isProperty ? 'property' : 'name';
+        let meta = document.querySelector(`meta[${attribute}="${property}"]`);
+        
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.setAttribute(attribute, property);
+            document.head.appendChild(meta);
+        }
+        
+        meta.setAttribute('content', content);
+    }
+    
+    // Actualizar metadatos básicos
+    updateOrCreateMeta('og:title', metaConfig.title);
+    updateOrCreateMeta('og:description', metaConfig.description);
+    updateOrCreateMeta('og:image', metaConfig.image);
+    updateOrCreateMeta('og:image:alt', metaConfig.imageAlt);
+    updateOrCreateMeta('og:url', currentUrl);
+    updateOrCreateMeta('og:type', metaConfig.type);
+    updateOrCreateMeta('og:site_name', metaConfig.siteName);
+    updateOrCreateMeta('og:locale', metaConfig.locale);
+    
+    // Metadatos específicos para Android
+    updateOrCreateMeta('og:image:width', '1200');
+    updateOrCreateMeta('og:image:height', '630');
+    updateOrCreateMeta('og:image:type', 'image/webp');
+    
+    // Twitter Card (mejor soporte en Android)
+    updateOrCreateMeta('twitter:card', 'summary_large_image', false);
+    updateOrCreateMeta('twitter:title', metaConfig.title, false);
+    updateOrCreateMeta('twitter:description', metaConfig.description, false);
+    updateOrCreateMeta('twitter:image', metaConfig.image, false);
+    updateOrCreateMeta('twitter:image:alt', metaConfig.imageAlt, false);
+    updateOrCreateMeta('twitter:url', currentUrl, false);
+    updateOrCreateMeta('twitter:site', '@starflexapp', false);
+    updateOrCreateMeta('twitter:creator', '@starflexapp', false);
+    
+    // Metadatos adicionales para Android
+    updateOrCreateMeta('application-name', metaConfig.siteName, false);
+    updateOrCreateMeta('mobile-web-app-capable', 'yes', false);
+    updateOrCreateMeta('mobile-web-app-status-bar-style', 'black-translucent', false);
+    updateOrCreateMeta('mobile-web-app-title', metaConfig.siteName, false);
+    
+    // WhatsApp específico
+    updateOrCreateMeta('og:image:secure_url', metaConfig.image.replace('http:', 'https:'));
+    
+    // Telegram específico
+    updateOrCreateMeta('telegram:channel', '@starflexnews', false);
+    
+    // Actualizar canonical
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        document.head.appendChild(canonical);
+    }
+    canonical.href = currentUrl;
+    
+    // Actualizar JSON-LD
+    const jsonLd = document.querySelector('script[type="application/ld+json"]');
+    if (jsonLd) {
+        try {
+            const data = JSON.parse(jsonLd.textContent);
+            data.url = currentDomain;
+            data.publisher.url = currentDomain;
+            data.publisher.logo = metaConfig.image;
+            jsonLd.textContent = JSON.stringify(data, null, 2);
+        } catch (e) {
+            console.warn('Error actualizando JSON-LD:', e);
+        }
+    }
+    
+    console.log('✅ Metadatos dinámicos actualizados para:', currentUrl);
+})();
 </script>
 
     

@@ -404,6 +404,66 @@ function scrollToTop() {
     
     console.log('✅ Scroll hacia arriba completado');
 }
+// Función mejorada para actualizar metadatos dinámicos
+function updateDynamicMetadata() {
+    const currentDomain = window.location.origin;
+    const currentUrl = window.location.href;
+    const currentLanguage = getCurrentLanguage();
+    
+    // Configuración según idioma
+    const metaConfig = {
+        en: {
+            title: 'StarFlex - Automate your Amazon Flex Blocks | Free Trial',
+            description: 'StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings. Join +15,000 successful drivers.',
+            image: currentDomain + '/assets/og-starflex-share.webp',
+            imageAlt: 'StarFlex - Amazon Flex Automation App'
+        },
+        es: {
+            title: 'StarFlex - Automatiza tus Bloques de Amazon Flex | Prueba Gratis',
+            description: 'StarFlex revoluciona Amazon Flex. Automatización inteligente de bloques, optimización de horarios y máximas ganancias. Únete a +15,000 conductores exitosos.',
+            image: currentDomain + '/assets/og-starflex-share.webp',
+            imageAlt: 'StarFlex - App de Automatización para Amazon Flex'
+        }
+    };
+    
+    const config = metaConfig[currentLanguage] || metaConfig.en;
+    
+    // Actualizar todos los metadatos
+    const metaUpdates = [
+        // Open Graph
+        { selector: 'meta[property="og:title"]', attr: 'content', value: config.title },
+        { selector: 'meta[property="og:description"]', attr: 'content', value: config.description },
+        { selector: 'meta[property="og:image"]', attr: 'content', value: config.image },
+        { selector: 'meta[property="og:image:alt"]', attr: 'content', value: config.imageAlt },
+        { selector: 'meta[property="og:url"]', attr: 'content', value: currentUrl },
+        { selector: 'meta[property="og:image:secure_url"]', attr: 'content', value: config.image.replace('http:', 'https:') },
+        
+        // Twitter
+        { selector: 'meta[name="twitter:title"]', attr: 'content', value: config.title },
+        { selector: 'meta[name="twitter:description"]', attr: 'content', value: config.description },
+        { selector: 'meta[name="twitter:image"]', attr: 'content', value: config.image },
+        { selector: 'meta[name="twitter:image:alt"]', attr: 'content', value: config.imageAlt },
+        { selector: 'meta[name="twitter:url"]', attr: 'content', value: currentUrl },
+        
+        // WhatsApp
+        { selector: 'meta[property="whatsapp:title"]', attr: 'content', value: config.title },
+        { selector: 'meta[property="whatsapp:description"]', attr: 'content', value: config.description },
+        { selector: 'meta[property="whatsapp:image"]', attr: 'content', value: config.image },
+        
+        // Canonical
+        { selector: 'link[rel="canonical"]', attr: 'href', value: currentUrl }
+    ];
+    
+    metaUpdates.forEach(update => {
+        const element = document.querySelector(update.selector);
+        if (element) {
+            element.setAttribute(update.attr, update.value);
+        }
+    });
+    
+    console.log('✅ Metadatos dinámicos actualizados para Android:', currentUrl);
+}
+
 
 // ===== FUNCIONALIDAD DEL LOGO COMO ENLACE (DESKTOP Y MÓVIL) - VERSIÓN CORREGIDA =====
 function initializeLogoNavigation() {
@@ -2828,4 +2888,6 @@ window.StarFlex = {
     getCurrentLanguage,
     // Utilidades
     detectDeviceCapabilities
+    // Al final de la función switchLanguage()
 };
+updateDynamicMetadata();
