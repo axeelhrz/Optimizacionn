@@ -411,20 +411,21 @@ function updateDynamicMetadata() {
     const currentLanguage = getCurrentLanguage();
     
     // Configuración según idioma
-    const metaConfig = {
-        en: {
-            title: 'StarFlex - Automate your Amazon Flex Blocks | Free Trial',
-            description: 'StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings. Join +15,000 successful drivers.',
-            image: currentDomain + '/assets/og-starflex-share.webp',
-            imageAlt: 'StarFlex - Amazon Flex Automation App'
-        },
-        es: {
-            title: 'StarFlex - Automatiza tus Bloques de Amazon Flex | Prueba Gratis',
-            description: 'StarFlex revoluciona Amazon Flex. Automatización inteligente de bloques, optimización de horarios y máximas ganancias. Únete a +15,000 conductores exitosos.',
-            image: currentDomain + '/assets/og-starflex-share.webp',
-            imageAlt: 'StarFlex - App de Automatización para Amazon Flex'
-        }
-    };
+const metaConfig = {
+    en: {
+        title: 'StarFlex - Automate your Amazon Flex Blocks | Free Trial',
+        description: 'StarFlex revolutionizes Amazon Flex. Intelligent block automation, schedule optimization and maximum earnings. Join +15,000 successful drivers.',
+        image: currentDomain + '/assets/og-starflex-share.jpg', // Cambiar a JPEG
+        imageAlt: 'StarFlex - Amazon Flex Automation App'
+    },
+    es: {
+        title: 'StarFlex - Automatiza tus Bloques de Amazon Flex | Prueba Gratis',
+        description: 'StarFlex revoluciona Amazon Flex. Automatización inteligente de bloques, optimización de horarios y máximas ganancias. Únete a +15,000 conductores exitosos.',
+        image: currentDomain + '/assets/og-starflex-share.jpg', // Cambiar a JPEG
+        imageAlt: 'StarFlex - App de Automatización para Amazon Flex'
+    }
+};
+
     
     const config = metaConfig[currentLanguage] || metaConfig.en;
     
