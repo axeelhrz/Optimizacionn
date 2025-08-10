@@ -2858,3 +2858,56 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     background: rgba(255, 23, 68, 0.2);
   }
 }
+/* === FIX 1: alto correcto del drawer y layout en columna === */
+.nav__drawer{
+  /* lo dejamos por compat, pero priorizamos 100dvh */
+  height: 100vh;
+  height: 100dvh;                 /* <— clave */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;               /* el scroll irá en el contenido */
+  padding-top: calc(var(--space-6xl) + var(--space-lg));
+}
+
+/* === FIX 2: el contenido scrollea y deja espacio para el CTA === */
+.nav__drawer-content{
+  flex: 1;                        /* <— ocupar el alto restante */
+  overflow-y: auto;               /* <— ahora sí scrollea */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(
+    var(--space-4xl) + env(safe-area-inset-bottom, 0px) + 88px
+  );                              /* espacio del botón + área segura */
+}
+
+/* === FIX 3: CTA siempre visible (sticky) y con safe-area === */
+.nav__drawer-cta{
+  position: sticky;               /* antes: absolute */
+  bottom: 0;
+  left: 0;
+  right: 0;
+  order: 999;
+  padding: var(--space-md) var(--space-xl);
+  padding-bottom: calc(var(--space-md) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(
+    to top,
+    rgba(15,18,25,0.98) 70%,
+    rgba(15,18,25,0.88) 95%,
+    transparent
+  );
+  border-top: 1px solid var(--border-subtle);
+  z-index: 1001;
+  margin-top: 0;                  /* quita el empuje anterior */
+}
+
+/* Botón con respiración sobre el gesto de “home” */
+.nav__drawer-cta-btn{
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Ajuste en pantallas muy pequeñas */
+@media (max-width: 480px){
+  .nav__drawer{ height: 100vh; height: 100dvh; }
+  .nav__drawer-content{
+    padding-bottom: calc(var(--space-3xl) + env(safe-area-inset-bottom, 0px) + 72px);
+  }
+}
