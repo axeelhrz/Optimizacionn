@@ -2926,8 +2926,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"]){
   /* Radio por defecto si no coincide con tu diseño */
   --cta-radius: 16px;
@@ -2947,8 +2945,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
 .btn--cta:not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"]){ --cta-radius: 14px; }
 .btn--footer{ --cta-radius: 16px; }
 .nav__drawer-cta-btn{ --cta-radius: 16px; }
-.videos__cta .btn,
-.videos__cta-buttons .btn{ --cta-radius: 16px; }
 
 /* 2) Capas de “bordes que se expanden” para TODOS los CTAs objetivo (con exclusión) */
 :where(
@@ -2956,16 +2952,12 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::before,
 :where(
   .btn--cta,
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::after{
   content:'';
   position:absolute;
@@ -2980,8 +2972,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::before{
   animation: solidDetachmentVar1 2.5s cubic-bezier(0.4,0,0.6,1) infinite !important;
 }
@@ -2992,8 +2982,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::after{
   animation: solidDetachmentVar2 2.5s cubic-bezier(0.4,0,0.6,1) infinite !important;
 }
@@ -3005,8 +2993,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     .btn--footer,
     .nav__drawer-cta-btn,
     .nav__cta .btn,
-    .videos__cta .btn,
-    .videos__cta-buttons .btn
   ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"]):hover{
     transform: translateY(-5px) scale(1.02) !important;
     box-shadow:
@@ -3027,8 +3013,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   .btn--footer,
   .nav__drawer-cta-btn,
   .nav__cta .btn,
-  .videos__cta .btn,
-  .videos__cta-buttons .btn
 ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"]):active{
   transform: translateY(-2px) scale(1.01) !important;
   box-shadow:
@@ -3046,8 +3030,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     .btn--footer,
     .nav__drawer-cta-btn,
     .nav__cta .btn,
-    .videos__cta .btn,
-    .videos__cta-buttons .btn
   ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"]){
     animation: softNeonGlow 5s ease-in-out infinite !important;
     transition: all 0.8s cubic-bezier(0.25,0.46,0.45,0.94) !important;
@@ -3057,8 +3039,6 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     .btn--footer,
     .nav__drawer-cta-btn,
     .nav__cta .btn,
-    .videos__cta .btn,
-    .videos__cta-buttons .btn
   ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::before{
     animation: solidDetachmentVar1 3s cubic-bezier(0.4,0,0.6,1) infinite !important;
   }
@@ -3067,66 +3047,42 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
     .btn--footer,
     .nav__drawer-cta-btn,
     .nav__cta .btn,
-    .videos__cta .btn,
-    .videos__cta-buttons .btn
   ):not(.btn--demo):not([data-cta="demo"]):not([href*="demo-personalizada"]):not([href*="demo"])::after{
     animation: solidDetachmentVar2 3s cubic-bezier(0.4,0,0.6,1) infinite !important;
   }
 }
-/* === VIDEO: quitar animaciones SOLO al botón “Ver demo personalizada” === */
-/* Pegar al final del CSS. No toca el resto de CTAs. */
 
-/* Identifica el botón por clase/atributo/href comunes dentro de .videos */
-.videos :where(
-  .btn--demo,
-  [data-cta="demo"],
-  a[href*="demo-personalizada"],
-  a[href*="ver-demo"],
-  a[href*="demo"]
-){
-  animation: none !important;            /* apaga softNeonGlow y similares */
-}
 
-/* Elimina las capas animadas (::before/::after) solo en ese botón */
-.videos :where(
-  .btn--demo,
-  [data-cta="demo"],
-  a[href*="demo-personalizada"],
-  a[href*="ver-demo"],
-  a[href*="demo"]
-)::before,
-.videos :where(
-  .btn--demo,
-  [data-cta="demo"],
-  a[href*="demo-personalizada"],
-  a[href*="ver-demo"],
-  a[href*="demo"]
-)::after{
-  content: none !important;
-  animation: none !important;
-}
-
-/* Si algún JS agrega .clicked para animar, también lo anulamos */
-.videos :where(
-  .btn--demo,
-  [data-cta="demo"],
-  a[href*="demo-personalizada"],
-  a[href*="ver-demo"],
-  a[href*="demo"]
-).clicked{
-  animation: none !important;
-}
-
-/* Fallback estructural: si no hay clase/atributo ni href previsibles,
-   desactiva animación en el 2º botón del bloque de CTAs del video */
-.videos .videos__cta-buttons :is(a,button):nth-of-type(2),
-.videos .videos__cta :is(a,button):nth-of-type(2){
-  animation: none !important;
-}
-.videos .videos__cta-buttons :is(a,button):nth-of-type(2)::before,
-.videos .videos__cta-buttons :is(a,button):nth-of-type(2)::after,
-.videos .videos__cta :is(a,button):nth-of-type(2)::before,
-.videos .videos__cta :is(a,button):nth-of-type(2)::after{
-  content: none !important;
-  animation: none !important;
+/* ===== ALINEACIÓN DEL BOTÓN FOOTER SOLO EN DESKTOP ===== */
+@media (min-width: 1024px) {
+  .contact__footer-content {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: left !important;
+  }
+  
+  .contact__footer-cta {
+    order: 2;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+  
+  .contact__footer-text {
+    order: 1;
+    text-align: left !important;
+    flex: 1;
+    margin-right: var(--space-lg);
+  }
+  
+  .contact__footer-text h3,
+  .contact__footer-text p {
+    text-align: left !important;
+  }
+  
+  /* Enlaces legales al extremo izquierdo */
+  .footer-legal-links {
+    justify-content: flex-start !important;
+    text-align: left !important;
+  }
 }
