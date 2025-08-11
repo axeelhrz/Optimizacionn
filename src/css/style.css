@@ -3182,3 +3182,34 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   }
 }
 */
+/* === iPhone: sube el CTA del drawer y evita que quede “muy abajo” === */
+@supports (-webkit-touch-callout: none) {
+  :root {
+    /* aire extra sobre la barra de gestos (ajústalo si quieres) */
+    --ios-cta-gap: 12px;
+  }
+
+  .nav__drawer{
+    height: 100dvh !important;                /* viewport visual real */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* CTA fijo dentro del drawer cuando está abierto, más alto del borde */
+  .nav__drawer.active .nav__drawer-cta{
+    position: fixed !important;
+    right: 0 !important;
+    left: auto !important;
+    width: min(90vw, 350px) !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--ios-cta-gap)) !important;
+    margin-top: 0 !important;                 /* anula el gap grande */
+    z-index: 1003 !important;
+    transform: translateZ(0) !important;
+  }
+
+  /* Ajusta el relleno inferior del contenido para que no tape al CTA */
+  .nav__drawer-content{
+    padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap)) !important;
+    scroll-padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap)) !important;
+  }
+}
