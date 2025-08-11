@@ -3182,34 +3182,42 @@ img,video{image-rendering:-webkit-optimize-contrast;image-rendering:optimize-con
   }
 }
 */
-/* === iPhone: sube el CTA del drawer y evita que quede “muy abajo” === */
+/* === iPhone: CTA del drawer fijado y visible como en la captura === */
 @supports (-webkit-touch-callout: none) {
-  :root {
-    /* aire extra sobre la barra de gestos (ajústalo si quieres) */
-    --ios-cta-gap: 12px;
-  }
+  :root { --ios-cta-gap: 14px; } /* ajusta 10–18px si quieres más/menos aire */
 
   .nav__drawer{
-    height: 100dvh !important;                /* viewport visual real */
+    height: 100dvh !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
-  /* CTA fijo dentro del drawer cuando está abierto, más alto del borde */
+  /* CTA alineado al drawer, con safe-area */
   .nav__drawer.active .nav__drawer-cta{
     position: fixed !important;
-    right: 0 !important;
+    right: 0 !important;                 /* se alinea al borde derecho como el drawer */
     left: auto !important;
-    width: min(90vw, 350px) !important;
+    width: min(90vw, 350px) !important;  /* mismo ancho del drawer */
     bottom: calc(env(safe-area-inset-bottom, 0px) + var(--ios-cta-gap)) !important;
-    margin-top: 0 !important;                 /* anula el gap grande */
-    z-index: 1003 !important;
-    transform: translateZ(0) !important;
+
+    /* mantener look del glass + borde superior, sin dejar “hueco” adicional */
+    margin: 0 !important;
+    padding: var(--space-md) var(--space-xl) !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    background: linear-gradient(
+      to top,
+      rgba(15,18,25,0.98) 70%,
+      rgba(15,18,25,0.88) 95%,
+      transparent
+    ) !important;
+
+    z-index: 1004 !important;
+    transform: translateZ(0);
   }
 
-  /* Ajusta el relleno inferior del contenido para que no tape al CTA */
+  /* Deja espacio para que el contenido no quede tapado por el CTA fijo */
   .nav__drawer-content{
-    padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap)) !important;
-    scroll-padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap)) !important;
+    padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap) + 12px) !important;
+    scroll-padding-bottom: calc(var(--drawer-cta-h) + var(--ios-cta-gap) + 12px) !important;
   }
 }
