@@ -427,6 +427,8 @@ const translationData = {
     }
 };
 
+
+
 // ===== FUNCIÓN PARA SCROLL SUAVE HACIA ARRIBA =====
 function scrollToTop() {
     console.log(`🔝 Iniciando scroll hacia arriba - Dispositivo: ${isMobile ? 'móvil' : 'desktop'}`);
