@@ -2364,7 +2364,6 @@ function initializeFAQ() {
     faqItems.forEach((item, index) => {
         const question = item.querySelector('.faq__question');
         const answer = item.querySelector('.faq__answer');
-        const icon = item.querySelector('.faq__icon');
         
         if (!question || !answer) {
             console.warn(`❌ FAQ item ${index} no tiene pregunta o respuesta`);
@@ -2373,7 +2372,7 @@ function initializeFAQ() {
         
         console.log(`🔧 Configurando FAQ item ${index + 1}`);
         
-        // Función para toggle FAQ - IGUAL PARA MÓVIL Y DESKTOP
+        // Función para toggle FAQ - SIMPLIFICADA
         const toggleFAQ = (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -2422,42 +2421,25 @@ function initializeFAQ() {
             }
         };
         
-        // Event listeners - SIMPLIFICADOS PARA MEJOR COMPATIBILIDAD MÓVIL
+        // EVENTOS SIMPLIFICADOS - SOLO CLICK PARA MÁXIMA COMPATIBILIDAD
+        question.addEventListener('click', toggleFAQ);
+        
+        // Efectos visuales para móvil (sin interferir con el click)
         if (isMobile) {
-            // Para móvil: usar tanto click como touch para máxima compatibilidad
-            let touchStarted = false;
-            
             question.addEventListener('touchstart', (e) => {
-                touchStarted = true;
                 question.style.transform = 'scale(0.98)';
                 question.style.transition = 'transform 0.1s ease';
-                console.log(`👆 Touch start en FAQ ${index + 1}`);
             }, { passive: true });
             
             question.addEventListener('touchend', (e) => {
-                // Resetear transform
                 setTimeout(() => {
                     question.style.transform = '';
                 }, 150);
-                
-                // NO prevenir el evento por defecto para permitir que el click se dispare
-                console.log(`👆 Touch end en FAQ ${index + 1}`);
             }, { passive: true });
             
             question.addEventListener('touchcancel', () => {
                 question.style.transform = '';
-                touchStarted = false;
             }, { passive: true });
-            
-            // Usar click normal que funciona tanto con touch como con mouse
-            question.addEventListener('click', (e) => {
-                console.log(`🖱️ Click en FAQ ${index + 1} (móvil)`);
-                toggleFAQ(e);
-            });
-            
-        } else {
-            // Para desktop: usar click normal
-            question.addEventListener('click', toggleFAQ);
         }
         
         // Soporte para teclado (ambos dispositivos)
